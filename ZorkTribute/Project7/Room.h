@@ -14,6 +14,10 @@ public:
 	string South;
 	string East;
 	string West;
+	string roomdescription;
+	int x;
+	int y;
+	
 
 public:
 	Room();

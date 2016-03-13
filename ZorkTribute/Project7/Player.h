@@ -12,7 +12,7 @@ public:
 	string name;
 	int x, y;
 	string roomposition;
-	int acutualroom;
+	
 
 	Player();
 	~Player();

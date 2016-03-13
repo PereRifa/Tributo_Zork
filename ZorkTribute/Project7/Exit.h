@@ -11,8 +11,8 @@ class Doors
 public:
 	string doorstate;
 	string doorroomposition;
-	int room1;
-	int room2;
+	int x;
+	int y;
 
 	Doors();
 	~Doors();

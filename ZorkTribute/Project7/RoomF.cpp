@@ -7,6 +7,10 @@ Room::Room()
 	South = "NULL";
 	East = "NULL";
 	West = "NULL";
+	roomdescription = "NULL";
+	x = 0;
+	y = 0;
+	
 	
 }
 

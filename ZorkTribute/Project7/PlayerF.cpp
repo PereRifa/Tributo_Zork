@@ -9,8 +9,8 @@ Player::Player()
 	name = "Dean Winchester";
 	x = 0;
 	y = 0;
-	roomposition = "West";
-	acutualroom = 0;
+	roomposition = "East";
+	
 }
 
 Player::~Player()

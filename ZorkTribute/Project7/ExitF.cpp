@@ -8,8 +8,8 @@ Doors::Doors()
 {
 	doorstate = "open";
 	doorroomposition = "none";
-	room1 = 0;
-	room2 = 0;
+	x = 0;
+	y = 0;
 }
 Doors::~Doors()
 {
