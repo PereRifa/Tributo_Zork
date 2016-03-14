@@ -9,7 +9,7 @@ int main()
 {
 
 	World* NewWorld = new World;
-	//cout << "Player name:  " << NewWorld->player1->name << endl;
+	cout << "Player name:  " << NewWorld->player1->name << endl;
 
 	delete NewWorld;
 	getchar();

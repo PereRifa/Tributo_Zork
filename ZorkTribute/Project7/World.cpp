@@ -15,9 +15,9 @@ World::World()
 	Exits = new Doors[NUMBEROFDOORS];
 
 	CreateWorld(Rooms);
-
-	printrooms(Rooms);
 	
+	printrooms(Rooms);
+	WriteCommands();
 
 }
 
@@ -148,122 +148,122 @@ void World::CreateWorld(Room* Rooms){
 	//Setup doors information;
 	for (int i = 0; i < NUMBEROFDOORS; i++){
 		switch (i){
-		case 0:  Exits[i].doorstate = "Open";
+		case 0:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "East";
 			Exits[i].x = 0;
 			Exits[i].y = 0;
 			break;
-		case 1:  Exits[i].doorstate = "Open";
+		case 1:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "West";
 			Exits[i].x = 1;
 			Exits[i].y = 0;
 			break;
-		case 2:  Exits[i].doorstate = "Open";
+		case 2:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "South";
 			Exits[i].x = 0;
 			Exits[i].y = 0;
 			break;
-		case 3:  Exits[i].doorstate = "Open";
+		case 3:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "North";
 			Exits[i].x = 0;
 			Exits[i].y = 1;
 			break;
-		case 4:  Exits[i].doorstate = "Open";
+		case 4:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "East";
 			Exits[i].x = 0;
 			Exits[i].y = 1;
 			break;
-		case 5:  Exits[i].doorstate = "Open";
+		case 5:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "West";
 			Exits[i].x = 1;
 			Exits[i].y = 1;
 			break;
-		case 6:  Exits[i].doorstate = "Open";
+		case 6:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "South";
 			Exits[i].x = 1;
 			Exits[i].y = 0;
 			break;
-		case 7:  Exits[i].doorstate = "Open";
+		case 7:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "North";
 			Exits[i].x = 1;
 			Exits[i].y = 1;
 			break;
-		case 8:  Exits[i].doorstate = "Open";
+		case 8:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "South";
 			Exits[i].x = 0;
 			Exits[i].y = 2;
 			break;
-		case 9:  Exits[i].doorstate = "Open";
+		case 9:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "North";
 			Exits[i].x = 0;
 			Exits[i].y = 3;
 			break;
-		case 10:  Exits[i].doorstate = "Open";
+		case 10:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "South";
 			Exits[i].x = 1;
 			Exits[i].y = 2;
 			break;
-		case 11:  Exits[i].doorstate = "Open";
+		case 11:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "North";
 			Exits[i].x = 1;
 			Exits[i].y = 3;
 			break;
-		case 12:  Exits[i].doorstate = "Open";
+		case 12:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "East";
 			Exits[i].x = 1;
 			Exits[i].y = 3;
 			break;
-		case 13:  Exits[i].doorstate = "Open";
+		case 13:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "West";
 			Exits[i].x = 2;
 			Exits[i].y = 3;
 			break;
-		case 14:  Exits[i].doorstate = "Open";
+		case 14:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "South";
 			Exits[i].x = 0;
 			Exits[i].y = 3;
 			break;
-		case 15:  Exits[i].doorstate = "Open";
+		case 15:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "North";
 			Exits[i].x = 0;
 			Exits[i].y = 4;
 			break;
-		case 16:  Exits[i].doorstate = "Open";
+		case 16:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "East";
 			Exits[i].x = 0;
 			Exits[i].y = 4;
 			break;
-		case 17:  Exits[i].doorstate = "Open";
+		case 17:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "West";
 			Exits[i].x = 1;
 			Exits[i].y = 4;
 			break;
-		case 18:  Exits[i].doorstate = "Open";
+		case 18:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "East";
 			Exits[i].x = 1;
 			Exits[i].y = 4;
 			break;
-		case 19:  Exits[i].doorstate = "Open";
+		case 19:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "West";
 			Exits[i].x = 2;
 			Exits[i].y = 4;
 			break;
-		case 20:  Exits[i].doorstate = "Open";
+		case 20:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "South";
 			Exits[i].x = 1;
 			Exits[i].y = 4;
 			break;
-		case 21:  Exits[i].doorstate = "Open";
+		case 21:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "North";
 			Exits[i].x = 1;
 			Exits[i].y = 5;
 			break;
-		case 22:  Exits[i].doorstate = "Open";
+		case 22:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "West";
 			Exits[i].x = 1;
 			Exits[i].y = 5;
 			break;
-		case 23:  Exits[i].doorstate = "Open";
+		case 23:  Exits[i].doorstate = "closed";
 			Exits[i].doorroomposition = "East";
 			Exits[i].x = 0;
 			Exits[i].y = 5;
@@ -271,4 +271,147 @@ void World::CreateWorld(Room* Rooms){
 			}
 		
 	}
+	
+}
+
+void World::WriteCommands()
+{
+	char Command[50];
+	char *FirstWord;
+	char *SecondWord;
+	char *TokCommand;
+	int Exit = 0;
+	while (Exit == 0){
+		SecondWord = "\0";
+		do
+		{
+			printf("Write Command-> ");
+			gets_s(Command);
+			FirstWord = strtok_s(Command, " ", &TokCommand);
+		} while (FirstWord == NULL);
+		SecondWord = strtok_s(NULL, " ", &TokCommand);
+
+		Exit = move(FirstWord, SecondWord, player1, Rooms, Exits);
+		
+	}
+}
+
+int World::move(char* FirstWord, char* SeconWord, Player* player1, Room* Rooms, Doors* Exits)
+{
+	if (CompareWords(FirstWord, "Quit") || CompareWords(FirstWord, "quit") || CompareWords(FirstWord, "q"))
+	{
+		return 1;
+	}
+	else
+	{
+		if ((CompareWords(FirstWord, "north") || CompareWords(FirstWord, "n")) && (SeconWord == NULL)){
+				player1->roomposition = "North";
+		}
+		if ((CompareWords(FirstWord, "south") || CompareWords(FirstWord, "s")) && (SeconWord == NULL)){
+			player1->roomposition = "South";
+		}
+		if ((CompareWords(FirstWord, "east") || CompareWords(FirstWord, "e")) && (SeconWord == NULL)){
+			player1->roomposition = "East";
+		}
+		if ((CompareWords(FirstWord, "west") || CompareWords(FirstWord, "w")) && (SeconWord == NULL)){
+			player1->roomposition = "West";
+		}
+		if (CompareWords(FirstWord, "go")){
+			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
+				player1->roomposition = "North";
+			}
+			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
+				player1->roomposition = "South";
+			}
+			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
+				player1->roomposition = "East";
+			}
+			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
+				player1->roomposition = "West";
+			}
+			if (SeconWord = NULL){
+				printf("This command is not able, enter another command\n");
+				return 0;
+			}
+		}
+		if (CompareWords(FirstWord, "look")){
+			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
+				printf("\n %s", Rooms->North);
+			}
+			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
+				printf("\n %s", Rooms->South);
+			}
+			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
+				printf("\n %s", Rooms->East);
+			}
+			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
+				printf("\n %s", Rooms->West);
+			}
+			if (SeconWord = NULL){
+				printf("This command is not able, enter another command\n");
+				return 0;
+			}
+		}
+		if (CompareWords(FirstWord, "open")){
+			if (CompareWords(SeconWord, "door")){
+				if (Exits->doorstate == "closed"){
+					Exits->doorstate = "Open";
+					printf("\nDoor Open\n");
+					//Not done
+				}
+				if (Exits->doorstate == "Open"){
+					printf("\nThe door is already open\n");
+				}
+			}
+			if (SeconWord == NULL){
+				printf("This command is not able, enter another command\n");
+				return 0;
+			}
+		}
+		if (CompareWords(FirstWord, "close")){
+			if (CompareWords(SeconWord, "door")){
+				if (Exits->doorstate == "open"){
+					Exits->doorstate = "closed";
+					printf("\nDoor closed\n");
+					//Not done
+				}
+				if (Exits->doorstate == "closed"){
+					printf("\nThe door is already open\n");
+				}
+			}
+			if (SeconWord == NULL){
+				printf("This command is not able, enter another command\n");
+				return 0;
+			}
+		}
+		if (CompareWords(FirstWord, "help") && SeconWord == NULL){
+			help();
+		};
+	}
+	return 0;
+
+}
+bool World::CompareWords(char* Word1, char* Word2)
+{
+	int count = 0;
+	if (Word1 != NULL){
+		while (*Word1++){
+			*Word2++;
+			if (*Word1 != *Word2)
+			{
+				count = 1;
+				return false;
+			}
+		}
+		if (count == 0)
+		{
+			return true;
+		}
+	}
+	else return false;
+
+}
+
+void World::help(){
+	printf("\nHelp Menu:\n");
 }
