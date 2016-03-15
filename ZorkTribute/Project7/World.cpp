@@ -276,8 +276,11 @@ void World::WriteCommands()
 	char *FirstWord;
 	char *SecondWord;
 	char *TokCommand;
+	
 	int Exit = 0;
+	
 	while (Exit == 0){
+
 		SecondWord = "\0";
 		do
 		{
@@ -287,12 +290,12 @@ void World::WriteCommands()
 		} while (FirstWord == NULL);
 		SecondWord = strtok_s(NULL, " ", &TokCommand);
 
-		Exit = move(FirstWord, SecondWord, player1, Rooms, Exits);
+		Exit = move(FirstWord, SecondWord/*, player1, Rooms, Exits*/);
 		
 	}
 }
 
-int World::move(char* FirstWord, char* SeconWord, Player* player1, Room* Rooms, Doors* Exits)
+int World::move(char* FirstWord, char* SeconWord/*, Player* player1, Room* Rooms, Doors* Exits*/)
 {
 	
 	if (CompareWords(FirstWord, "Quit") || CompareWords(FirstWord, "quit") || CompareWords(FirstWord, "q"))
@@ -301,47 +304,32 @@ int World::move(char* FirstWord, char* SeconWord, Player* player1, Room* Rooms, 
 	}
 	else
 	{
-		if ((CompareWords(FirstWord, "north") || CompareWords(FirstWord, "n")) && (CompareWords(SeconWord, NULL))){
-			//if (CompareWords(player1->roomposition, "north") && ((CompareWords(Exits->, "north"))
-			strcpy_s(((player1)->roomposition), "north");
-			printf("\nPosition:  %s\n", (player1)->roomposition);
-			return 0;
+		if ((CompareWords(FirstWord, "north") || CompareWords(FirstWord, "n")) && SeconWord == NULL){
+			return gonorth();
 		}
-		if ((CompareWords(FirstWord, "south") || CompareWords(FirstWord, "s")) && (CompareWords(SeconWord, NULL))){
-			strcpy_s(((player1)->roomposition), "south");
-			printf("\nPosition:  %s\n", (player1)->roomposition);
-			return 0;
+		if ((CompareWords(FirstWord, "south") || CompareWords(FirstWord, "s")) && SeconWord == NULL){
+			return gosouth();
 		}
-		if ((CompareWords(FirstWord, "east") || CompareWords(FirstWord, "e")) && (CompareWords(SeconWord, NULL))){
-			strcpy_s(((player1)->roomposition), "east");
-			printf("\nPosition:  %s\n", (player1)->roomposition);
-			return 0;
+		if ((CompareWords(FirstWord, "east") || CompareWords(FirstWord, "e")) && SeconWord == NULL){
+			return goeast();
 		}
-		if ((CompareWords(FirstWord, "west") || CompareWords(FirstWord, "w")) && (CompareWords(SeconWord, NULL))){
-			strcpy_s(((player1)->roomposition), "west");
-			printf("\nPosition:  %s\n", (player1)->roomposition);
-			return 0;
+		if ((CompareWords(FirstWord, "west") || CompareWords(FirstWord, "w")) && SeconWord == NULL){
+			return gowest();
 		}
 		if (CompareWords(FirstWord, "go")){
 			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
-				strcpy_s(((player1)->roomposition), "north");
-				printf("\nPosition:  %s\n", (player1)->roomposition);
-				return 0;
+				return gonorth();
+				
 			}
 			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
-				strcpy_s(((player1)->roomposition), "south");
-				printf("\nPosition:  %s\n", (player1)->roomposition);
-				return 0;
+				return gosouth();
+				
 			}
 			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
-				strcpy_s(((player1)->roomposition), "east");
-				printf("\nPosition:  %s\n", (player1)->roomposition);
-				return 0;
+				return goeast();
 			}
 			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
-				strcpy_s(((player1)->roomposition), "west");
-				printf("\nPosition:  %s\n", (player1)->roomposition);	
-				return 0;
+				return gowest();
 			}
 			else{
 				printf("\nThis command is not able, enter another command\n");
@@ -359,11 +347,11 @@ int World::move(char* FirstWord, char* SeconWord, Player* player1, Room* Rooms, 
 				return 0;
 			}
 			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
-				printf("\n %s", Rooms->East);
+				printf("\n %s", (Rooms + player1->room)->East);
 				return 0;
 			}
 			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
-				printf("\n %s", Rooms->West);
+				printf("\n %s", (Rooms + player1->room)->West);
 				return 0;
 			}
 			else{
@@ -469,4 +457,106 @@ bool World::CompareWords(char* Word1, char* Word2)
 
 void World::help(){
 	printf("\nHelp Menu:\n");
+}
+
+int World::ChangeRoom()
+{
+	for (int i = 0; i < NUMBEROFDOORS; i++){
+		if (((player1)->room == (Exits + i)->origin) && (CompareWords((Exits + i)->doorroomposition, (player1)->roomposition)))
+		{
+	
+			if (CompareWords((Exits + i)->doorstate, "open")){
+				(player1)->room = (Exits + i)->destiny;
+				
+				return 0;
+			}
+		}
+	} 
+	return 1;
+}
+
+int World::gonorth()
+{
+	int going = 1;
+	strcpy_s(((player1)->roomposition), "north");
+	if (player1->room == 10){
+		player1->room = 9;
+		printf("\nIn fron of you %s", (Rooms + (player1->room))->North);
+	}
+	if (player1->room == 5){
+		player1->room = 3;
+		printf("\nIn fron of you %s", (Rooms + (player1->room))->North);
+	}
+	going = ChangeRoom();
+	if (going == 0)
+	{
+		strcpy_s(((player1)->roomposition), "south");
+		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition, (Rooms + (player1->room))->name);
+	}
+	else {
+		printf("\nIn fron of you %s", (Rooms + (player1->room))->North);
+	}
+	return 0;
+}
+int World::gosouth()
+{
+	int going = 1;
+	strcpy_s(((player1)->roomposition), "south");
+	if (player1->room == 9){
+		player1->room = 10;
+		printf("\nIn fron of you %s", (Rooms + (player1->room))->South);
+	}
+	if (player1->room == 3){
+		player1->room = 5;
+		printf("\nIn fron of you %s", (Rooms + (player1->room))->South);
+	}
+	going = ChangeRoom();
+	if (going == 0)
+	{
+		strcpy_s(((player1)->roomposition), "north");
+		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition, (Rooms + (player1->room))->name);
+	}
+	else {
+		printf("\nIn fron of you %s", (Rooms + (player1->room))->South);
+	}
+	return 0;
+}
+int World::gowest()
+{
+	int going = 1;
+	strcpy_s(((player1)->roomposition), "west");
+	if (player1->room == 5){
+		player1->room = 4;
+		printf("\nIn fron of you %s", (Rooms + (player1->room))->West);
+	}
+	going = ChangeRoom();
+	if (going == 0)
+	{
+		strcpy_s(((player1)->roomposition), "east");
+		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition, (Rooms + (player1->room))->name);
+	}
+	else {
+		printf("\nIn fron of you %s", (Rooms + (player1->room))->West);
+	}
+	return 0;
+}
+int World::goeast()
+{
+	int going = 1;
+	strcpy_s(((player1)->roomposition), "east");
+	if (player1->room == 4){
+		player1->room = 5;
+		printf("\nIn fron of you %s", (Rooms + (player1->room))->East);
+	}
+	going = ChangeRoom();
+	if (going == 0)
+	{
+		strcpy_s(((player1)->roomposition), "west");
+		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition, (Rooms + (player1->room))->name);
+	}
+	else {
+		printf("\nIn fron of you %s", (Rooms + (player1->room))->East);
+	}
+
+	return 0;
 }
