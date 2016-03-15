@@ -1,7 +1,6 @@
-#include<string>
+#include<string.h>
 #include<iostream>
 
-using namespace std;
 
 #ifndef DOORS
 #define DOORS
@@ -9,10 +8,10 @@ using namespace std;
 class Doors
 {
 public:
-	string doorstate;
-	string doorroomposition;
-	int x;
-	int y;
+	char doorstate[10];
+	char doorroomposition[10];
+	int origin;
+	int destiny;
 
 	Doors();
 	~Doors();

@@ -21,7 +21,7 @@ public:
 	~World();
 	
 	void printrooms(Room* Rooms);
-	void CreateWorld(Room* Rooms);
+	void CreateWorld();
 	void WriteCommands();
 	int move(char* FirstWord, char* SeconWord, Player* player1, Room* Rooms, Doors* Exits);
 	bool CompareWords(char* Word1, char* Word2);

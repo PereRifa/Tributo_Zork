@@ -1,9 +1,9 @@
-#include<string>
+#include<string.h>
 #include<iostream>
 #include"Room.h"
 #include"World.h"
 
-using namespace std;
+
 
 #define NUMBEROFROOMS 13
 #define NUMBEROFDOORS 24
@@ -14,7 +14,7 @@ World::World()
 	Rooms = new Room[NUMBEROFROOMS];
 	Exits = new Doors[NUMBEROFDOORS];
 
-	CreateWorld(Rooms);
+	CreateWorld();
 	
 	printrooms(Rooms);
 	WriteCommands();
@@ -33,114 +33,88 @@ void World::printrooms(Room* Rooms){
 		cout << Rooms[i].name << endl;
 	}
 }
-void World::CreateWorld(Room* Rooms){
+void World::CreateWorld(){
 	
 	//Setup Rooms Information;
 	for (int i = 0; i < NUMBEROFROOMS; i++){
 		switch (i){
-		case 0: Rooms[i].name = "r1";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 0;
-			Rooms[i].y = 0;
+		case 0: strcpy_s(((Rooms + i)->name), "r1");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 1: Rooms[i].name = "r2";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 1;
-			Rooms[i].y = 0;
+		case 1: strcpy_s(((Rooms + i)->name), "r2");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 2: Rooms[i].name = "r3";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 0;
-			Rooms[i].y = 1;
+		case 2: strcpy_s(((Rooms + i)->name), "r3");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 3: Rooms[i].name = "r4";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 1;
-			Rooms[i].y = 1;
+		case 3: strcpy_s(((Rooms + i)->name), "r4");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 4: Rooms[i].name = "r4.1";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 0;
-			Rooms[i].y = 2;
+		case 4: strcpy_s(((Rooms + i)->name), "r4.1");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 5: Rooms[i].name = "r4.2";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 1;
-			Rooms[i].y = 2;
+		case 5: strcpy_s(((Rooms + i)->name), "r4.2");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 6: Rooms[i].name = "r5";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 0;
-			Rooms[i].y = 3;
+		case 6: strcpy_s(((Rooms + i)->name), "r5");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 7: Rooms[i].name = "r6";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 1;
-			Rooms[i].y = 3;
+		case 7: strcpy_s(((Rooms + i)->name), "r6");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 8: Rooms[i].name = "R7";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 2;
-			Rooms[i].y = 3;
+		case 8: strcpy_s(((Rooms + i)->name), "r7");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 9: Rooms[i].name = "R7.1";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 2;
-			Rooms[i].y = 4;
+		case 9: strcpy_s(((Rooms + i)->name), "r8");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 10: Rooms[i].name = "R8";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 1;
-			Rooms[i].y = 4;
+		case 10: strcpy_s(((Rooms + i)->name), "r8.1");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 11: Rooms[i].name = "R9";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 0;
-			Rooms[i].y = 4;
-			break; 
-		case 12: Rooms[i].name = "Exit (r10)";
-			Rooms[i].North = "In the north side of this room you can see a table with some documents and research stuff.\n";
-			Rooms[i].South = "more investigation stuff and a get";
-			Rooms[i].East = "there's a door, behind it it's the bestiary";
-			Rooms[i].West = "your oun table with the results of the research, maybe you should read them.";
-			Rooms[i].x = 1;
-			Rooms[i].y = 5;
+		case 11: strcpy_s(((Rooms + i)->name), "r9");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
+			break;
+		case 12: strcpy_s(((Rooms + i)->name), "r10. Exit");
+			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
 		}
 	}
@@ -148,126 +122,148 @@ void World::CreateWorld(Room* Rooms){
 	//Setup doors information;
 	for (int i = 0; i < NUMBEROFDOORS; i++){
 		switch (i){
-		case 0:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "East";
-			Exits[i].x = 0;
-			Exits[i].y = 0;
+
+
+		case 0:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "east");
+			(Exits + i)->origin = 0;
+			(Exits + i)->destiny = 1;
 			break;
-		case 1:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "West";
-			Exits[i].x = 1;
-			Exits[i].y = 0;
+		case 1: strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "west");
+			(Exits + i)->origin = 1;
+			(Exits + i)->destiny = 0;
 			break;
-		case 2:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "South";
-			Exits[i].x = 0;
-			Exits[i].y = 0;
+
+
+		case 2:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "south");
+			(Exits + i)->origin = 0;
+			(Exits + i)->destiny = 2;
 			break;
-		case 3:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "North";
-			Exits[i].x = 0;
-			Exits[i].y = 1;
+		case 3:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "north");
+			(Exits + i)->origin = 2;
+			(Exits + i)->destiny = 0;
 			break;
-		case 4:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "East";
-			Exits[i].x = 0;
-			Exits[i].y = 1;
+
+
+		case 4:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "east");
+			(Exits + i)->origin = 2;
+			(Exits + i)->destiny = 3;
 			break;
-		case 5:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "West";
-			Exits[i].x = 1;
-			Exits[i].y = 1;
+		case 5:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "west");
+			(Exits + i)->origin = 3;
+			(Exits + i)->destiny = 2;
+			break; 
+
+
+		case 6:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "south");
+			(Exits + i)->origin = 1;
+			(Exits + i)->destiny = 3;
+			break; 
+		case 7:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "north");
+			(Exits + i)->origin = 3;
+			(Exits + i)->destiny = 1;
 			break;
-		case 6:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "South";
-			Exits[i].x = 1;
-			Exits[i].y = 0;
+
+
+		case 8:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "south");
+			(Exits + i)->origin = 4;
+			(Exits + i)->destiny = 6;
 			break;
-		case 7:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "North";
-			Exits[i].x = 1;
-			Exits[i].y = 1;
+		case 9:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "north");
+			(Exits + i)->origin = 6;
+			(Exits + i)->destiny = 4;
 			break;
-		case 8:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "South";
-			Exits[i].x = 0;
-			Exits[i].y = 2;
+
+
+		case 10:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "south");
+			(Exits + i)->origin = 6;
+			(Exits + i)->destiny = 7;
 			break;
-		case 9:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "North";
-			Exits[i].x = 0;
-			Exits[i].y = 3;
+		case 11:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "north");
+			(Exits + i)->origin = 7;
+			(Exits + i)->destiny = 6;
 			break;
-		case 10:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "South";
-			Exits[i].x = 1;
-			Exits[i].y = 2;
+
+
+		case 12:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "east");
+			(Exits + i)->origin = 7;
+			(Exits + i)->destiny = 10;
+			break; 
+		case 13:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "west");
+			(Exits + i)->origin = 10;
+			(Exits + i)->destiny = 7;
 			break;
-		case 11:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "North";
-			Exits[i].x = 1;
-			Exits[i].y = 3;
+
+
+		case 14:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "south");
+			(Exits + i)->origin = 5;
+			(Exits + i)->destiny = 8;
+			break; 
+		case 15:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "north");
+			(Exits + i)->origin = 8;
+			(Exits + i)->destiny = 5;
 			break;
-		case 12:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "East";
-			Exits[i].x = 1;
-			Exits[i].y = 3;
+
+
+		case 16:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "east");
+			(Exits + i)->origin = 8;
+			(Exits + i)->destiny = 9;
+			break; 
+		case 17:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "west");
+			(Exits + i)->origin = 9;
+			(Exits + i)->destiny = 8;
 			break;
-		case 13:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "West";
-			Exits[i].x = 2;
-			Exits[i].y = 3;
+
+
+		case 18:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "west");
+			(Exits + i)->origin = 10;
+			(Exits + i)->destiny = 11;
+			break; 
+		case 19:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "east");
+			(Exits + i)->origin = 11;
+			(Exits + i)->destiny = 10;
+			break; 
+
+		case 20:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "south");
+			(Exits + i)->origin = 11;
+			(Exits + i)->destiny = 12;
+			break; 
+		case 21:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "north");
+			(Exits + i)->origin = 12;
+			(Exits + i)->destiny = 11;
 			break;
-		case 14:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "South";
-			Exits[i].x = 0;
-			Exits[i].y = 3;
-			break;
-		case 15:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "North";
-			Exits[i].x = 0;
-			Exits[i].y = 4;
-			break;
-		case 16:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "East";
-			Exits[i].x = 0;
-			Exits[i].y = 4;
-			break;
-		case 17:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "West";
-			Exits[i].x = 1;
-			Exits[i].y = 4;
-			break;
-		case 18:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "East";
-			Exits[i].x = 1;
-			Exits[i].y = 4;
-			break;
-		case 19:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "West";
-			Exits[i].x = 2;
-			Exits[i].y = 4;
-			break;
-		case 20:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "South";
-			Exits[i].x = 1;
-			Exits[i].y = 4;
-			break;
-		case 21:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "North";
-			Exits[i].x = 1;
-			Exits[i].y = 5;
-			break;
-		case 22:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "West";
-			Exits[i].x = 1;
-			Exits[i].y = 5;
-			break;
-		case 23:  Exits[i].doorstate = "closed";
-			Exits[i].doorroomposition = "East";
-			Exits[i].x = 0;
-			Exits[i].y = 5;
-			break;
+
+		case 22:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "west");
+			(Exits + i)->origin = 12;
+			(Exits + i)->destiny = 13;
+			break; 
+		case 23:  strcpy_s(((Exits + i)->doorstate), "closed");
+			strcpy_s(((Exits + i)->doorroomposition), "east");
+			(Exits + i)->origin = 13;
+			(Exits + i)->destiny = 12;
+			break; 
 			}
 		
 	}
@@ -305,38 +301,38 @@ int World::move(char* FirstWord, char* SeconWord, Player* player1, Room* Rooms, 
 	else
 	{
 		if ((CompareWords(FirstWord, "north") || CompareWords(FirstWord, "n")) && (SeconWord == NULL)){
-				player1->roomposition = "North";
+				strcpy_s(((player1)->roomposition), "north");
 		}
 		if ((CompareWords(FirstWord, "south") || CompareWords(FirstWord, "s")) && (SeconWord == NULL)){
-			player1->roomposition = "South";
+			strcpy_s(((player1)->roomposition), "south");
 		}
 		if ((CompareWords(FirstWord, "east") || CompareWords(FirstWord, "e")) && (SeconWord == NULL)){
-			player1->roomposition = "East";
+			strcpy_s(((player1)->roomposition), "east");
 		}
 		if ((CompareWords(FirstWord, "west") || CompareWords(FirstWord, "w")) && (SeconWord == NULL)){
-			player1->roomposition = "West";
+			strcpy_s(((player1)->roomposition), "west");
 		}
 		if (CompareWords(FirstWord, "go")){
 			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
-				player1->roomposition = "North";
+				strcpy_s(((player1)->roomposition), "north");
 			}
 			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
-				player1->roomposition = "South";
+				strcpy_s(((player1)->roomposition), "south");
 			}
 			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
-				player1->roomposition = "East";
+				strcpy_s(((player1)->roomposition), "east");
 			}
 			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
-				player1->roomposition = "West";
+				strcpy_s(((player1)->roomposition), "west");
 			}
-			if (SeconWord = NULL){
-				printf("This command is not able, enter another command\n");
+			else{
+				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
 		}
 		if (CompareWords(FirstWord, "look")){
 			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
-				printf("\n %s", Rooms->North);
+				printf("\n %s", (Rooms+ player1->room)->North); //not the end;
 			}
 			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
 				printf("\n %s", Rooms->South);
@@ -347,24 +343,37 @@ int World::move(char* FirstWord, char* SeconWord, Player* player1, Room* Rooms, 
 			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
 				printf("\n %s", Rooms->West);
 			}
-			if (SeconWord = NULL){
-				printf("This command is not able, enter another command\n");
+			else{
+				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
 		}
 		if (CompareWords(FirstWord, "open")){
 			if (CompareWords(SeconWord, "door")){
-				if (Exits->doorstate == "closed"){
-					Exits->doorstate = "Open";
-					printf("\nDoor Open\n");
-					//Not done
+				for (int i = 0; i < NUMBEROFDOORS; i++){
+					if ((player1->room == (Exits + i)->origin) && (player1->roomposition == (Exits + i)->doorroomposition))
+					{
+						if ((Exits + i)->doorstate == "closed"){
+							for (int j = 0; j < NUMBEROFDOORS; j++){
+								if ((((Exits + j)->destiny) == (Exits + i)->origin) && (((Exits + i)->origin) == (Exits + i)->destiny))
+								{
+									strcpy_s(((Exits + j)->doorstate), "open");
+									strcpy_s(((Exits + j)->doorstate), "open");
+								}
+							}
+							printf("\nDoor Open\n");
+						}
+						if ((Exits+i)->doorstate == "open"){
+							printf("\nThe door is already open\n");
+						}
+					}
 				}
-				if (Exits->doorstate == "Open"){
-					printf("\nThe door is already open\n");
+					
 				}
+				
 			}
-			if (SeconWord == NULL){
-				printf("This command is not able, enter another command\n");
+			else{
+				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
 		}
@@ -379,8 +388,8 @@ int World::move(char* FirstWord, char* SeconWord, Player* player1, Room* Rooms, 
 					printf("\nThe door is already open\n");
 				}
 			}
-			if (SeconWord == NULL){
-				printf("This command is not able, enter another command\n");
+			else{
+				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
 		}

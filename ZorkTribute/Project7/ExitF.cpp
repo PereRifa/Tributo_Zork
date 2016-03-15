@@ -6,10 +6,10 @@ using namespace std;
 
 Doors::Doors()
 {
-	doorstate = "open";
-	doorroomposition = "none";
-	x = 0;
-	y = 0;
+	*doorstate = NULL;
+	*doorroomposition = NULL;
+	origin = NULL;
+	destiny = NULL;
 }
 Doors::~Doors()
 {

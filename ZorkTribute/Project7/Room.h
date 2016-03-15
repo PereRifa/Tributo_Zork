@@ -1,7 +1,6 @@
-#include<string>
+
 #include<iostream>
 
-using namespace std;
 
 #ifndef ROOM
 #define ROOM
@@ -9,15 +8,12 @@ using namespace std;
 class Room
 {
 public:
-	string name;
-	string North;
-	string South;
-	string East;
-	string West;
-	string roomdescription;
-	int x;
-	int y;
-	
+	char name[20];
+	char North[250];
+	char South[250];
+	char East[250];
+	char West[250];
+
 
 public:
 	Room();

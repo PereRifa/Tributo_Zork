@@ -1,7 +1,7 @@
-#include <string>
+#include <string.h>
 #include <stdio.h>
 
-using namespace std;
+
 
 #ifndef PLAYER
 #define PLAYER
@@ -9,9 +9,9 @@ using namespace std;
 class Player
 {
 public:
-	string name;
-	int x, y;
-	string roomposition;
+	char name[10];
+	int room;
+	char roomposition[10];
 	
 
 	Player();
