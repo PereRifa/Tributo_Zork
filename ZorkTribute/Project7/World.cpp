@@ -16,9 +16,9 @@ World::World()
 
 	CreateWorld();
 	
-	printrooms(Rooms);
+	
 	WriteCommands();
-
+	//printrooms(Rooms);
 }
 
 World::~World()
@@ -38,49 +38,49 @@ void World::CreateWorld(){
 	//Setup Rooms Information;
 	for (int i = 0; i < NUMBEROFROOMS; i++){
 		switch (i){
-		case 0: strcpy_s(((Rooms + i)->name), "r1");
-			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
-			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
-			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
-			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
+		case 0: strcpy_s(((Rooms + i)->name), "Laboratory: 1\n");
+			strcpy_s(((Rooms + i)->North), " you can see a table with some documents and research stuff.\n");
+			strcpy_s(((Rooms + i)->South), "a door and some tables next to it with lots of investigation stuff.\n");
+			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary\n");
+			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, you know everything in them ofcourse.\n");
 			break;
-		case 1: strcpy_s(((Rooms + i)->name), "r2");
-			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
-			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
-			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
-			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
+		case 1: strcpy_s(((Rooms + i)->name), "Bestiary\n");
+			strcpy_s(((Rooms + i)->North), "few jails with animals inside! make sure they are all in their jails.\n");
+			strcpy_s(((Rooms + i)->South), "a door withing the office. hmm some coffe would be great now, or maybe not. :/\n");
+			strcpy_s(((Rooms + i)->East), "more jails in this side, it seems they are all okey.\n");
+			strcpy_s(((Rooms + i)->West), "a door that goes to your laboratory (laboratory n.1)\n");
 			break;
-		case 2: strcpy_s(((Rooms + i)->name), "r3");
-			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
-			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
-			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
-			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
+		case 2: strcpy_s(((Rooms + i)->name), "Warehouse\n");
+			strcpy_s(((Rooms + i)->North), "a door that goes to your laboratory (laboratory n.1)\n");
+			strcpy_s(((Rooms + i)->South), "a huge shelving filled with chemical products\n");
+			strcpy_s(((Rooms + i)->East), "a door to go to the office: hmm some coffe would be great now, :D.\n");
+			strcpy_s(((Rooms + i)->West), "multiple freezers with speciments and drugs inside.\n");
 			break;
-		case 3: strcpy_s(((Rooms + i)->name), "r4");
-			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
-			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
-			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
-			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
+		case 3: strcpy_s(((Rooms + i)->name), "Office\n");
+			strcpy_s(((Rooms + i)->North), "there's a door, behind it it's the bestiary\n");
+			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get\n");
+			strcpy_s(((Rooms + i)->East), "Coffe machine\n");
+			strcpy_s(((Rooms + i)->West), "the warehouse door and a corridor further south\n");
 			break;
-		case 4: strcpy_s(((Rooms + i)->name), "r4.1");
-			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
-			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
-			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
-			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
+		case 4: strcpy_s(((Rooms + i)->name), "Office");
+			strcpy_s(((Rooms + i)->North), "some tables with where officers usualy work\n");
+			strcpy_s(((Rooms + i)->South), "a door that goes to the dinning room\n");
+			strcpy_s(((Rooms + i)->East), "there's te rest of office room, coffe machine, some working places...\n");
+			strcpy_s(((Rooms + i)->West), "a wall\n");
 			break;
-		case 5: strcpy_s(((Rooms + i)->name), "r4.2");
-			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
-			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
-			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
-			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
+		case 5: strcpy_s(((Rooms + i)->name), "Office");
+			strcpy_s(((Rooms + i)->North), "there's a door, behind it it's the bestiary\n");
+			strcpy_s(((Rooms + i)->South), "a door, goes to the room 8");
+			strcpy_s(((Rooms + i)->East), "Coffe machine\n");
+			strcpy_s(((Rooms + i)->West), "the rest of the office and a gate at the end of it\n");
 			break;
-		case 6: strcpy_s(((Rooms + i)->name), "r5");
-			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
-			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
-			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
-			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
+		case 6: strcpy_s(((Rooms + i)->name), "Dinning Room");
+			strcpy_s(((Rooms + i)->North), "the office's door\n");
+			strcpy_s(((Rooms + i)->South), "the rest room for taking a nap\n");
+			strcpy_s(((Rooms + i)->East), "some table where you can have lunch, but now it's not that time\n");
+			strcpy_s(((Rooms + i)->West), "the bar, and behind it the kitchen with its warehouse\n");
 			break;
-		case 7: strcpy_s(((Rooms + i)->name), "r6");
+		case 7: strcpy_s(((Rooms + i)->name), "Nap Room");
 			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
 			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
 			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
@@ -104,17 +104,17 @@ void World::CreateWorld(){
 			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
 			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 11: strcpy_s(((Rooms + i)->name), "r9");
+		case 11: strcpy_s(((Rooms + i)->name), "library");
 			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
 			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
 			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
 			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
 			break;
-		case 12: strcpy_s(((Rooms + i)->name), "r10. Exit");
-			strcpy_s(((Rooms + i)->North), "In the north side of this room you can see a table with some documents and research stuff.\n");
-			strcpy_s(((Rooms + i)->South), "more investigation stuff and a get");
-			strcpy_s(((Rooms + i)->East), "there's a door, behind it it's the bestiary");
-			strcpy_s(((Rooms + i)->West), "your oun table with the results of the research, maybe you should read them.");
+		case 12: strcpy_s(((Rooms + i)->name), "Laboratory entrance");
+			strcpy_s(((Rooms + i)->North), "a door that goes to the previous room\n");
+			strcpy_s(((Rooms + i)->South), "nothing");
+			strcpy_s(((Rooms + i)->East), "nothing");
+			strcpy_s(((Rooms + i)->West), "Exit\n");
 			break;
 		}
 	}
@@ -199,11 +199,11 @@ void World::CreateWorld(){
 		case 12:  strcpy_s(((Exits + i)->doorstate), "closed");
 			strcpy_s(((Exits + i)->doorroomposition), "east");
 			(Exits + i)->origin = 7;
-			(Exits + i)->destiny = 10;
+			(Exits + i)->destiny = 11;
 			break; 
 		case 13:  strcpy_s(((Exits + i)->doorstate), "closed");
 			strcpy_s(((Exits + i)->doorroomposition), "west");
-			(Exits + i)->origin = 10;
+			(Exits + i)->origin = 11;
 			(Exits + i)->destiny = 7;
 			break;
 
@@ -281,10 +281,10 @@ void World::WriteCommands()
 	
 	while (Exit == 0){
 
-		SecondWord = "\0";
+		SecondWord = NULL;
 		do
 		{
-			printf("Write Command-> ");
+			printf("What to do now?\n\tWrite Command -> ");
 			gets_s(Command);
 			FirstWord = strtok_s(Command, " ", &TokCommand);
 		} while (FirstWord == NULL);
@@ -339,19 +339,19 @@ int World::move(char* FirstWord, char* SeconWord/*, Player* player1, Room* Rooms
 		}
 		if (CompareWords(FirstWord, "look")){
 			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
-				printf("\n %s", (Rooms + player1->room)->North); //not the end;
+				printf("\n %s\n", (Rooms + player1->room)->North); //not the end;
 				return 0;
 			}
 			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
-				printf("\n %s", (Rooms + player1->room)->South);
+				printf("\n %s\n", (Rooms + player1->room)->South);
 				return 0;
 			}
 			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
-				printf("\n %s", (Rooms + player1->room)->East);
+				printf("\n %s\n", (Rooms + player1->room)->East);
 				return 0;
 			}
 			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
-				printf("\n %s", (Rooms + player1->room)->West);
+				printf("\n %s\n", (Rooms + player1->room)->West);
 				return 0;
 			}
 			else{
@@ -366,7 +366,6 @@ int World::move(char* FirstWord, char* SeconWord/*, Player* player1, Room* Rooms
 					if (((player1)->room == (Exits + i)->origin) && (CompareWords((Exits + i)->doorroomposition, (player1)->roomposition)))
 					{
 						if (CompareWords((Exits+i)->doorstate, "closed")){
-							printf("\nyoyo\n");
 							for (int j = 0; j < NUMBEROFDOORS; j++){
 							
 								if ((((Exits + j)->destiny) == (Exits + i)->origin) && (((Exits + j)->origin) == (Exits + i)->destiny))
@@ -400,7 +399,6 @@ int World::move(char* FirstWord, char* SeconWord/*, Player* player1, Room* Rooms
 					if (((player1)->room == (Exits + i)->origin) && (CompareWords((Exits + i)->doorroomposition, (player1)->roomposition)))
 					{
 						if (CompareWords((Exits + i)->doorstate, "open")){
-							printf("\nyoyo\n");
 							for (int j = 0; j < NUMBEROFDOORS; j++){
 
 								if ((((Exits + j)->destiny) == (Exits + i)->origin) && (((Exits + j)->origin) == (Exits + i)->destiny))
@@ -428,12 +426,11 @@ int World::move(char* FirstWord, char* SeconWord/*, Player* player1, Room* Rooms
 		if (CompareWords(FirstWord, "help") && SeconWord == NULL){
 			help();
 			return 0;
-		};
-
+		}
+		else printf("\nThis command is not able, enter another command\n");
 		return 0;
 	}
 }
-
 bool World::CompareWords(char* Word1, char* Word2)
 {
 	int count = 0;
@@ -454,11 +451,9 @@ bool World::CompareWords(char* Word1, char* Word2)
 	else return false;
 
 }
-
 void World::help(){
 	printf("\nHelp Menu:\n");
 }
-
 int World::ChangeRoom()
 {
 	for (int i = 0; i < NUMBEROFDOORS; i++){
@@ -474,18 +469,16 @@ int World::ChangeRoom()
 	} 
 	return 1;
 }
-
 int World::gonorth()
 {
 	int going = 1;
 	strcpy_s(((player1)->roomposition), "north");
 	if (player1->room == 10){
 		player1->room = 9;
-		printf("\nIn fron of you %s", (Rooms + (player1->room))->North);
+
 	}
 	if (player1->room == 5){
 		player1->room = 3;
-		printf("\nIn fron of you %s", (Rooms + (player1->room))->North);
 	}
 	going = ChangeRoom();
 	if (going == 0)
@@ -494,7 +487,7 @@ int World::gonorth()
 		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition, (Rooms + (player1->room))->name);
 	}
 	else {
-		printf("\nIn fron of you %s", (Rooms + (player1->room))->North);
+		printf("\nIn fron of you, you can see %s\n", (Rooms + (player1->room))->North);
 	}
 	return 0;
 }
@@ -504,11 +497,11 @@ int World::gosouth()
 	strcpy_s(((player1)->roomposition), "south");
 	if (player1->room == 9){
 		player1->room = 10;
-		printf("\nIn fron of you %s", (Rooms + (player1->room))->South);
+
 	}
 	if (player1->room == 3){
 		player1->room = 5;
-		printf("\nIn fron of you %s", (Rooms + (player1->room))->South);
+	
 	}
 	going = ChangeRoom();
 	if (going == 0)
@@ -517,7 +510,7 @@ int World::gosouth()
 		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition, (Rooms + (player1->room))->name);
 	}
 	else {
-		printf("\nIn fron of you %s", (Rooms + (player1->room))->South);
+		printf("\nIn fron of you, you can see %s\n", (Rooms + (player1->room))->South);
 	}
 	return 0;
 }
@@ -527,7 +520,11 @@ int World::gowest()
 	strcpy_s(((player1)->roomposition), "west");
 	if (player1->room == 5){
 		player1->room = 4;
-		printf("\nIn fron of you %s", (Rooms + (player1->room))->West);
+	
+	}
+	if ((player1->room == 12) && (CompareWords((Exits + 23)->doorstate, "open"))){
+		printf("\nYou did it!! Now you can go back home... :D\n");
+		return 1;
 	}
 	going = ChangeRoom();
 	if (going == 0)
@@ -536,7 +533,7 @@ int World::gowest()
 		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition, (Rooms + (player1->room))->name);
 	}
 	else {
-		printf("\nIn fron of you %s", (Rooms + (player1->room))->West);
+		printf("\nIn fron of you, you can see %s\n", (Rooms + (player1->room))->West);
 	}
 	return 0;
 }
@@ -546,7 +543,7 @@ int World::goeast()
 	strcpy_s(((player1)->roomposition), "east");
 	if (player1->room == 4){
 		player1->room = 5;
-		printf("\nIn fron of you %s", (Rooms + (player1->room))->East);
+
 	}
 	going = ChangeRoom();
 	if (going == 0)
@@ -555,7 +552,7 @@ int World::goeast()
 		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition, (Rooms + (player1->room))->name);
 	}
 	else {
-		printf("\nIn fron of you %s", (Rooms + (player1->room))->East);
+		printf("\nIn fron of you, you can see %s\n", (Rooms + (player1->room))->East);
 	}
 
 	return 0;
