@@ -9,7 +9,7 @@
 class Player
 {
 public:
-	char name[10];
+	char name[20];
 	int room;
 	char roomposition[10];
 	

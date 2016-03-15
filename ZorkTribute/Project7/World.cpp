@@ -294,112 +294,158 @@ void World::WriteCommands()
 
 int World::move(char* FirstWord, char* SeconWord, Player* player1, Room* Rooms, Doors* Exits)
 {
+	
 	if (CompareWords(FirstWord, "Quit") || CompareWords(FirstWord, "quit") || CompareWords(FirstWord, "q"))
 	{
 		return 1;
 	}
 	else
 	{
-		if ((CompareWords(FirstWord, "north") || CompareWords(FirstWord, "n")) && (SeconWord == NULL)){
-				strcpy_s(((player1)->roomposition), "north");
+		if ((CompareWords(FirstWord, "north") || CompareWords(FirstWord, "n")) && (CompareWords(SeconWord, NULL))){
+			//if (CompareWords(player1->roomposition, "north") && ((CompareWords(Exits->, "north"))
+			strcpy_s(((player1)->roomposition), "north");
+			printf("\nPosition:  %s\n", (player1)->roomposition);
+			return 0;
 		}
-		if ((CompareWords(FirstWord, "south") || CompareWords(FirstWord, "s")) && (SeconWord == NULL)){
+		if ((CompareWords(FirstWord, "south") || CompareWords(FirstWord, "s")) && (CompareWords(SeconWord, NULL))){
 			strcpy_s(((player1)->roomposition), "south");
+			printf("\nPosition:  %s\n", (player1)->roomposition);
+			return 0;
 		}
-		if ((CompareWords(FirstWord, "east") || CompareWords(FirstWord, "e")) && (SeconWord == NULL)){
+		if ((CompareWords(FirstWord, "east") || CompareWords(FirstWord, "e")) && (CompareWords(SeconWord, NULL))){
 			strcpy_s(((player1)->roomposition), "east");
+			printf("\nPosition:  %s\n", (player1)->roomposition);
+			return 0;
 		}
-		if ((CompareWords(FirstWord, "west") || CompareWords(FirstWord, "w")) && (SeconWord == NULL)){
+		if ((CompareWords(FirstWord, "west") || CompareWords(FirstWord, "w")) && (CompareWords(SeconWord, NULL))){
 			strcpy_s(((player1)->roomposition), "west");
+			printf("\nPosition:  %s\n", (player1)->roomposition);
+			return 0;
 		}
 		if (CompareWords(FirstWord, "go")){
 			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
 				strcpy_s(((player1)->roomposition), "north");
+				printf("\nPosition:  %s\n", (player1)->roomposition);
+				return 0;
 			}
 			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
 				strcpy_s(((player1)->roomposition), "south");
+				printf("\nPosition:  %s\n", (player1)->roomposition);
+				return 0;
 			}
 			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
 				strcpy_s(((player1)->roomposition), "east");
+				printf("\nPosition:  %s\n", (player1)->roomposition);
+				return 0;
 			}
 			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
 				strcpy_s(((player1)->roomposition), "west");
+				printf("\nPosition:  %s\n", (player1)->roomposition);	
+				return 0;
 			}
 			else{
 				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
+			return 0;
 		}
 		if (CompareWords(FirstWord, "look")){
 			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
-				printf("\n %s", (Rooms+ player1->room)->North); //not the end;
+				printf("\n %s", (Rooms + player1->room)->North); //not the end;
+				return 0;
 			}
 			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
-				printf("\n %s", Rooms->South);
+				printf("\n %s", (Rooms + player1->room)->South);
+				return 0;
 			}
 			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
 				printf("\n %s", Rooms->East);
+				return 0;
 			}
 			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
 				printf("\n %s", Rooms->West);
+				return 0;
 			}
 			else{
 				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
+		
 		}
 		if (CompareWords(FirstWord, "open")){
 			if (CompareWords(SeconWord, "door")){
 				for (int i = 0; i < NUMBEROFDOORS; i++){
-					if ((player1->room == (Exits + i)->origin) && (player1->roomposition == (Exits + i)->doorroomposition))
+					if (((player1)->room == (Exits + i)->origin) && (CompareWords((Exits + i)->doorroomposition, (player1)->roomposition)))
 					{
-						if ((Exits + i)->doorstate == "closed"){
+						if (CompareWords((Exits+i)->doorstate, "closed")){
+							printf("\nyoyo\n");
 							for (int j = 0; j < NUMBEROFDOORS; j++){
-								if ((((Exits + j)->destiny) == (Exits + i)->origin) && (((Exits + i)->origin) == (Exits + i)->destiny))
+							
+								if ((((Exits + j)->destiny) == (Exits + i)->origin) && (((Exits + j)->origin) == (Exits + i)->destiny))
 								{
+									strcpy_s(((Exits + i)->doorstate), "open");
 									strcpy_s(((Exits + j)->doorstate), "open");
-									strcpy_s(((Exits + j)->doorstate), "open");
+									printf("\nDoor Open\n");
+									return 0;
 								}
 							}
-							printf("\nDoor Open\n");
+
 						}
-						if ((Exits+i)->doorstate == "open"){
+						if (CompareWords((Exits + i)->doorstate, "open")){
 							printf("\nThe door is already open\n");
 						}
 					}
 				}
-					
-				}
-				
+
 			}
 			else{
 				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
+			return 0;
 		}
+
+
 		if (CompareWords(FirstWord, "close")){
 			if (CompareWords(SeconWord, "door")){
-				if (Exits->doorstate == "open"){
-					Exits->doorstate = "closed";
-					printf("\nDoor closed\n");
-					//Not done
-				}
-				if (Exits->doorstate == "closed"){
-					printf("\nThe door is already open\n");
+				for (int i = 0; i < NUMBEROFDOORS; i++){
+					if (((player1)->room == (Exits + i)->origin) && (CompareWords((Exits + i)->doorroomposition, (player1)->roomposition)))
+					{
+						if (CompareWords((Exits + i)->doorstate, "open")){
+							printf("\nyoyo\n");
+							for (int j = 0; j < NUMBEROFDOORS; j++){
+
+								if ((((Exits + j)->destiny) == (Exits + i)->origin) && (((Exits + j)->origin) == (Exits + i)->destiny))
+								{
+									strcpy_s(((Exits + i)->doorstate), "closed");
+									strcpy_s(((Exits + j)->doorstate), "closed");
+									printf("\nDoor closed\n");
+									return 0;
+								}
+							}
+
+						}
+						if (CompareWords((Exits + i)->doorstate, "closed")){
+							printf("\nThe door is already closed\n");
+						}
+					}
 				}
 			}
 			else{
 				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
+			return 0;
 		}
 		if (CompareWords(FirstWord, "help") && SeconWord == NULL){
 			help();
+			return 0;
 		};
-	}
-	return 0;
 
+		return 0;
+	}
 }
+
 bool World::CompareWords(char* Word1, char* Word2)
 {
 	int count = 0;

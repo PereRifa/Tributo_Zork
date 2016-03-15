@@ -6,7 +6,7 @@
 
 Player::Player()
 {
-	strcpy(name, "Dean Winchester");
+	strcpy_s(name, "Dean Winchester");
 	room = 0;
 	*roomposition = NULL;
 

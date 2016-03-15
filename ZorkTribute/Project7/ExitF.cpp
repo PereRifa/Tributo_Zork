@@ -8,8 +8,8 @@ Doors::Doors()
 {
 	*doorstate = NULL;
 	*doorroomposition = NULL;
-	origin = NULL;
-	destiny = NULL;
+	origin;
+	destiny;
 }
 Doors::~Doors()
 {
