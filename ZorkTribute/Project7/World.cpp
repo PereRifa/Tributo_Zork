@@ -1,6 +1,5 @@
 #include<string.h>
 #include<iostream>
-//#include"Room.h"
 #include"World.h"
 
 #define NUMBEROFROOMS 13
@@ -16,7 +15,6 @@ World::World()
 	
 	HelloWorld();
 	WriteCommands();
-	//printrooms(Rooms);
 }
 World::~World()
 {
@@ -276,7 +274,7 @@ void World::HelloWorld()
 	printf(" tried them with humans yet! just with some monkeys, gorillas and chimpanzees.\n");
 	printf("They keep the wild animals in the deepest room of the laboratory next to the research\n");
 	printf("room where you’re now with Mr.Graham and Mrs.Diane doing your best to help humanity.\n");
-	getchar;
+	getchar();
 	printf("\nAt the evening just before the end of the working day...\n");
 	printf("\n*loud noise*\n");
 	printf("\nhuh what was that!? it's comming from the room right behind you (east)\n");
@@ -320,7 +318,7 @@ void World::WriteCommands()
 //commands resolution (look, go, close, open) +(north, south, east, west)
 int World::gameplay(char* FirstWord, char* SeconWord)
 {
-	
+
 	if (CompareWords(FirstWord, "Quit") || CompareWords(FirstWord, "quit") || CompareWords(FirstWord, "q"))
 	{
 		return 1;
@@ -342,11 +340,11 @@ int World::gameplay(char* FirstWord, char* SeconWord)
 		if (CompareWords(FirstWord, "go")){
 			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
 				return gonorth();
-				
+
 			}
 			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
 				return gosouth();
-				
+
 			}
 			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
 				return goeast();
@@ -362,7 +360,7 @@ int World::gameplay(char* FirstWord, char* SeconWord)
 		}
 		if (CompareWords(FirstWord, "look")){
 			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
-				printf("\n %s\n", (Rooms + player1->room)->North); 
+				printf("\n %s\n", (Rooms + player1->room)->North);
 				return 0;
 			}
 			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
@@ -381,16 +379,16 @@ int World::gameplay(char* FirstWord, char* SeconWord)
 				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
-		
+
 		}
 		if (CompareWords(FirstWord, "open")){
 			if (CompareWords(SeconWord, "door")){
 				for (int i = 0; i < NUMBEROFDOORS; i++){
 					if (((player1)->room == (Exits + i)->origin) && (CompareWords((Exits + i)->doorroomposition, (player1)->roomposition)))
 					{
-						if (CompareWords((Exits+i)->doorstate, "closed")){
+						if (CompareWords((Exits + i)->doorstate, "closed")){
 							for (int j = 0; j < NUMBEROFDOORS; j++){
-							
+
 								if ((((Exits + j)->destiny) == (Exits + i)->origin) && (((Exits + j)->origin) == (Exits + i)->destiny))
 								{
 									strcpy_s(((Exits + i)->doorstate), "open");
@@ -403,6 +401,7 @@ int World::gameplay(char* FirstWord, char* SeconWord)
 						}
 						if (CompareWords((Exits + i)->doorstate, "open")){
 							printf("\nThe door is already open\n");
+							return 0;
 						}
 					}
 				}
@@ -450,23 +449,30 @@ int World::gameplay(char* FirstWord, char* SeconWord)
 			help();
 			return 0;
 		}
-		else printf("\nThis command is not able, enter another command\n");
-		return 0;
+		else{
+			printf("\nThis command is not able, enter another command\n");
+			return 0;
+		}
 	}
+	return 0;
+	
+		
+	
 }
 //compare two words
 bool World::CompareWords(char* Word1, char* Word2)
 {
 	int count = 0;
 	if (Word1 != NULL){
-		while (*Word1++){
-			*Word2++;
+		do
+		{
 			if (*Word1 != *Word2)
 			{
 				count = 1;
 				return false;
 			}
-		}
+			*Word2++;
+		} while (*Word1++);
 		if (count == 0)
 		{
 			return true;
