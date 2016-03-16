@@ -2,14 +2,14 @@
 #include<iostream>
 #include"Room.h"
 #include"World.h"
-
+#include"memleaks.h"
 using namespace std;
 
 int main()
 {
-
+	ReportMemoryLeaks();
 	World* NewWorld = new World;
-	cout << "Player name:  " << NewWorld->player1->name << endl;
+
 
 	delete NewWorld;
 	getchar();

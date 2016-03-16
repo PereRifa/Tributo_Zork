@@ -16,7 +16,7 @@ World::World()
 
 	CreateWorld();
 	
-	
+	HelloWorld();
 	WriteCommands();
 	//printrooms(Rooms);
 }
@@ -270,6 +270,33 @@ void World::CreateWorld(){
 	
 }
 
+void World::HelloWorld()
+{
+	printf("\n\tHello!! %s", player1->name);
+	getchar();
+	printf("\n\tYou come back to the underground laboratory you worked one year ago.\n");
+	printf("This last year the laboratory had developed new pharmaceutical products in \n");
+	printf("order to treat violent behavior in some people. Of course they haven not\n");
+	printf(" tried them with humans yet! just with some monkeys, gorillas and chimpanzees.\n");
+	printf("They keep the wild animals in the deepest room of the laboratory next to the research\n");
+	printf("room where you’re now with Mr.Graham and Mrs.Diane doing your best to help humanity.\n");
+	getchar;
+	printf("\nAt the evening just before the end of the working day...\n");
+	printf("\n*loud noise*\n");
+	printf("\nhuh what was that!? it's comming from the room right behind you (east)\n");
+	
+	printf("\nThe sound of something breaking in to pieces followed by unhuman screams.\n");
+	printf("\nHoly shit, some of the animals must have escaped, you’re in danger.\n");
+	getchar();
+	printf("It is time to get the hell out!!\n\n");
+	getchar();
+	printf("\tThe animals in the cages were very aggressive and now they run free around the\n");
+	printf("laboratory. Maybe you will need some kind of weapons in order to keep all of you\n");
+	printf("safe.Do not give up and do your best to pull out from the building the team of\n");
+	printf("scientists, alive.\n");
+	getchar();
+}
+
 void World::WriteCommands()
 {
 	char Command[50];
@@ -290,12 +317,12 @@ void World::WriteCommands()
 		} while (FirstWord == NULL);
 		SecondWord = strtok_s(NULL, " ", &TokCommand);
 
-		Exit = move(FirstWord, SecondWord/*, player1, Rooms, Exits*/);
+		Exit = gameplay(FirstWord, SecondWord);
 		
 	}
 }
 
-int World::move(char* FirstWord, char* SeconWord/*, Player* player1, Room* Rooms, Doors* Exits*/)
+int World::gameplay(char* FirstWord, char* SeconWord)
 {
 	
 	if (CompareWords(FirstWord, "Quit") || CompareWords(FirstWord, "quit") || CompareWords(FirstWord, "q"))

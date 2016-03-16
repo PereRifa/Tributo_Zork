@@ -22,8 +22,9 @@ public:
 	
 	void printrooms(Room* Rooms);
 	void CreateWorld();
+	void HelloWorld();
 	void WriteCommands();
-	int move(char* FirstWord, char* SeconWord/*, Player* player1, Room* Rooms, Doors* Exits*/);
+	int gameplay(char* FirstWord, char* SeconWord);
 	bool CompareWords(char* Word1, char* Word2);
 	void help();
 	int ChangeRoom();

@@ -65,6 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Exit.h" />
+    <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="Room.h" />
