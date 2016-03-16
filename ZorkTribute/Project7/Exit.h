@@ -13,6 +13,7 @@ public:
 	int origin;
 	int destiny;
 
+public:
 	Doors();
 	~Doors();
 

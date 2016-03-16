@@ -10,9 +10,5 @@ int main()
 	ReportMemoryLeaks();
 	World* NewWorld = new World;
 
-
 	delete NewWorld;
-	getchar();
-	;
-
 }

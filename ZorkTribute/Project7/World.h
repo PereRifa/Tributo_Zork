@@ -19,7 +19,7 @@ public:
 public:
 	World();
 	~World();
-	
+
 	void printrooms(Room* Rooms);
 	void CreateWorld();
 	void HelloWorld();

@@ -13,10 +13,9 @@ public:
 	int room;
 	char roomposition[10];
 	
-
+public:
 	Player();
 	~Player();
-
 };
 
 #endif
