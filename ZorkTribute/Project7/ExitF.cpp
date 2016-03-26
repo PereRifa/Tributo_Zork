@@ -1,8 +1,7 @@
-#include <string>
+#include <string.h>
 #include <iostream>
 #include "Exit.h"
 
-using namespace std;
 
 Doors::Doors()
 {

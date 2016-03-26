@@ -12,9 +12,7 @@ World::World()
 	Exits = new Doors[NUMBEROFDOORS];
 
 	CreateWorld();
-	
-	HelloWorld();
-	WriteCommands();
+
 }
 World::~World()
 {
@@ -22,9 +20,10 @@ World::~World()
 	delete[] Rooms;
 	delete[] Exits;
 }
-void World::printrooms(Room* Rooms){
+void World::printrooms(Room* Rooms) const
+{
 	for (int i = 0; i < NUMBEROFROOMS; i++){
-		cout << Rooms[i].name << endl;
+		printf(" %s", Rooms[i].name);
 	}
 }
 void World::CreateWorld(){
@@ -263,8 +262,13 @@ void World::CreateWorld(){
 	}
 	
 }
+//Execute the game
+void World::Game(){
+	HelloWorld();
+	WriteCommands();
+}
 //Print initial screen info
-void World::HelloWorld()
+void World::HelloWorld() const
 {
 	printf("\n\tHello!! %s\n", player1->name);
 	getchar();
@@ -321,36 +325,37 @@ int World::gameplay(char* FirstWord, char* SeconWord)
 
 	if (CompareWords(FirstWord, "Quit") || CompareWords(FirstWord, "quit") || CompareWords(FirstWord, "q"))
 	{
+		printf("\nThe game is Over!! see ya later.\n");
 		return 1;
 	}
 	else
 	{
 		if ((CompareWords(FirstWord, "north") || CompareWords(FirstWord, "n")) && SeconWord == NULL){
-			return gonorth();
+			return go("north");
 		}
 		if ((CompareWords(FirstWord, "south") || CompareWords(FirstWord, "s")) && SeconWord == NULL){
-			return gosouth();
+			return go("south");
 		}
 		if ((CompareWords(FirstWord, "east") || CompareWords(FirstWord, "e")) && SeconWord == NULL){
-			return goeast();
+			return go("east");
 		}
 		if ((CompareWords(FirstWord, "west") || CompareWords(FirstWord, "w")) && SeconWord == NULL){
-			return gowest();
+			return go("west");
 		}
 		if (CompareWords(FirstWord, "go")){
 			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
-				return gonorth();
+				return go("north");
 
 			}
 			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
-				return gosouth();
+				return go("south");
 
 			}
 			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
-				return goeast();
+				return go("east");
 			}
 			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
-				return gowest();
+				return go("west");
 			}
 			else{
 				printf("\nThis command is not able, enter another command\n");
@@ -460,7 +465,7 @@ int World::gameplay(char* FirstWord, char* SeconWord)
 	
 }
 //compare two words
-bool World::CompareWords(char* Word1, char* Word2)
+bool World::CompareWords(const char* Word1, const char* Word2)
 {
 	int count = 0;
 	if (Word1 != NULL){
@@ -482,7 +487,7 @@ bool World::CompareWords(char* Word1, char* Word2)
 
 }
 //print help menu
-void World::help(){
+void World::help() const{
 	printf("\n\tHelp Menu:\n");
 	printf("\nHurry up and get out of this place!!\n\nFor the escape you can use the commands: look, go, open, close, help, quit.\n");
 	printf("and the directions: north, south, east, west.\n");
@@ -504,95 +509,75 @@ int World::ChangeRoom()
 	} 
 	return 1;
 }
-//move north
-int World::gonorth()
+//go or move 
+int World::go(char* Name)
 {
 	int going = 1;
-	strcpy_s(((player1)->roomposition), "north");
-	if (player1->room == 10){
-		player1->room = 9;
 
+	strcpy_s(((player1)->roomposition), Name);
+
+	if ((player1->room == 10) && CompareWords(Name, "north")){
+		player1->room = 9;
 	}
-	if (player1->room == 5){
+	if ((player1->room == 5) && CompareWords(Name, "north")){
 		player1->room = 3;
 	}
-	going = ChangeRoom();
-	if (going == 0)
-	{
-		strcpy_s(((player1)->roomposition), "south");
-		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition, (Rooms + (player1->room))->name);
-	}
-	else {
-		printf("\nIn fron of you, you can see %s\n", (Rooms + (player1->room))->North);
-	}
-	return 0;
-}
-//move south
-int World::gosouth()
-{
-	int going = 1;
-	strcpy_s(((player1)->roomposition), "south");
-	if (player1->room == 9){
+
+	if ((player1->room == 9) && CompareWords(Name, "south")){
 		player1->room = 10;
+	}
+	if ((player1->room == 3)  && CompareWords(Name, "south")){
+		player1->room = 5;
+	}
+
+	if ((player1->room == 5) && CompareWords(Name, "west")){
+		player1->room = 4;
 
 	}
-	if (player1->room == 3){
-		player1->room = 5;
-	
-	}
-	going = ChangeRoom();
-	if (going == 0)
-	{
-		strcpy_s(((player1)->roomposition), "north");
-		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition, (Rooms + (player1->room))->name);
-	}
-	else {
-		printf("\nIn fron of you, you can see %s\n", (Rooms + (player1->room))->South);
-	}
-	return 0;
-}
-//move west
-int World::gowest()
-{
-	int going = 1;
-	strcpy_s(((player1)->roomposition), "west");
-	if (player1->room == 5){
-		player1->room = 4;
-	
-	}
-	if ((player1->room == 12) && (CompareWords((Exits + 23)->doorstate, "open"))){
+	if ((player1->room == 12) && (CompareWords((Exits + 23)->doorstate, "open")) && CompareWords(Name, "west")){
 		printf("\nYou did it!! Now you can go back home... :D\n");
 		return 1;
 	}
-	going = ChangeRoom();
-	if (going == 0)
-	{
-		strcpy_s(((player1)->roomposition), "east");
-		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition, (Rooms + (player1->room))->name);
-	}
-	else {
-		printf("\nIn fron of you, you can see %s\n", (Rooms + (player1->room))->West);
-	}
-	return 0;
-}
-//move east
-int World::goeast()
-{
-	int going = 1;
-	strcpy_s(((player1)->roomposition), "east");
-	if (player1->room == 4){
+
+	if ((player1->room == 4) && CompareWords(Name, "east")){
 		player1->room = 5;
 
 	}
+
 	going = ChangeRoom();
 	if (going == 0)
 	{
-		strcpy_s(((player1)->roomposition), "west");
+		if (CompareWords(Name, "north")){
+			strcpy_s(((player1)->roomposition), "south");
+		}
+		if (CompareWords(Name, "south")){
+			strcpy_s(((player1)->roomposition), "north");
+		}
+		if (CompareWords(Name, "east")){
+			strcpy_s(((player1)->roomposition), "west");
+		}
+		if (CompareWords(Name, "west")){
+			strcpy_s(((player1)->roomposition), "east");
+		}
 		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition, (Rooms + (player1->room))->name);
 	}
 	else {
-		printf("\nIn fron of you, you can see %s\n", (Rooms + (player1->room))->East);
+		if (CompareWords(Name, "north")){
+			printf("\n %s\n", (Rooms + player1->room)->North);
+			return 0;
+		}
+		if (CompareWords(Name, "south")){
+			printf("\n %s\n", (Rooms + player1->room)->South);
+			return 0;
+		}
+		if (CompareWords(Name, "east")){
+			printf("\n %s\n", (Rooms + player1->room)->East);
+			return 0;
+		}
+		if (CompareWords(Name, "west")){
+			printf("\n %s\n", (Rooms + player1->room)->West);
+			return 0;
+		}
 	}
-
 	return 0;
 }

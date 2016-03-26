@@ -1,10 +1,9 @@
-#include<string>
+#include<string.h>
 #include<iostream>
 #include"Room.h"
 #include"Player.h"
 #include"Exit.h"
 
-using namespace std;
 
 #ifndef WORLD
 #define WORLD
@@ -20,18 +19,17 @@ public:
 	World();
 	~World();
 
-	void printrooms(Room* Rooms);
+	void printrooms(Room* Rooms) const;
 	void CreateWorld();
-	void HelloWorld();
+	void Game();
+	void HelloWorld() const;
 	void WriteCommands();
 	int gameplay(char* FirstWord, char* SeconWord);
-	bool CompareWords(char* Word1, char* Word2);
-	void help();
+	bool CompareWords(const char* Word1, const char* Word2);
+	void help() const;
 	int ChangeRoom();
-	int goeast();
-	int gowest();
-	int gonorth();
-	int gosouth();
+	int go(char*);
+
 };
 
 #endif
