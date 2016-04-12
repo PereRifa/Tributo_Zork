@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdio.h>
-
+#include "mString.h"
 
 
 #ifndef PLAYER
@@ -9,9 +9,10 @@
 class Player
 {
 public:
-	char name[20];
+	mString* name;
+	mString* roomposition;
 	int room;
-	char roomposition[10];
+	
 	
 public:
 	Player();

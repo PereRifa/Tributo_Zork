@@ -1,6 +1,6 @@
-#include<string.h>
-#include<iostream>
-
+#include <string.h>
+#include <iostream>
+#include "mString.h"
 
 #ifndef DOORS
 #define DOORS
@@ -8,13 +8,16 @@
 class Doors
 {
 public:
-	char doorstate[10];
-	char doorroomposition[10];
+	mString* doorstate;
+	mString* doorroomposition;
+	//char doorstate[50];
+	//char doorroomposition[10];
 	int origin;
 	int destiny;
 
 public:
 	Doors();
+	
 	~Doors();
 
 };

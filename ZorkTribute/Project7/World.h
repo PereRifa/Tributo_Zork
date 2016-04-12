@@ -5,6 +5,7 @@
 #include"Exit.h"
 
 
+
 #ifndef WORLD
 #define WORLD
 
@@ -16,6 +17,14 @@ public:
 	Doors* Exits;
 
 public:
+	mString* dooropen = new mString("open");
+	mString* doorclosed = new mString("closed");	
+	mString* north = new mString("north");
+	mString* south = new mString("south");
+	mString* east = new mString("east");
+	mString* west = new mString("west");
+
+public:
 	World();
 	~World();
 
@@ -24,11 +33,11 @@ public:
 	void Game();
 	void HelloWorld() const;
 	void WriteCommands();
-	int gameplay(char* FirstWord, char* SeconWord);
+	int gameplay(const char* FirstWord, const char* SeconWord);
 	bool CompareWords(const char* Word1, const char* Word2);
 	void help() const;
 	int ChangeRoom();
-	int go(char*);
+	int go(mString*);
 
 };
 

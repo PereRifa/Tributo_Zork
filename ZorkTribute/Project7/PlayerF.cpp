@@ -6,11 +6,14 @@
 
 Player::Player()
 {
-	strcpy_s(name, "Dean Winchester");
+	name = new mString("Dean Pinchester");
+	roomposition = new mString("unknown");
 	room = 0;
-	*roomposition = NULL;
+	
 }
 
 Player::~Player()
 {
+	delete name;
+	delete roomposition;
 }

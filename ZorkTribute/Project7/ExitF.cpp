@@ -1,15 +1,16 @@
 #include <string.h>
 #include <iostream>
 #include "Exit.h"
-
+#include "mString.h"
 
 Doors::Doors()
 {
-	*doorstate = NULL;
-	*doorroomposition = NULL;
+	doorstate = new mString("closed");
+	doorroomposition = new mString("unknown");
 	origin;
 	destiny;
 }
+
 Doors::~Doors()
 {
 }

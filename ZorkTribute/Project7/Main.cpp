@@ -2,18 +2,21 @@
 #include<iostream>
 #include"Room.h"
 #include"World.h"
-#include"memleaks.h"
+#include"MemLeaks.h"
 
 
 int main()
 {
 	ReportMemoryLeaks();
+	{
 
-	World* NewWorld = new World;
 
-	NewWorld->Game();
+		World* NewWorld = new World;
 
-	getchar();
+		NewWorld->Game();
+		
+		delete NewWorld;
 
-	delete NewWorld;
+		getchar();
+	}
 }
