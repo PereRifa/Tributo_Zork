@@ -8,15 +8,13 @@
 class Doors
 {
 public:
-	mString* doorstate;
+	bool doorstate;
 	mString* doorroomposition;
-	//char doorstate[50];
-	//char doorroomposition[10];
 	int origin;
 	int destiny;
 
 public:
-	Doors();
+	Doors(const char* roompos, const int from, const int to);
 	
 	~Doors();
 

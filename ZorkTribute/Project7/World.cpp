@@ -1,16 +1,14 @@
 #include<string.h>
 #include<iostream>
 #include"World.h"
-
+#include"mVector.h"
 #define NUMBEROFROOMS 13
 #define NUMBEROFDOORS 24
 
 World::World()
 {
-	player1 = new Player;
+	player1 = new Player();
 	Rooms = new Room[NUMBEROFROOMS];
-	Exits = new Doors[NUMBEROFDOORS];
-
 	CreateWorld();
 
 }
@@ -18,13 +16,7 @@ World::~World()
 {
 	delete player1;
 	delete[] Rooms;
-	delete[] Exits;
-	delete dooropen;
-	delete doorclosed;
-	//delete north;
-	//delete south;
-	//delete east;
-	//delete west;
+
 }
 void World::printrooms(Room* Rooms) const
 {
@@ -118,154 +110,41 @@ void World::CreateWorld(){
 		}
 	}
 
-	//Setup doors information;
-	for (int i = 0; i < NUMBEROFDOORS; i++){
-		switch (i){
+	Exits.pushback(new Doors("east", 0, 1));
+	Exits.pushback(new Doors("west", 1, 0));
+	
+	Exits.pushback(new Doors("south", 0, 2));
+	Exits.pushback(new Doors("north", 2, 0));
+	
+	Exits.pushback(new Doors("east", 2, 3));
+	Exits.pushback(new Doors("west", 3, 2));
+	
+	Exits.pushback(new Doors( "south", 1, 3));
+	Exits.pushback(new Doors("north", 3, 1));
+	
+	Exits.pushback(new Doors("south", 4, 6));
+	Exits.pushback(new Doors("north", 6, 4));
+	
+	Exits.pushback(new Doors("south", 6, 7));
+	Exits.pushback(new Doors("north", 7, 6));
+	
+	Exits.pushback(new Doors("east", 7, 11));
+	Exits.pushback(new Doors("west", 11, 7));
+	
+	Exits.pushback(new Doors("south", 5, 8));
+	Exits.pushback(new Doors("north", 8, 5));
+	
+	Exits.pushback(new Doors("east", 8, 9));
+	Exits.pushback(new Doors("west", 9, 8));
+	
+	Exits.pushback(new Doors("west", 10, 11));
+	Exits.pushback(new Doors("east", 11, 10));
 
-		case 0:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = east;
-			(Exits + i)->origin = 0;
-			(Exits + i)->destiny = 1;
-			break;
-		case 1: (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = west;
-			(Exits + i)->origin = 1;
-			(Exits + i)->destiny = 0;
-			break;
-
-
-		case 2:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = south;
-			(Exits + i)->origin = 0;
-			(Exits + i)->destiny = 2;
-			break;
-		case 3:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = north;
-			(Exits + i)->origin = 2;
-			(Exits + i)->destiny = 0;
-			break;
-
-
-		case 4:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = east;
-			(Exits + i)->origin = 2;
-			(Exits + i)->destiny = 3;
-			break;
-		case 5: (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = west;
-			(Exits + i)->origin = 3;
-			(Exits + i)->destiny = 2;
-			break; 
-
-
-		case 6:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = south;
-			(Exits + i)->origin = 1;
-			(Exits + i)->destiny = 3;
-			break; 
-		case 7:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = north;
-			(Exits + i)->origin = 3;
-			(Exits + i)->destiny = 1;
-			break;
-
-
-		case 8:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = south;
-			(Exits + i)->origin = 4;
-			(Exits + i)->destiny = 6;
-			break;
-		case 9:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = north;
-			(Exits + i)->origin = 6;
-			(Exits + i)->destiny = 4;
-			break;
-
-
-		case 10:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = south;
-			(Exits + i)->origin = 6;
-			(Exits + i)->destiny = 7;
-			break;
-		case 11:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = north;
-			(Exits + i)->origin = 7;
-			(Exits + i)->destiny = 6;
-			break;
-
-
-		case 12:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = east;
-			(Exits + i)->origin = 7;
-			(Exits + i)->destiny = 11;
-			break; 
-		case 13:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = west;
-			(Exits + i)->origin = 11;
-			(Exits + i)->destiny = 7;
-			break;
-
-
-		case 14:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = south;
-			(Exits + i)->origin = 5;
-			(Exits + i)->destiny = 8;
-			break; 
-		case 15:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = north;
-			(Exits + i)->origin = 8;
-			(Exits + i)->destiny = 5;
-			break;
-
-
-		case 16:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = east;
-			(Exits + i)->origin = 8;
-			(Exits + i)->destiny = 9;
-			break; 
-		case 17:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = west;
-			(Exits + i)->origin = 9;
-			(Exits + i)->destiny = 8;
-			break;
-
-
-		case 18:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = west;
-			(Exits + i)->origin = 10;
-			(Exits + i)->destiny = 11;
-			break; 
-		case 19:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = east;
-			(Exits + i)->origin = 11;
-			(Exits + i)->destiny = 10;
-			break; 
-
-
-		case 20:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = south;
-			(Exits + i)->origin = 11;
-			(Exits + i)->destiny = 12;
-			break; 
-		case 21:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = north;
-			(Exits + i)->origin = 12;
-			(Exits + i)->destiny = 11;
-			break;
-
-		case 22:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = west;
-			(Exits + i)->origin = 12;
-			(Exits + i)->destiny = 13;
-			break; 
-		case 23:  (Exits + i)->doorstate = doorclosed;
-			(Exits + i)->doorroomposition = east;
-			(Exits + i)->origin = 13;
-			(Exits + i)->destiny = 12;
-			break; 
-			}
-		
-	}
+	Exits.pushback(new Doors("south", 11, 12));
+	Exits.pushback(new Doors("north", 12, 11));
+	
+	Exits.pushback(new Doors("west", 12, 13));
+	Exits.pushback(new Doors("east", 13, 12));
 	
 }
 //Execute the game
@@ -337,31 +216,31 @@ int World::gameplay(const char* FirstWord,const char* SeconWord)
 	else
 	{
 		if ((CompareWords(FirstWord, "north") || CompareWords(FirstWord, "n")) && SeconWord == NULL){
-			return go(north);
+			return go("north");
 		}
 		if ((CompareWords(FirstWord, "south") || CompareWords(FirstWord, "s")) && SeconWord == NULL){
-			return go(south);
+			return go("south");
 		}
 		if ((CompareWords(FirstWord, "east") || CompareWords(FirstWord, "e")) && SeconWord == NULL){
-			return go(east);
+			return go("east");
 		}
 		if ((CompareWords(FirstWord, "west") || CompareWords(FirstWord, "w")) && SeconWord == NULL){
-			return go(west);
+			return go("west");
 		}
 		if (CompareWords(FirstWord, "go")){
 			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
-				return go(north);
+				return go("north");
 
 			}
 			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
-				return go(south);
+				return go("south");
 
 			}
 			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
-				return go(east);
+				return go("east");
 			}
 			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
-				return go(west);
+				return go("west");
 			}
 			else{
 				printf("\nThis command is not able, enter another command\n");
@@ -395,22 +274,22 @@ int World::gameplay(const char* FirstWord,const char* SeconWord)
 		if (CompareWords(FirstWord, "open")){
 			if (CompareWords(SeconWord, "door")){
 				for (int i = 0; i < NUMBEROFDOORS; i++){
-					if (((player1)->room == (Exits + i)->origin) && (player1->roomposition == (Exits+i)->doorroomposition))
+					if (((player1)->room == Exits[i]->origin) && ((player1->roomposition) ==(Exits[i]->doorroomposition)))
 					{
-						if ((Exits+i)->doorstate == doorclosed /*(CompareWords((Exits + i)->doorstate, "closed")*/){
+						if (Exits[i]->doorstate == false){
 							for (int j = 0; j < NUMBEROFDOORS; j++){
 
-								if ((((Exits + j)->destiny) == (Exits + i)->origin) && (((Exits + j)->origin) == (Exits + i)->destiny))
+								if (((Exits[j]->destiny) == Exits[i]->origin) && ((Exits[j]->origin) == Exits[i]->destiny))
 								{
-									(Exits + i)->doorstate=dooropen;
-									(Exits + j)->doorstate=doorclosed;
+									Exits[i]->doorstate=true;
+									Exits[j]->doorstate=true;
 									printf("\nDoor Open\n");
 									return 0;
 								}
 							}
 
 						}
-						if ((Exits+i)->doorstate == dooropen){
+						if (Exits[i]->doorstate == true){
 							printf("\nThe door is already open\n");
 							return 0;
 						}
@@ -429,22 +308,22 @@ int World::gameplay(const char* FirstWord,const char* SeconWord)
 		if (CompareWords(FirstWord, "close")){
 			if (CompareWords(SeconWord, "door")){
 				for (int i = 0; i < NUMBEROFDOORS; i++){
-					if (((player1)->room == (Exits + i)->origin) && (player1->roomposition == (Exits + i)->doorroomposition))
+					if (((player1)->room == Exits[i]->origin)/* && (player1->roomposition == Exits[i]->doorroomposition)*/)
 					{
-						if ((Exits + i)->doorstate== dooropen){
+						if (Exits[i]->doorstate== true){
 							for (int j = 0; j < NUMBEROFDOORS; j++){
 
-								if ((((Exits + j)->destiny) == (Exits + i)->origin) && (((Exits + j)->origin) == (Exits + i)->destiny))
+								if (((Exits[j]->destiny) == Exits[i]->origin) && ((Exits[j]->origin) == Exits[i]->destiny))
 								{
-									(Exits + i)->doorstate = doorclosed;
-									(Exits + j)->doorstate = doorclosed;
+									Exits[i]->doorstate = false;
+									Exits[j]->doorstate = false;
 									printf("\nDoor closed\n");
 									return 0;
 								}
 							}
 
 						}
-						if ((Exits + i)->doorstate == doorclosed){
+						if (Exits[i]->doorstate == false){
 							printf("\nThe door is already closed\n");
 						}
 					}
@@ -504,11 +383,11 @@ void World::help() const{
 int World::ChangeRoom()
 {
 	for (int i = 0; i < NUMBEROFDOORS; i++){
-		if (((player1)->room == (Exits + i)->origin) && ((Exits + i)->doorroomposition == (player1)->roomposition))
+		if (((player1)->room == Exits[i]->origin)/* && (Exits[i]->doorroomposition == (player1)->roomposition)*/)
 		{
 	
-			if ((Exits + i)->doorstate == dooropen){
-				(player1)->room = (Exits + i)->destiny;
+			if (Exits[i]->doorstate == true){
+				(player1)->room = Exits[i]->destiny;
 				
 				return 0;
 			}
@@ -517,36 +396,36 @@ int World::ChangeRoom()
 	return 1;
 }
 //go or move 
-int World::go(mString* Name)
+int World::go(const char* Name)
 {
 	int going = 1;
 
-	(player1)->roomposition= Name;
+	*((player1)->roomposition) = Name;
 
-	if ((player1->room == 10) && (Name == north)){
+	if ((player1->room == 10) && (Name == "north")){
 		player1->room = 9;
 	}
-	if ((player1->room == 5) && (Name == north)){
+	if ((player1->room == 5) && (Name == "north")){
 		player1->room = 3;
 	}
 
-	if ((player1->room == 9) && (Name == south)){
+	if ((player1->room == 9) && (Name == "south")){
 		player1->room = 10;
 	}
-	if ((player1->room == 3)  && (Name == south)){
+	if ((player1->room == 3)  && (Name == "south")){
 		player1->room = 5;
 	}
 
-	if ((player1->room == 5) && (Name == west)){
+	if ((player1->room == 5) && (Name == "west")){
 		player1->room = 4;
 
 	}
-	if ((player1->room == 12) && (Exits + 23)->doorstate == dooropen && (Name == west)){
+	if ((player1->room == 12) && Exits[23]->doorstate == true && (Name == "west")){
 		printf("\nYou did it!! Now you can go back home... :D\n");
 		return 1;
 	}
 
-	if ((player1->room == 4) && (Name == east)){
+	if ((player1->room == 4) && (Name == "east")){
 		player1->room = 5;
 
 	}
@@ -554,34 +433,34 @@ int World::go(mString* Name)
 	going = ChangeRoom();
 	if (going == 0)
 	{
-		if (Name == north){
-			(player1)->roomposition = south;
+		if (Name == "north"){
+			*((player1)->roomposition) = "south";
 		}
-		if (Name == south){
-			(player1)->roomposition = north;
+		if (Name == "south"){
+			*((player1)->roomposition) = "north";
 		}
-		if (Name == east){
-			(player1)->roomposition = west;
+		if (Name == "east"){
+			*((player1)->roomposition) = "west";
 		}
-		if (Name == west){
-			(player1)->roomposition = east;
+		if (Name == "west"){
+			*((player1)->roomposition) = "east";
 		}
 		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition->C_Str(), (Rooms + (player1->room))->name);
 	}
 	else {
-		if (Name == north){
+		if (Name == "north"){
 			printf("\n %s\n", (Rooms + player1->room)->North);
 			return 0;
 		}
-		if (Name == south){
+		if (Name == "south"){
 			printf("\n %s\n", (Rooms + player1->room)->South);
 			return 0;
 		}
-		if (Name == east){
+		if (Name == "east"){
 			printf("\n %s\n", (Rooms + player1->room)->East);
 			return 0;
 		}
-		if (Name == west){
+		if (Name == "west"){
 			printf("\n %s\n", (Rooms + player1->room)->West);
 			return 0;
 		}

@@ -3,13 +3,13 @@
 #include "Exit.h"
 #include "mString.h"
 
-Doors::Doors()
+Doors::Doors(const char* roompos, const int from, const int to) : doorstate(false), doorroomposition(new mString(roompos)), origin(from), destiny(to)
 {
-	doorstate = new mString("closed");
-	doorroomposition = new mString("unknown");
-	origin;
-	destiny;
-}
+	/*doorstate = false;
+	doorroomposition = new mString(roompos);
+	origin = from;
+	destiny = to;*/
+};
 
 Doors::~Doors()
 {

@@ -7,7 +7,7 @@
 Player::Player()
 {
 	name = new mString("Dean Pinchester");
-	roomposition = new mString("unknown");
+	roomposition = new mString("west");
 	room = 0;
 	
 }

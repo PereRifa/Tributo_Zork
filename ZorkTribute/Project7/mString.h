@@ -59,17 +59,14 @@ public:
 	{
 		unsigned int len = strlen(other.buffer) + 1;
 		if (len > max_size){
-			printf("\nNew/Telete Needed");
+			
 			delete[] buffer;
 			max_size = other.max_size;
 			buffer = new char[max_size];
 		}
-		else{
-			printf("\nno New/Telete Needed");
-		}
 		strcpy_s(buffer, len, other.buffer);
 	}
-	void cpy(const char* otherbuffer){
+/*	void cpy(const char* otherbuffer){
 		unsigned int len = strlen(otherbuffer) + 1;
 		if (len > max_size){
 			printf("\nNew/Telete Needed");
@@ -81,7 +78,7 @@ public:
 			printf("\nno New/Telete Needed");
 		}
 		strcpy_s(buffer, len, otherbuffer);
-	}
+	}*/
 	void operator+=(const mString& other)
 	{
 		unsigned int len = max_size + strlen(other.buffer);

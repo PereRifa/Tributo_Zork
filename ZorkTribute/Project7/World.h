@@ -3,7 +3,7 @@
 #include"Room.h"
 #include"Player.h"
 #include"Exit.h"
-
+#include"mVector.h"
 
 
 #ifndef WORLD
@@ -14,15 +14,7 @@ class World
 public:
 	Player* player1;
 	Room* Rooms;
-	Doors* Exits;
-
-public:
-	mString* dooropen = new mString("open");
-	mString* doorclosed = new mString("closed");	
-	mString* north = new mString("north");
-	mString* south = new mString("south");
-	mString* east = new mString("east");
-	mString* west = new mString("west");
+	mVector<Doors*> Exits;
 
 public:
 	World();
@@ -37,7 +29,7 @@ public:
 	bool CompareWords(const char* Word1, const char* Word2);
 	void help() const;
 	int ChangeRoom();
-	int go(mString*);
+	int go(const char*);
 
 };
 
