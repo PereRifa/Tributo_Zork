@@ -1,7 +1,7 @@
 #ifndef _MY_STRING
 #define _MY_STRING
 #include<string.h>
-#include<stdio.h>
+
 
 
 
@@ -17,7 +17,6 @@ public:
 		int len = strlen(str);
 		buffer = new char[len + 1];
 		strcpy_s(buffer, strlen(str) + 1, str);
-		//printf("\nLa Classe String se esta construiendo con %s ", buffer);
 		max_size = len + 1;
 	}
 	mString(const mString& str)
@@ -25,12 +24,10 @@ public:
 		int len = strlen(str.buffer);
 		buffer = new char[len + 1];
 		strcpy_s(buffer, strlen(str.buffer) + 1, str.buffer);
-		//printf("\nLa Classe Second se esta construiendo con %s ", buffer);
 	};
 
 	~mString()
 	{
-		//printf("\nLa Classe String se esta destruiendo con %s ", buffer);
 		delete[] buffer;
 	};
 
@@ -66,19 +63,6 @@ public:
 		}
 		strcpy_s(buffer, len, other.buffer);
 	}
-/*	void cpy(const char* otherbuffer){
-		unsigned int len = strlen(otherbuffer) + 1;
-		if (len > max_size){
-			printf("\nNew/Telete Needed");
-			delete[] buffer;
-			max_size = len;
-			buffer = new char[max_size];
-		}
-		else{
-			printf("\nno New/Telete Needed");
-		}
-		strcpy_s(buffer, len, otherbuffer);
-	}*/
 	void operator+=(const mString& other)
 	{
 		unsigned int len = max_size + strlen(other.buffer);

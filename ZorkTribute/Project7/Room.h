@@ -1,6 +1,4 @@
-
-#include<iostream>
-
+#include"mString.h"
 
 #ifndef ROOM
 #define ROOM
@@ -8,14 +6,14 @@
 class Room
 {
 public:
-	char name[40];
-	char North[250];
-	char South[250];
-	char East[250];
-	char West[250];
+	mString* name;
+	mString* North;
+	mString* South;
+	mString* East;
+	mString* West;
 
 public:
-	Room();
+	Room(const unsigned int i);
 	~Room();
 };
 #endif

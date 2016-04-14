@@ -23,7 +23,6 @@ public:
 		for (unsigned int i = 0; i < nelements; i++){
 			buffer[i] = other.buffer[i];
 		}
-
 	}
 	~mVector(){
 		delete[] buffer;

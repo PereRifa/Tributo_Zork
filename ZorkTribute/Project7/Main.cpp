@@ -1,9 +1,6 @@
 #include<string.h>
-#include<iostream>
-#include"Room.h"
 #include"World.h"
 #include"MemLeaks.h"
-
 
 int main()
 {

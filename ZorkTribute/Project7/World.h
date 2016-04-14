@@ -1,5 +1,4 @@
 #include<string.h>
-#include<iostream>
 #include"Room.h"
 #include"Player.h"
 #include"Exit.h"
@@ -13,7 +12,7 @@ class World
 {
 public:
 	Player* player1;
-	Room* Rooms;
+	mVector<Room*> Rooms;
 	mVector<Doors*> Exits;
 
 public:

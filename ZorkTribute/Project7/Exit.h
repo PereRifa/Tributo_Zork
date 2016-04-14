@@ -1,5 +1,4 @@
 #include <string.h>
-#include <iostream>
 #include "mString.h"
 
 #ifndef DOORS
