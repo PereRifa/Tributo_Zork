@@ -1,7 +1,7 @@
 #include<string.h>
 #include<iostream>
 #include"World.h"
-#include"mVector.h"
+
 #define NUMBEROFROOMS 13
 #define NUMBEROFDOORS 24
 
@@ -274,8 +274,11 @@ int World::gameplay(const char* FirstWord,const char* SeconWord)
 		if (CompareWords(FirstWord, "open")){
 			if (CompareWords(SeconWord, "door")){
 				for (int i = 0; i < NUMBEROFDOORS; i++){
-					if (((player1)->room == Exits[i]->origin) && ((player1->roomposition) ==(Exits[i]->doorroomposition)))
+					if (((player1)->room == Exits[i]->origin) && (*(player1->roomposition) == *(Exits[i]->doorroomposition)))
 					{
+						printf("roomposition: %s", *(player1->roomposition));
+						printf("doorroomposition: %s", *(Exits[i]->doorroomposition));
+						printf("Bool: %d", *(player1->roomposition) == *(Exits[i]->doorroomposition));
 						if (Exits[i]->doorstate == false){
 							for (int j = 0; j < NUMBEROFDOORS; j++){
 
@@ -308,7 +311,10 @@ int World::gameplay(const char* FirstWord,const char* SeconWord)
 		if (CompareWords(FirstWord, "close")){
 			if (CompareWords(SeconWord, "door")){
 				for (int i = 0; i < NUMBEROFDOORS; i++){
-					if (((player1)->room == Exits[i]->origin)/* && (player1->roomposition == Exits[i]->doorroomposition)*/)
+					printf("roomposition: %s", *(player1->roomposition));
+					printf("doorroomposition: %s", *(Exits[i]->doorroomposition));
+					printf("Bool: %d", *(player1->roomposition) == *(Exits[i]->doorroomposition));
+					if (((player1)->room == Exits[i]->origin) && (*(player1->roomposition) == *(Exits[i]->doorroomposition)))
 					{
 						if (Exits[i]->doorstate== true){
 							for (int j = 0; j < NUMBEROFDOORS; j++){
@@ -383,7 +389,7 @@ void World::help() const{
 int World::ChangeRoom()
 {
 	for (int i = 0; i < NUMBEROFDOORS; i++){
-		if (((player1)->room == Exits[i]->origin)/* && (Exits[i]->doorroomposition == (player1)->roomposition)*/)
+		if (((player1)->room == Exits[i]->origin) && (*(player1->roomposition) == *(Exits[i]->doorroomposition)))
 		{
 	
 			if (Exits[i]->doorstate == true){
