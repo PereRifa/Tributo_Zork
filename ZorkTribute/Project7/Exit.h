@@ -1,8 +1,9 @@
-#include <string.h>
-#include "mString.h"
-
 #ifndef DOORS
 #define DOORS
+
+#include <string.h>
+#include "mString.h"
+#include "Entity.h"
 
 class Doors
 {
