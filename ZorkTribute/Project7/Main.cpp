@@ -1,4 +1,3 @@
-#include<string.h>
 #include"World.h"
 #include"MemLeaks.h"
 

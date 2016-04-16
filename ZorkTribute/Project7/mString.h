@@ -1,9 +1,7 @@
 #ifndef _MY_STRING
 #define _MY_STRING
+
 #include<string.h>
-
-
-
 
 class mString
 {

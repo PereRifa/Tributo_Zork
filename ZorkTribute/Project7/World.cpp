@@ -5,15 +5,12 @@
 
 World::World()
 {
-	player1 = new Player();
+	
 	CreateWorld();
 
 }
 World::~World()
 {
-	delete player1;
-
-
 }
 void World::printrooms(Room* Rooms) const
 {
@@ -22,6 +19,9 @@ void World::printrooms(Room* Rooms) const
 	}
 }
 void World::CreateWorld(){
+	
+	//setup player infromation;
+	player1.pushback(new Player("Dean Whinchester", "fucking Badass"));
 	
 	//Setup Rooms Information;
 	for (int i = 0; i < NUMBEROFROOMS; i++){
@@ -73,7 +73,7 @@ void World::Game(){
 //Print initial screen info
 void World::HelloWorld() const
 {
-	printf("\n\tHello!! %s\n", player1->name->C_Str());
+	printf("\n\tHello!! %s\n", player1[0]->name->C_Str());
 	getchar();
 	printf("\tYou come back to the underground laboratory you worked one year ago.\n");
 	printf("This last year the laboratory had developed new pharmaceutical products in \n");
@@ -168,19 +168,19 @@ int World::gameplay(const char* FirstWord,const char* SeconWord)
 		}
 		if (CompareWords(FirstWord, "look")){
 			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
-				printf("\n %s\n", Rooms[player1->room]->North->C_Str());
+				printf("\n %s\n", Rooms[player1[0]->room]->North->C_Str());
 				return 0;
 			}
 			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
-				printf("\n %s\n", Rooms[player1->room]->South->C_Str());
+				printf("\n %s\n", Rooms[player1[0]->room]->South->C_Str());
 				return 0;
 			}
 			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
-				printf("\n %s\n", Rooms[player1->room]->East->C_Str());
+				printf("\n %s\n", Rooms[player1[0]->room]->East->C_Str());
 				return 0;
 			}
 			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
-				printf("\n %s\n", Rooms[player1->room]->West->C_Str());
+				printf("\n %s\n", Rooms[player1[0]->room]->West->C_Str());
 				return 0;
 			}
 			else{
@@ -192,7 +192,7 @@ int World::gameplay(const char* FirstWord,const char* SeconWord)
 		if (CompareWords(FirstWord, "open")){
 			if (CompareWords(SeconWord, "door")){
 				for (int i = 0; i < NUMBEROFDOORS; i++){
-					if (((player1)->room == Exits[i]->origin) && (*(player1->roomposition) == *(Exits[i]->doorroomposition)))
+					if ((player1[0]->room == Exits[i]->origin) && (*(player1[0]->roomposition) == *(Exits[i]->doorroomposition)))
 					{
 						if (Exits[i]->doorstate == false){
 							for (int j = 0; j < NUMBEROFDOORS; j++){
@@ -226,7 +226,7 @@ int World::gameplay(const char* FirstWord,const char* SeconWord)
 		if (CompareWords(FirstWord, "close")){
 			if (CompareWords(SeconWord, "door")){
 				for (int i = 0; i < NUMBEROFDOORS; i++){
-					if (((player1)->room == Exits[i]->origin) && (*(player1->roomposition) == *(Exits[i]->doorroomposition)))
+					if ((player1[0]->room == Exits[i]->origin) && (*(player1[0]->roomposition) == *(Exits[i]->doorroomposition)))
 					{
 						if (Exits[i]->doorstate== true){
 							for (int j = 0; j < NUMBEROFDOORS; j++){
@@ -301,11 +301,11 @@ void World::help() const{
 int World::ChangeRoom()
 {
 	for (int i = 0; i < NUMBEROFDOORS; i++){
-		if (((player1)->room == Exits[i]->origin) && (*(player1->roomposition) == *(Exits[i]->doorroomposition)))
+		if ((player1[0]->room == Exits[i]->origin) && (*(player1[0]->roomposition) == *(Exits[i]->doorroomposition)))
 		{
 	
 			if (Exits[i]->doorstate == true){
-				(player1)->room = Exits[i]->destiny;
+				player1[0]->room = Exits[i]->destiny;
 				
 				return 0;
 			}
@@ -318,33 +318,33 @@ int World::go(const char* Name)
 {
 	int going = 1;
 
-	*((player1)->roomposition) = Name;
+	*(player1[0]->roomposition) = Name;
 
-	if ((player1->room == 10) && (Name == "north")){
-		player1->room = 9;
+	if ((player1[0]->room == 10) && (Name == "north")){
+		player1[0]->room = 9;
 	}
-	if ((player1->room == 5) && (Name == "north")){
-		player1->room = 3;
-	}
-
-	if ((player1->room == 9) && (Name == "south")){
-		player1->room = 10;
-	}
-	if ((player1->room == 3)  && (Name == "south")){
-		player1->room = 5;
+	if ((player1[0]->room == 5) && (Name == "north")){
+		player1[0]->room = 3;
 	}
 
-	if ((player1->room == 5) && (Name == "west")){
-		player1->room = 4;
+	if ((player1[0]->room == 9) && (Name == "south")){
+		player1[0]->room = 10;
+	}
+	if ((player1[0]->room == 3) && (Name == "south")){
+		player1[0]->room = 5;
+	}
+
+	if ((player1[0]->room == 5) && (Name == "west")){
+		player1[0]->room = 4;
 
 	}
-	if ((player1->room == 12) && Exits[23]->doorstate == true && (Name == "west")){
+	if ((player1[0]->room == 12) && Exits[23]->doorstate == true && (Name == "west")){
 		printf("\nYou did it!! Now you can go back home... :D\n");
 		return 1;
 	}
 
-	if ((player1->room == 4) && (Name == "east")){
-		player1->room = 5;
+	if ((player1[0]->room == 4) && (Name == "east")){
+		player1[0]->room = 5;
 
 	}
 
@@ -352,34 +352,34 @@ int World::go(const char* Name)
 	if (going == 0)
 	{
 		if (Name == "north"){
-			*((player1)->roomposition) = "south";
+			*(player1[0]->roomposition) = "south";
 		}
 		if (Name == "south"){
-			*((player1)->roomposition) = "north";
+			*(player1[0]->roomposition) = "north";
 		}
 		if (Name == "east"){
-			*((player1)->roomposition) = "west";
+			*(player1[0]->roomposition) = "west";
 		}
 		if (Name == "west"){
-			*((player1)->roomposition) = "east";
+			*(player1[0]->roomposition) = "east";
 		}
-		printf("\nChanged room now you are at: %s side of the %s\n", player1->roomposition->C_Str(), Rooms[player1->room]->name->C_Str());
+		printf("\nChanged room now you are at: %s side of the %s\n", player1[0]->roomposition->C_Str(), Rooms[player1[0]->room]->name->C_Str());
 	}
 	else {
 		if (Name == "north"){
-			printf("\n %s\n", Rooms[player1->room]->North->C_Str());
+			printf("\n %s\n", Rooms[player1[0]->room]->North->C_Str());
 			return 0;
 		}
 		if (Name == "south"){
-			printf("\n %s\n", Rooms[player1->room]->South->C_Str());
+			printf("\n %s\n", Rooms[player1[0]->room]->South->C_Str());
 			return 0;
 		}
 		if (Name == "east"){
-			printf("\n %s\n", Rooms[player1->room]->East->C_Str());
+			printf("\n %s\n", Rooms[player1[0]->room]->East->C_Str());
 			return 0;
 		}
 		if (Name == "west"){
-			printf("\n %s\n", Rooms[player1->room]->West->C_Str());
+			printf("\n %s\n", Rooms[player1[0]->room]->West->C_Str());
 			return 0;
 		}
 	}

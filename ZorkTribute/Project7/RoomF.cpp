@@ -2,6 +2,9 @@
 
 Room::Room(unsigned int i)
 {
+	entity_type = ROOM;
+	description = new mString("normal room");
+
 	switch (i){
 	case 0: name = new mString("Laboratory I: Rise Project");
 			North = new mString(" you can see a table with some documents and research stuff.\n");

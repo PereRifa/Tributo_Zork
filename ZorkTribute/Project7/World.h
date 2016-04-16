@@ -1,17 +1,17 @@
+
+#ifndef _WORLD
+#define _WORLD
+
 #include<string.h>
 #include"Room.h"
 #include"Player.h"
 #include"Exit.h"
 #include"mVector.h"
 
-
-#ifndef WORLD
-#define WORLD
-
 class World
 {
 public:
-	Player* player1;
+	mVector<Player*> player1;
 	mVector<Room*> Rooms;
 	mVector<Doors*> Exits;
 

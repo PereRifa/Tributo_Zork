@@ -1,10 +1,10 @@
 #include"Player.h"
 
-
-
-Player::Player()
+Player::Player(const char* p_name, const char* p_description)
 {
-	name = new mString("Dean Pinchester");
+	name = new mString(p_name);
+	description = new mString(p_description);
+	entity_type = PLAYER;
 	roomposition = new mString("west");
 	room = 0;
 	
@@ -12,6 +12,5 @@ Player::Player()
 
 Player::~Player()
 {
-	delete name;
 	delete roomposition;
 }

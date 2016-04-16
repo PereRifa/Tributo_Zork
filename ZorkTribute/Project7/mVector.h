@@ -1,5 +1,6 @@
 #ifndef __VECTOR_H__
 #define __VECTOR_H__
+
 #include<stdio.h>
 #include<assert.h>
 
@@ -23,6 +24,10 @@ public:
 		for (unsigned int i = 0; i < nelements; i++){
 			buffer[i] = other.buffer[i];
 		}
+	}
+	mVector(unsigned int size) : max_length(size)
+	{
+		buffer = new TYPE[max_length];
 	}
 	~mVector(){
 		delete[] buffer;
@@ -63,6 +68,15 @@ public:
 		++nelements;
 	}
 
+	bool pop_back()
+	{
+		if (nelements > 0){
+			nelements--;
+			return true;
+		}
+		return false;
+	}
+
 	//return vector.buffer[i]
 	TYPE operator[](unsigned int i) const
 	{
@@ -78,7 +92,7 @@ public:
 	}
 	//empty vector
 	bool empty()const{
-		for (int i = 0; i < max_length; i++){
+		for (unsigned int i = 0; i < max_length; i++){
 			if (buffer[i] != NULL){
 				return false;
 			}
@@ -86,6 +100,14 @@ public:
 		return true;
 	}
 
+	unsigned int size() const
+	{
+		return nelements;
+	}
+	void clean()
+	{
+		nelements = 0;
+	}
 
 };
 #endif

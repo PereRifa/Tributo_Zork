@@ -1,12 +1,11 @@
-#include"mString.h"
+#include "Entity.h"
 
-#ifndef ROOM
-#define ROOM
+#ifndef _ROOM
+#define _ROOM
 
-class Room
+class Room : public Entity
 {
 public:
-	mString* name;
 	mString* North;
 	mString* South;
 	mString* East;

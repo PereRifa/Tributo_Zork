@@ -1,11 +1,9 @@
-#ifndef DOORS
-#define DOORS
+#ifndef _DOORS
+#define _DOORS
 
-#include <string.h>
-#include "mString.h"
 #include "Entity.h"
 
-class Doors
+class Doors : public Entity
 {
 public:
 	bool doorstate;

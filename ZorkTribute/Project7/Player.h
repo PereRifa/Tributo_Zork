@@ -1,19 +1,18 @@
-#include "mString.h"
+#ifndef _PLAYER
+#define _PLAYER
 
+#include "Entity.h"
 
-#ifndef PLAYER
-#define PLAYER
-
-class Player
+class Player : public Entity
 {
 public:
-	mString* name;
+
 	mString* roomposition;
 	int room;
 	
 	
 public:
-	Player();
+	Player(const char* p_name, const char* p_description);
 	~Player();
 };
 
