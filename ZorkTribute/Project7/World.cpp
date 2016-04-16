@@ -27,7 +27,16 @@ void World::CreateWorld(){
 	for (int i = 0; i < NUMBEROFROOMS; i++){
 		Rooms.pushback(new Room(i));
 	}
-
+	//Setup Items
+	Items.pushback(new Item("Inventory","you can put other items in to it"));
+	Items.pushback(new Item("potato", "stupid sexy potato"));
+	Items.pushback(new Item("fried chicken", "best food for niggas"));
+	Items.pushback(new Item("popo", "you can put other items in to it"));
+	Items[0]->insert(Items[1]);
+	Items[0]->insert(Items[2]);
+	Items[0]->insert(Items[3]);
+	
+	//Setup Exits information;
 	Exits.pushback(new Doors("east", 0, 1));
 	Exits.pushback(new Doors("west", 1, 0));
 	

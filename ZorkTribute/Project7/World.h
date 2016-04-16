@@ -7,6 +7,7 @@
 #include"Player.h"
 #include"Exit.h"
 #include"mVector.h"
+#include"Item.h"
 
 class World
 {
@@ -14,6 +15,7 @@ public:
 	mVector<Player*> player1;
 	mVector<Room*> Rooms;
 	mVector<Doors*> Exits;
+	mVector<Item*> Items;
 
 public:
 	World();
