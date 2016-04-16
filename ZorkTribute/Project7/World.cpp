@@ -19,7 +19,7 @@ void World::printrooms(Room* Rooms) const
 	}
 }
 void World::CreateWorld(){
-	
+
 	//setup player infromation;
 	player1.pushback(new Player("Dean Whinchester", "fucking Badass"));
 	
@@ -109,170 +109,173 @@ void World::HelloWorld() const
 //function to write player commands
 void World::WriteCommands()
 {
-	char Command[50];
-	char *FirstWord;
-	char *SecondWord;
-	char *TokCommand;
 	
 	int Exit = 0;
-	
+	char line[50];
+	mString* commands = new mString("nothing");
 	while (Exit == 0){
+		printf("What to do now?\n\tWrite Command -> ");
+		gets_s(line);
+		commands = new mString(line);
+		mVector<mString*> vcommands = commands->tokenize();
 
-		SecondWord = NULL;
-		do
-		{
-			printf("What to do now?\n\tWrite Command -> ");
-			gets_s(Command);
-			FirstWord = strtok_s(Command, " ", &TokCommand);
-		} while (FirstWord == NULL);
-		SecondWord = strtok_s(NULL, " ", &TokCommand);
-
-		Exit = gameplay(FirstWord, SecondWord);
+		Exit = gameplay(vcommands);
 		
 	}
 }
 //commands resolution (look, go, close, open) +(north, south, east, west)
-int World::gameplay(const char* FirstWord,const char* SeconWord)
+int World::gameplay(const mVector<mString*> commands)
 {
+	const char* FirstWord = commands[0]->C_Str();
 
-	if (CompareWords(FirstWord, "Quit") || CompareWords(FirstWord, "quit") || CompareWords(FirstWord, "q"))
+	if ((CompareWords(FirstWord, "Quit")) || (CompareWords(FirstWord, "quit")) || (CompareWords(FirstWord, "q")))
 	{
 		printf("\nThe game is Over!! see you later.\n");
 		return 1;
 	}
 	else
 	{
-		if ((CompareWords(FirstWord, "north") || CompareWords(FirstWord, "n")) && SeconWord == NULL){
-			return go("north");
-		}
-		if ((CompareWords(FirstWord, "south") || CompareWords(FirstWord, "s")) && SeconWord == NULL){
-			return go("south");
-		}
-		if ((CompareWords(FirstWord, "east") || CompareWords(FirstWord, "e")) && SeconWord == NULL){
-			return go("east");
-		}
-		if ((CompareWords(FirstWord, "west") || CompareWords(FirstWord, "w")) && SeconWord == NULL){
-			return go("west");
-		}
-		if (CompareWords(FirstWord, "go")){
-			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
+		if (commands.size() == 1){
+			if (CompareWords(FirstWord, "north") || CompareWords(FirstWord, "n")){
 				return go("north");
-
 			}
-			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
+			if (CompareWords(FirstWord, "south") || CompareWords(FirstWord, "s")){
 				return go("south");
-
 			}
-			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
+			if (CompareWords(FirstWord, "east") || CompareWords(FirstWord, "e")){
 				return go("east");
 			}
-			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
+			if (CompareWords(FirstWord, "west") || CompareWords(FirstWord, "w")){
 				return go("west");
 			}
-			else{
-				printf("\nThis command is not able, enter another command\n");
-				return 0;
-			}
-			return 0;
-		}
-		if (CompareWords(FirstWord, "look")){
-			if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
-				printf("\n %s\n", Rooms[player1[0]->room]->North->C_Str());
-				return 0;
-			}
-			if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
-				printf("\n %s\n", Rooms[player1[0]->room]->South->C_Str());
-				return 0;
-			}
-			if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
-				printf("\n %s\n", Rooms[player1[0]->room]->East->C_Str());
-				return 0;
-			}
-			if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
-				printf("\n %s\n", Rooms[player1[0]->room]->West->C_Str());
+			if (CompareWords(FirstWord, "help")){
+				help();
 				return 0;
 			}
 			else{
 				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
-
 		}
-		if (CompareWords(FirstWord, "open")){
-			if (CompareWords(SeconWord, "door")){
-				for (int i = 0; i < NUMBEROFDOORS; i++){
-					if ((player1[0]->room == Exits[i]->origin) && (*(player1[0]->roomposition) == *(Exits[i]->doorroomposition)))
-					{
-						if (Exits[i]->doorstate == false){
-							for (int j = 0; j < NUMBEROFDOORS; j++){
+		if (commands.size() == 2){
+			const char* SeconWord = commands[1]->C_Str();
 
-								if (((Exits[j]->destiny) == Exits[i]->origin) && ((Exits[j]->origin) == Exits[i]->destiny))
-								{
-									Exits[i]->doorstate=true;
-									Exits[j]->doorstate=true;
-									printf("\nDoor Open\n");
-									return 0;
-								}
-							}
+			if (CompareWords(FirstWord, "go")){
+				if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
+					return go("north");
 
-						}
-						if (Exits[i]->doorstate == true){
-							printf("\nThe door is already open\n");
-							return 0;
-						}
-					}
+				}
+				if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
+					return go("south");
+
+				}
+				if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
+					return go("east");
+				}
+				if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
+					return go("west");
+				}
+				else{
+					printf("\nThis command is not able, enter another command\n");
+					return 0;
+				}
+				return 0;
+			}
+			if (CompareWords(FirstWord, "look")){
+				if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
+					printf("\n %s\n", Rooms[player1[0]->room]->North->C_Str());
+					return 0;
+				}
+				if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
+					printf("\n %s\n", Rooms[player1[0]->room]->South->C_Str());
+					return 0;
+				}
+				if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
+					printf("\n %s\n", Rooms[player1[0]->room]->East->C_Str());
+					return 0;
+				}
+				if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
+					printf("\n %s\n", Rooms[player1[0]->room]->West->C_Str());
+					return 0;
+				}
+				else{
+					printf("\nThis command is not able, enter another command\n");
+					return 0;
 				}
 
 			}
-			else{
-				printf("\nThis command is not able, enter another command\n");
+			if (CompareWords(FirstWord, "open")){
+				if (CompareWords(SeconWord, "door")){
+					for (int i = 0; i < NUMBEROFDOORS; i++){
+						if ((player1[0]->room == Exits[i]->origin) && (*(player1[0]->roomposition) == *(Exits[i]->doorroomposition)))
+						{
+							if (Exits[i]->doorstate == false){
+								for (int j = 0; j < NUMBEROFDOORS; j++){
+
+									if (((Exits[j]->destiny) == Exits[i]->origin) && ((Exits[j]->origin) == Exits[i]->destiny))
+									{
+										Exits[i]->doorstate = true;
+										Exits[j]->doorstate = true;
+										printf("\nDoor Open\n");
+										return 0;
+									}
+								}
+
+							}
+							if (Exits[i]->doorstate == true){
+								printf("\nThe door is already open\n");
+								return 0;
+							}
+						}
+					}
+
+				}
+				else{
+					printf("\nThis command is not able, enter another command\n");
+					return 0;
+				}
 				return 0;
 			}
-			return 0;
-		}
 
 
-		if (CompareWords(FirstWord, "close")){
-			if (CompareWords(SeconWord, "door")){
-				for (int i = 0; i < NUMBEROFDOORS; i++){
-					if ((player1[0]->room == Exits[i]->origin) && (*(player1[0]->roomposition) == *(Exits[i]->doorroomposition)))
-					{
-						if (Exits[i]->doorstate== true){
-							for (int j = 0; j < NUMBEROFDOORS; j++){
+			if (CompareWords(FirstWord, "close")){
+				if (CompareWords(SeconWord, "door")){
+					for (int i = 0; i < NUMBEROFDOORS; i++){
+						if ((player1[0]->room == Exits[i]->origin) && (*(player1[0]->roomposition) == *(Exits[i]->doorroomposition)))
+						{
+							if (Exits[i]->doorstate == true){
+								for (int j = 0; j < NUMBEROFDOORS; j++){
 
-								if (((Exits[j]->destiny) == Exits[i]->origin) && ((Exits[j]->origin) == Exits[i]->destiny))
-								{
-									Exits[i]->doorstate = false;
-									Exits[j]->doorstate = false;
-									printf("\nDoor closed\n");
-									return 0;
+									if (((Exits[j]->destiny) == Exits[i]->origin) && ((Exits[j]->origin) == Exits[i]->destiny))
+									{
+										Exits[i]->doorstate = false;
+										Exits[j]->doorstate = false;
+										printf("\nDoor closed\n");
+										return 0;
+									}
 								}
-							}
 
-						}
-						if (Exits[i]->doorstate == false){
-							printf("\nThe door is already closed\n");
+							}
+							if (Exits[i]->doorstate == false){
+								printf("\nThe door is already closed\n");
+							}
 						}
 					}
 				}
+				else{
+					printf("\nThis command is not able, enter another command\n");
+					return 0;
+				}
+				return 0;
 			}
 			else{
 				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
-			return 0;
 		}
-		if (CompareWords(FirstWord, "help") && SeconWord == NULL){
-			help();
-			return 0;
-		}
-		else{
-			printf("\nThis command is not able, enter another command\n");
-			return 0;
-		}
+		else return 0;
 	}
 	return 0;
-	
 		
 	
 }
