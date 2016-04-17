@@ -30,11 +30,11 @@ void World::CreateWorld(){
 	//Setup Items
 	Items.pushback(new Item("Inventory","you can put other items in to it"));
 	Items.pushback(new Item("potato", "stupid sexy potato"));
-	Items.pushback(new Item("fried chicken", "best food for niggas"));
+	Items.pushback(new Item("chicken", "best food for niggas"));
 	Items.pushback(new Item("popo", "you can put other items in to it"));
-	Items[0]->insert(Items[1]);
-	Items[0]->insert(Items[2]);
-	Items[0]->insert(Items[3]);
+	player1[0]->insert(Items[1]);
+	player1[0]->insert(Items[2]);
+	player1[0]->insert(Items[3]);
 	
 	//Setup Exits information;
 	Exits.pushback(new Doors("east", 0, 1));
@@ -152,27 +152,30 @@ int World::gameplay(const mVector<mString*> commands)
 				help();
 				return 0;
 			}
+			if ((CompareWords(FirstWord, "inventory")) || (CompareWords(FirstWord, "inv")) || (CompareWords(FirstWord, "i"))){
+				player1[0]->Look();
+			}
 			else{
 				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
 		}
 		if (commands.size() == 2){
-			const char* SeconWord = commands[1]->C_Str();
+			const char* SecondWord = commands[1]->C_Str();
 
 			if (CompareWords(FirstWord, "go")){
-				if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
+				if (CompareWords(SecondWord, "north") || CompareWords(SecondWord, "n")){
 					return go("north");
 
 				}
-				if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
+				if (CompareWords(SecondWord, "south") || CompareWords(SecondWord, "s")){
 					return go("south");
 
 				}
-				if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
+				if (CompareWords(SecondWord, "east") || CompareWords(SecondWord, "e")){
 					return go("east");
 				}
-				if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
+				if (CompareWords(SecondWord, "west") || CompareWords(SecondWord, "w")){
 					return go("west");
 				}
 				else{
@@ -182,19 +185,19 @@ int World::gameplay(const mVector<mString*> commands)
 				return 0;
 			}
 			if (CompareWords(FirstWord, "look")){
-				if (CompareWords(SeconWord, "north") || CompareWords(SeconWord, "n")){
+				if (CompareWords(SecondWord, "north") || CompareWords(SecondWord, "n")){
 					printf("\n %s\n", Rooms[player1[0]->room]->North->C_Str());
 					return 0;
 				}
-				if (CompareWords(SeconWord, "south") || CompareWords(SeconWord, "s")){
+				if (CompareWords(SecondWord, "south") || CompareWords(SecondWord, "s")){
 					printf("\n %s\n", Rooms[player1[0]->room]->South->C_Str());
 					return 0;
 				}
-				if (CompareWords(SeconWord, "east") || CompareWords(SeconWord, "e")){
+				if (CompareWords(SecondWord, "east") || CompareWords(SecondWord, "e")){
 					printf("\n %s\n", Rooms[player1[0]->room]->East->C_Str());
 					return 0;
 				}
-				if (CompareWords(SeconWord, "west") || CompareWords(SeconWord, "w")){
+				if (CompareWords(SecondWord, "west") || CompareWords(SecondWord, "w")){
 					printf("\n %s\n", Rooms[player1[0]->room]->West->C_Str());
 					return 0;
 				}
@@ -204,8 +207,84 @@ int World::gameplay(const mVector<mString*> commands)
 				}
 
 			}
+			if (CompareWords(FirstWord, "pick"))
+			{
+				if (player1[0]->objectpicked == true){
+					printf("\nYou already have one item, can not pick more than one at same time\n");
+					return 0;
+				}
+				for (unsigned int i = 0; i < Items.size(); i++){
+					if (CompareWords(SecondWord, Items[i]->name->C_Str())){
+						Items[i]->took = true;
+						player1[0]->objectpicked = true;
+						printf("\nItem taken\n");
+						return 0;
+					}
+				}
+				printf("\nIt must be an item to pick it\n");
+				return 0;
+			}
+			if (CompareWords(FirstWord, "drop"))
+			{
+				if (player1[0]->objectpicked == false){
+					printf("\nYou do not have any item to drop\n");
+					return 0;
+				}
+				for (unsigned int i = 0; i < Items.size(); i++){
+					if (CompareWords(SecondWord, Items[i]->name->C_Str())){
+						Items[i]->took = false;
+						player1[0]->objectpicked = false;
+						printf("\nItem droped\n");
+						return 0;
+					}
+				}
+				return 0;
+			}
+			if (CompareWords(FirstWord, "equip"))
+			{
+				if (player1[0]->equiped == true){
+					printf("\nYou already have one item equiped, unequip it to equip another\n");
+					return 0;
+				}
+				if (player1[0]->objectpicked == true){
+					for (unsigned int i = 0; i < Items.size(); i++){
+						if (CompareWords(SecondWord, Items[i]->name->C_Str())&&(Items[i]->took == true)){
+							Items[i]->equiped = true;
+							player1[0]->equiped = true;
+							printf("\nItem equiped\n");
+							Items[i]->took = false;
+							player1[0]->objectpicked = false;
+							return 0;
+						}
+					}
+				}
+				printf("\nIt must be an item you have to equip it\n");
+				return 0;
+			}
+			if (CompareWords(FirstWord, "unequip"))
+			{
+				if (player1[0]->equiped == false){
+					printf("\nYou do not have any item equiped\n");
+					return 0;
+				}
+				if (player1[0]->equiped == true){
+					for (unsigned int i = 0; i < Items.size(); i++){
+						if (CompareWords(SecondWord, Items[i]->name->C_Str()) && (Items[i]->equiped == true)){
+							Items[i]->equiped = false;
+							player1[0]->equiped = false;
+							printf("\nItem unequiped\n");
+							Items[i]->took = true;
+							player1[0]->objectpicked = true;
+							return 0;
+						}
+					}
+				}
+				printf("\nYou can not unequip that, remember it must be an equiped item and be able to pick it after\n");
+				return 0;
+			}
+
 			if (CompareWords(FirstWord, "open")){
-				if (CompareWords(SeconWord, "door")){
+				if (CompareWords(SecondWord, "door")){
 					for (int i = 0; i < NUMBEROFDOORS; i++){
 						if ((player1[0]->room == Exits[i]->origin) && (*(player1[0]->roomposition) == *(Exits[i]->doorroomposition)))
 						{
@@ -239,7 +318,7 @@ int World::gameplay(const mVector<mString*> commands)
 
 
 			if (CompareWords(FirstWord, "close")){
-				if (CompareWords(SeconWord, "door")){
+				if (CompareWords(SecondWord, "door")){
 					for (int i = 0; i < NUMBEROFDOORS; i++){
 						if ((player1[0]->room == Exits[i]->origin) && (*(player1[0]->roomposition) == *(Exits[i]->doorroomposition)))
 						{
@@ -272,6 +351,12 @@ int World::gameplay(const mVector<mString*> commands)
 				printf("\nThis command is not able, enter another command\n");
 				return 0;
 			}
+		}
+		if (commands.size() == 4){
+			const char* SecondWord = commands[1]->C_Str();
+			const char* thirdWord = commands[2]->C_Str();
+			const char* fourthWord = commands[3]->C_Str();
+
 		}
 		else return 0;
 	}

@@ -92,12 +92,11 @@ public:
 	}
 	//empty vector
 	bool empty()const{
-		for (unsigned int i = 0; i < max_length; i++){
-			if (buffer[i] != NULL){
-				return false;
-			}
+	
+		if (nelements != 0){
+			return false;
 		}
-		return true;
+		else return true;
 	}
 
 	unsigned int size() const
