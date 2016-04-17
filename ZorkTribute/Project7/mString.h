@@ -57,10 +57,6 @@ public:
 	{
 		return (strcmp(buffer, str.buffer) == 0);
 	};
-	bool operator==(const char* str)
-	{
-		return (strcmp(buffer, str))== 0;
-	}
 	
 	void operator=(const mString& other)
 	{

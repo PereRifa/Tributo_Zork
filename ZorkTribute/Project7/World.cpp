@@ -35,7 +35,8 @@ void World::CreateWorld(){
 	player1[0]->insert(Items[1]);
 	player1[0]->insert(Items[2]);
 	player1[0]->insert(Items[3]);
-	
+	player1[0]->remove(Items[2]);
+	player1[0]->Look();
 	//Setup Exits information;
 	Exits.pushback(new Doors("east", 0, 1));
 	Exits.pushback(new Doors("west", 1, 0));
@@ -248,7 +249,7 @@ int World::gameplay(const mVector<mString*> commands)
 				}
 				if (player1[0]->objectpicked == true){
 					for (unsigned int i = 0; i < Items.size(); i++){
-						if (CompareWords(SecondWord, Items[i]->name->C_Str())&&(Items[i]->took == true)){
+						if (CompareWords(SecondWord, Items[i]->name->C_Str()) && (Items[i]->took == true)){
 							Items[i]->equiped = true;
 							player1[0]->equiped = true;
 							printf("\nItem equiped\n");
@@ -354,15 +355,84 @@ int World::gameplay(const mVector<mString*> commands)
 		}
 		if (commands.size() == 4){
 			const char* SecondWord = commands[1]->C_Str();
-			const char* thirdWord = commands[2]->C_Str();
-			const char* fourthWord = commands[3]->C_Str();
+			const char* ThirdWord = commands[2]->C_Str();
+			const char* FourthWord = commands[3]->C_Str();
+			if ((CompareWords(FirstWord, "put")) && (CompareWords(ThirdWord, "into")))
+			{
+				if (player1[0]->objectpicked == true)
+				{
+					if ((CompareWords(FourthWord, "inventory")) && (player1[0]->list.size() < 5))
+					{
+						for (int i = 0; i < Items.size(); i++)
+						{
+							if (CompareWords(Items[i]->name->C_Str(), SecondWord) && Items[i]->took == true)
+							{
+								Items[i]->took = false;
+								player1[0]->objectpicked = false;
+								player1[0]->insert(Items[i]);
+								printf("\nyou stored the item into the inventory\n");
+								return 0;
+							}
+							
+						}
+					}
+					else if ((player1[0]->list.size() == 5))
+					{
+						printf("\nInventory full\n");
+						return 0;
+					}
+					else
+					{
+						printf("\nYou do not have any item that can be stored\n");
+						return 0;
+					}
+				}
+				else {
+					printf("\nYou can't do that");
+				}
+				return 0;
+			}
+			if ((CompareWords(FirstWord, "get")) && (CompareWords(ThirdWord, "from")))
+			{
+				if (player1[0]->objectpicked == false)
+				{
+					if (CompareWords(FourthWord, "inventory"))
+					{
+						for (unsigned int i = 0; i < Items.size(); i++)
+						{
+							if (CompareWords(Items[i]->name->C_Str(), SecondWord)&& Items[i]->took == false)
+							{
+								for (int j = 0; j < player1[0]->list.size(); j++)
+								{
+									if (CompareWords(Items[i]->name->C_Str(), SecondWord))
+									{
+										player1[0]->remove(Items[i]);
+										Items[i]->took = true;
+										player1[0]->objectpicked = true;
+										printf("\nyou picked the item from your inventory\n");
+										return 0;
+									}
+									else if (j == player1[0]->list.size()-1){
+										printf("\nYou do not have any item called like that in the inventory\n");
+										return 0;
+									}
+								}
+							}
+							else printf("\nYou do not have that item\n");
+						}
+					}
+				}
 
+			}
+			else printf("\nThis command is not able, enter another command\n");
+			return 0;
+			
 		}
-		else return 0;
+		else printf("\nThis command is not able, enter another command\n");
+		return 0;
+
+
 	}
-	return 0;
-		
-	
 }
 //compare two words
 bool World::CompareWords(const char* Word1, const char* Word2)

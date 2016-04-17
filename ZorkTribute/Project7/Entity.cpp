@@ -14,18 +14,17 @@ void Entity::insert(Entity* other)
 };
 void Entity::remove(Entity* other)
 {
-	for (unsigned int i = 0; i < list.size(); i++)
+	for (unsigned int i = list.size()-1; i >= 0; --i)
 	{
-		if (list[i]->name == other->name)
+		if (list[i]->name != other->name)
 		{
-			while (i < list.size() + 1)
-			{
-				list[i] = list[i + 1];
-				i++;
-			}
-			list.pop_back();
+				list.pushfront(list[i]);
+				list.pop_back();
 		}
 	}
+
+	list.pop_back();
+	
 }
 
 void Entity::Look()	{
