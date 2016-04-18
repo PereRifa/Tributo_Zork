@@ -31,11 +31,14 @@ void World::CreateWorld(){
 	Items.pushback(new Item("Inventory","you can put other items in to it"));
 	Items.pushback(new Item("potato", "stupid sexy potato"));
 	Items.pushback(new Item("chicken", "best food for niggas"));
+	Items.pushback(new Item("glass", "stupid sexy potato"));
+	Items.pushback(new Item("tity", "best food for niggas"));
 	Items.pushback(new Item("popo", "you can put other items in to it"));
 	player1[0]->insert(Items[1]);
 	player1[0]->insert(Items[2]);
 	player1[0]->insert(Items[3]);
-	player1[0]->remove(Items[2]);
+	player1[0]->insert(Items[4]);
+	player1[0]->insert(Items[5]);
 	player1[0]->Look();
 	//Setup Exits information;
 	Exits.pushback(new Doors("east", 0, 1));
@@ -155,6 +158,7 @@ int World::gameplay(const mVector<mString*> commands)
 			}
 			if ((CompareWords(FirstWord, "inventory")) || (CompareWords(FirstWord, "inv")) || (CompareWords(FirstWord, "i"))){
 				player1[0]->Look();
+				return 0;
 			}
 			else{
 				printf("\nThis command is not able, enter another command\n");
@@ -232,14 +236,15 @@ int World::gameplay(const mVector<mString*> commands)
 					return 0;
 				}
 				for (unsigned int i = 0; i < Items.size(); i++){
-					if (CompareWords(SecondWord, Items[i]->name->C_Str())){
+					if (CompareWords(SecondWord, Items[i]->name->C_Str())&& Items[i]->took == true){
 						Items[i]->took = false;
 						player1[0]->objectpicked = false;
 						printf("\nItem droped\n");
 						return 0;
 					}
 				}
-				return 0;
+					printf("\nYou can not drop that\n");
+					return 0;
 			}
 			if (CompareWords(FirstWord, "equip"))
 			{
@@ -418,7 +423,7 @@ int World::gameplay(const mVector<mString*> commands)
 									}
 								}
 							}
-							else printf("\nYou do not have that item\n");
+							
 						}
 					}
 				}
