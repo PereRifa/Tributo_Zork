@@ -19,7 +19,7 @@ Pere Rifà Planellas
 
  https://github.com/PereRifa/Tributo_Zork
 
-####Content: First Release of Zork
+####Content: Second Release of Zork
 
 ###Gameplay
 
@@ -54,6 +54,17 @@ The direction commands are used to look or to go in a particular direction,
 
 If you use the command "go" + "direction" or just "direction" you move to that side. 
 If you want to inspect the area, use the command: "look" + "direction".
+you can also look at items or rooms: "look" + "room"/"items".
+check your own inventory: inventory/inv/i.
+
+The player can interact with items to, using the commands: "pick"/"drop" "item", "put"/"get" "item"
+"into"/"from" "item" to pick up an item from the room or the grount you must have your hands free (at last one,
+you can have other items equiped).
+to equip or unequip an item use the command: "equip"/"unequip" "item".
+
+The player can have one skill (craft skill) if you find and put in the inventory the <item> Chemicals (it's in the warehouse).
+Once you have it the skill will let you craft items like: repellent ("craft repellent", bombs ("craft bomb") or potions ("craft potion").The new items will automatically be stored in your inventory if there are free slots.
+Check the crafting options with the command "craft".
 
 There are doors that connect the rooms of the laboratory, the doors are closed by defoult
 if you want to pass through them first you have to write the command "open" + "door". 
@@ -63,7 +74,6 @@ commands "close" + "door", the door will be closed.
 To print the Help menu enter the command "help";
 
 To stop the game introduce: "Quit", "quit", "q";
-
 
 </content>
 
