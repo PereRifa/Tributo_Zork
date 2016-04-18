@@ -19,13 +19,6 @@ public:
 		strcpy_s(buffer, strlen(str) + 1, str);
 		max_size = len + 1;
 	}
-	mString(char* str)
-	{
-		int len = strlen(str);
-		buffer = new char[len + 1];
-		strcpy_s(buffer, strlen(str) + 1, str);
-		max_size = len + 1;
-	}
 	mString(const mString& str)
 	{
 		int len = strlen(str.buffer);
@@ -35,11 +28,6 @@ public:
 	~mString()
 	{
 		delete[] buffer;
-	};
-
-	unsigned int mstring_lenght() const
-	{
-		return strlen(buffer);
 	};
 	unsigned int capacity() const
 	{
@@ -57,7 +45,6 @@ public:
 	{
 		return (strcmp(buffer, str.buffer) == 0);
 	};
-	
 	void operator=(const mString& other)
 	{
 		unsigned int len = strlen(other.buffer) + 1;
@@ -69,27 +56,13 @@ public:
 		}
 		strcpy_s(buffer, len, other.buffer);
 	}
-	void operator+=(const mString& other)
-	{
-		unsigned int len = max_size + strlen(other.buffer);
-		if (max_size < len){
-			max_size += len;
-			char *p = new char[max_size];
-			p = buffer;
-			delete[] buffer;
-			buffer = new char[max_size];
-			*buffer = *p;
-
-		}
-	}
-	//mVector<mString*> 
-	void tokenize(mVector<mString*>& commands)
+	void tokenize(mVector<mString*>& commands) const
 	{
 		int start_point = 0;
 		int aux = 0;
 		int capacity = 0;
 		char* temp = nullptr;
-//		mVector<mString*> commands;
+
 		for (unsigned int i = 0; i < max_size; i++)
 		{
 			if ((*(buffer + i) == ' ') || (*(buffer + i) == NULL))
@@ -108,11 +81,6 @@ public:
 			}
 			else capacity++;
 		}
-	//	return commands;
-	}
-	void Get_buffer()
-	{
-		
 	}
 };
 

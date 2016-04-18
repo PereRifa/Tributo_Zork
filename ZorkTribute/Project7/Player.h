@@ -16,7 +16,7 @@ public:
 public:
 	Player(const char* p_name, const char* p_description);
 	~Player();
-	void Look();
+	void Look() const;
 };
 
 #endif

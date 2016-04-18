@@ -2,7 +2,6 @@
 
 Room::Room(unsigned int i)
 {
-	entity_type = ROOM;
 	description = new mString("normal room");
 
 	switch (i){
@@ -95,5 +94,15 @@ Room::~Room()
 	delete South;
 	delete East;
 	delete West;
-
+}
+void Room::Look() const
+{
+	if (list.empty() == false){
+		printf("\n%s\n\tIt cointains: \n", name->C_Str());
+		for (unsigned int i = 0; i < list.size(); i++)
+		{
+			printf(" %s\n", list[i]->name->C_Str());
+		}
+	}
+	else printf("\nThe Room is empty\n\n");
 }

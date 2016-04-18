@@ -13,7 +13,6 @@ public:
 
 public:
 	Doors(const char* roompos, const int from, const int to);
-	
 	~Doors();
 
 };

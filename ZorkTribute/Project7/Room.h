@@ -14,5 +14,6 @@ public:
 public:
 	Room(const unsigned int i);
 	~Room();
+	void Look() const;
 };
 #endif

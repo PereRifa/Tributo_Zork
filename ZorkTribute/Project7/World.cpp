@@ -11,17 +11,17 @@ World::World()
 }
 World::~World()
 {
-	for (int i = 0; i < NUMBEROFROOMS; i++)
+	for (unsigned int i = 0; i < Rooms.size(); i++)
 	{
 		delete Rooms[i];
 	}
 	Rooms.clean();
-	for (int i = 0; i < 6; i++)
+	for (unsigned int i = 0; i < Items.size(); i++)
 	{
 		delete Items[i];
 	}
 	Items.clean();
-	for (int i = 0; i < NUMBEROFDOORS; i++)
+	for (unsigned int i = 0; i < Exits.size(); i++)
 	{
 		delete Exits[i];
 	}
@@ -46,18 +46,20 @@ void World::CreateWorld(){
 		Rooms.pushback(new Room(i));
 	}
 	//Setup Items
-	Items.pushback(new Item("Inventory","you can put other items in to it"));
-	Items.pushback(new Item("potato", "stupid sexy potato"));
+	Items.pushback(new Item("chemicals","a little box with some chiemicals inside"));
+	Items.pushback(new Item("knife", "stupid sexy potato"));
 	Items.pushback(new Item("chicken", "best food for niggas"));
-	Items.pushback(new Item("glass", "stupid sexy potato"));
-	Items.pushback(new Item("tity", "best food for niggas"));
-	Items.pushback(new Item("popo", "you can put other items in to it"));
-	player1[0]->insert(Items[1]);
-	player1[0]->insert(Items[2]);
-	player1[0]->insert(Items[3]);
-	player1[0]->insert(Items[4]);
-	player1[0]->insert(Items[5]);
-	player1[0]->Look();
+	Items.pushback(new Item("chair", "stupid sexy chair"));
+	Items.pushback(new Item("Extinguisher", "best food for niggas"));
+	Items.pushback(new Item("lighter", "maibe i can smoke a cigarrete later"));
+	//store items
+	Rooms[2]->insert(Items[0]);
+	Rooms[0]->insert(Items[2]);
+	Rooms[6]->insert(Items[1]);
+	Rooms[1]->insert(Items[4]);
+	Rooms[1]->insert(Items[5]);
+	Rooms[5]->insert(Items[3]);
+
 	//Setup Exits information;
 	Exits.pushback(new Doors("east", 0, 1));
 	Exits.pushback(new Doors("west", 1, 0));
@@ -143,7 +145,7 @@ void World::WriteCommands()
 		commands->tokenize(vcommands);
 		delete commands;
 		Exit = gameplay(vcommands);
-		for (int i = 0; i < vcommands.size(); i++)
+		for (unsigned int i = 0; i < vcommands.size(); i++)
 		{
 			delete vcommands[i];
 		}
@@ -153,8 +155,6 @@ void World::WriteCommands()
 //commands resolution (look, go, close, open) +(north, south, east, west)
 int World::gameplay(const mVector<mString*>& commands)
 {
-	//const char* commands[0]->C_Str() = commands[0]->C_Str();
-
 	if ((CompareWords(commands[0]->C_Str(), "Quit")) || (CompareWords(commands[0]->C_Str(), "quit")) || (CompareWords(commands[0]->C_Str(), "q")))
 	{
 		printf("\nThe game is Over!! see you later.\n");
@@ -189,8 +189,6 @@ int World::gameplay(const mVector<mString*>& commands)
 			}
 		}
 		if (commands.size() == 2){
-			//const char* commands[1]->C_Str() = commands[1]->C_Str();
-
 			if (CompareWords(commands[0]->C_Str(), "go")){
 				if (CompareWords(commands[1]->C_Str(), "north") || CompareWords(commands[1]->C_Str(), "n")){
 					return go("north");
@@ -229,10 +227,24 @@ int World::gameplay(const mVector<mString*>& commands)
 					printf("\n %s\n", Rooms[player1[0]->room]->West->C_Str());
 					return 0;
 				}
-				else{
-					printf("\nThis command is not able, enter another command\n");
-					return 0;
+				for (unsigned int i = 0; i < Items.size(); i++)
+				{
+					if (CompareWords(commands[1]->C_Str(), Items[i]->name->C_Str()))
+					{
+						Items[i]->Look();
+						return 0;
+					}
 				}
+				
+				if (CompareWords(commands[1]->C_Str(), "room"))
+				{
+						Rooms[player1[0]->room]->Look();
+						return 0;
+				}
+				
+				printf("\nThis command is not able, enter another command\n");
+				return 0;
+				
 
 			}
 			if (CompareWords(commands[0]->C_Str(), "pick"))
@@ -245,6 +257,7 @@ int World::gameplay(const mVector<mString*>& commands)
 					if (CompareWords(commands[1]->C_Str(), Items[i]->name->C_Str())){
 						Items[i]->took = true;
 						player1[0]->objectpicked = true;
+						Rooms[player1[0]->room]->remove(Items[i]);
 						printf("\nItem taken\n");
 						return 0;
 					}
@@ -262,6 +275,7 @@ int World::gameplay(const mVector<mString*>& commands)
 					if (CompareWords(commands[1]->C_Str(), Items[i]->name->C_Str())&& Items[i]->took == true){
 						Items[i]->took = false;
 						player1[0]->objectpicked = false;
+						Rooms[player1[0]->room]->insert(Items[i]);
 						printf("\nItem droped\n");
 						return 0;
 					}
@@ -382,9 +396,6 @@ int World::gameplay(const mVector<mString*>& commands)
 			}
 		}
 		if (commands.size() == 4){
-			//const char* commands[1]->C_Str() = commands[1]->C_Str();
-			//const char* commands[2]->C_Str() = commands[2]->C_Str();
-			//const char* commands[3]->C_Str() = commands[3]->C_Str();
 			if ((CompareWords(commands[0]->C_Str(), "put")) && (CompareWords(commands[2]->C_Str(), "into")))
 			{
 				if (player1[0]->objectpicked == true)
@@ -449,6 +460,8 @@ int World::gameplay(const mVector<mString*>& commands)
 							
 						}
 					}
+					else printf("\nYou cant do that\n");
+					return 0;
 				}
 
 			}
@@ -488,8 +501,12 @@ bool World::CompareWords(const char* Word1, const char* Word2)
 //print help menu
 void World::help() const{
 	printf("\n\tHelp Menu:\n");
-	printf("\nHurry up and get out of this place!!\n\nFor the escape you can use the commands: look, go, open, close, help, quit.\n");
-	printf("and the directions: north, south, east, west.\n");
+	printf("\nHurry up and get out of this place!!\n\nFor the escape you can use the commands: ");
+	printf("\nlook <direction>, look <item>, look room, inventory/inv/i.");
+	printf("\ngo <direction>, open/close door.");
+	printf("\npick/drop <item>, put/get <item> into/from <item>, equip/unequip <item>.");
+	printf("\nHelp, Quit/quit/q\n");
+	printf("\nand use use this directions: north/n, south/s, east/e, west/w.\n");
 
 }
 //function to change room
