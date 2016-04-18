@@ -46,12 +46,15 @@ void World::CreateWorld(){
 		Rooms.pushback(new Room(i));
 	}
 	//Setup Items
-	Items.pushback(new Item("chemicals","a little box with some chiemicals inside"));
-	Items.pushback(new Item("knife", "stupid sexy potato"));
-	Items.pushback(new Item("chicken", "best food for niggas"));
-	Items.pushback(new Item("chair", "stupid sexy chair"));
-	Items.pushback(new Item("Extinguisher", "best food for niggas"));
-	Items.pushback(new Item("lighter", "maibe i can smoke a cigarrete later"));
+	Items.pushback(new Item("chemicals","a little box with some chiemicals inside", 2));
+	Items.pushback(new Item("knife", "stupid sexy potato", 6));
+	Items.pushback(new Item("chicken", "best food for niggas", 0));
+	Items.pushback(new Item("chair", "stupid sexy chair", 5));
+	Items.pushback(new Item("Extinguisher", "best food for niggas", 1));
+	Items.pushback(new Item("lighter", "maibe i can smoke a cigarrete later", 1));
+	Items.pushback(new Item("repellent", "Keep the animals far away", 2));
+	Items.pushback(new Item("bomb", "Good if you want to blow up something", 2));
+	Items.pushback(new Item("potion", "It makes you beter, faster, stronger, like hulk for short period of time", 2));
 	//store items
 	Rooms[2]->insert(Items[0]);
 	Rooms[0]->insert(Items[2]);
@@ -183,6 +186,18 @@ int World::gameplay(const mVector<mString*>& commands)
 				player1[0]->Look();
 				return 0;
 			}
+			if ((CompareWords(commands[0]->C_Str(), "craft")))
+			{
+				for (unsigned int i = 0; i < player1[0]->list.size(); i++)
+				{
+					if (player1[0]->list[i]->name == Items[0]->name){
+						printf("\nCrafting items:\nOptions:\n\trepellent\n\tbomb\n\tpotion\n");
+						return 0;
+					}
+				}
+				printf("\nYou dont have the requered tool for this\n");
+				return 0;
+			}
 			else{
 				printf("\nThis command is not able, enter another command\n");
 				return 0;
@@ -229,7 +244,7 @@ int World::gameplay(const mVector<mString*>& commands)
 				}
 				for (unsigned int i = 0; i < Items.size(); i++)
 				{
-					if (CompareWords(commands[1]->C_Str(), Items[i]->name->C_Str()))
+					if (CompareWords(commands[1]->C_Str(), Items[i]->name->C_Str())&& Items[i]->room == player1[0]->room)
 					{
 						Items[i]->Look();
 						return 0;
@@ -254,7 +269,7 @@ int World::gameplay(const mVector<mString*>& commands)
 					return 0;
 				}
 				for (unsigned int i = 0; i < Items.size(); i++){
-					if (CompareWords(commands[1]->C_Str(), Items[i]->name->C_Str())){
+					if (CompareWords(commands[1]->C_Str(), Items[i]->name->C_Str()) && Items[i]->room == player1[0]->room){
 						Items[i]->took = true;
 						player1[0]->objectpicked = true;
 						Rooms[player1[0]->room]->remove(Items[i]);
@@ -276,6 +291,7 @@ int World::gameplay(const mVector<mString*>& commands)
 						Items[i]->took = false;
 						player1[0]->objectpicked = false;
 						Rooms[player1[0]->room]->insert(Items[i]);
+						Items[i]->room = player1[0]->room;
 						printf("\nItem droped\n");
 						return 0;
 					}
@@ -325,7 +341,35 @@ int World::gameplay(const mVector<mString*>& commands)
 				printf("\nYou can not unequip that, remember it must be an equiped item and be able to pick it after\n");
 				return 0;
 			}
-
+			if (CompareWords(commands[0]->C_Str(), "craft") && player1[0]->list.size() < 5)
+			{
+				for (unsigned int i = 0; i < player1[0]->list.size(); i++)
+				{
+					if (player1[0]->list[i]->name->C_Str() == Items[0]->name->C_Str()){
+						if (CompareWords(commands[1]->C_Str(), "repellent")){
+							player1[0]->insert(Items[6]);
+							printf("\nThe repellent has been stored\n");
+							return 0;
+						}
+						if (CompareWords(commands[1]->C_Str(), "bomb")){
+							player1[0]->insert(Items[7]);
+							printf("\nThe bomb has been stored\n");
+							return 0;
+						}
+						if (CompareWords(commands[1]->C_Str(), "potion")){
+							player1[0]->insert(Items[8]);
+							printf("\nThe potion has been stored\n");
+							return 0;
+						}
+					}
+					else
+					{
+						printf("\nYou dont have the requered tool for that\n");
+						return 0;
+					}
+				}
+				
+			}
 			if (CompareWords(commands[0]->C_Str(), "open")){
 				if (CompareWords(commands[1]->C_Str(), "door")){
 					for (int i = 0; i < NUMBEROFDOORS; i++){
@@ -505,7 +549,8 @@ void World::help() const{
 	printf("\nlook <direction>, look <item>, look room, inventory/inv/i.");
 	printf("\ngo <direction>, open/close door.");
 	printf("\npick/drop <item>, put/get <item> into/from <item>, equip/unequip <item>.");
-	printf("\nHelp, Quit/quit/q\n");
+	printf("\ncraft (open craft menu), craft <item>");
+	printf("\nHelp, Quit/quit/q.\n");
 	printf("\nand use use this directions: north/n, south/s, east/e, west/w.\n");
 
 }

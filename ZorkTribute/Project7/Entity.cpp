@@ -9,15 +9,14 @@ void Entity::insert(Entity* other)
 };
 void Entity::remove(Entity* other)
 {
-	int count = list.size();
-	int  i = 0;
-	while (i<count)
+	unsigned int  i = 0;
+	while (i< list.size())
 	{
 		if (list[list.size()-1]->name != other->name)
 		{
 				list.pushfront(list[list.size()-1]);
 				list.pop_back();
-		}
+		}	
 		i++;
 	}
 	list.pop_back();
