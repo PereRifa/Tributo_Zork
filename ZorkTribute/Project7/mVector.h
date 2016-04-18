@@ -49,7 +49,7 @@ public:
 	}
 
 	//pushfront method, add type to the vector[0];
-	void pushfront(const TYPE item){
+	void pushfront(const TYPE& item){
 		if (max_length == nelements){
 			max_length *= 2;
 			TYPE* temp;

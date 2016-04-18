@@ -89,4 +89,11 @@ Room::Room(unsigned int i)
 
 Room::~Room()
 {
+	delete name;
+	delete description;
+	delete North;
+	delete South;
+	delete East;
+	delete West;
+
 }

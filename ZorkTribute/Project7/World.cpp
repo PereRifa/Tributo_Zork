@@ -11,6 +11,21 @@ World::World()
 }
 World::~World()
 {
+	for (int i = 0; i < NUMBEROFROOMS; i++)
+	{
+		delete Rooms[i];
+	}
+	Rooms.clean();
+	for (int i = 0; i < 5; i++)
+	{
+		delete Items[i];
+	}
+	Items.clean();
+	for (int i = 0; i < NUMBEROFDOORS; i++)
+	{
+		delete Exits[i];
+	}
+	Exits.clean();
 }
 void World::printrooms(Room* Rooms) const
 {

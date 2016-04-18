@@ -9,4 +9,7 @@ Doors::Doors(const char* roompos, const int from, const int to) : doorstate(fals
 
 Doors::~Doors()
 {
+	delete name;
+	delete description;
+	delete doorroomposition;
 }

@@ -14,6 +14,11 @@ public:
 		entity_type = ITEM;
 		
 	}
+	~Item()
+	{
+		delete name;
+		delete description;
+	}
 };
 
 #endif;
