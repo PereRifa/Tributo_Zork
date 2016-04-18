@@ -82,14 +82,14 @@ public:
 
 		}
 	}
-
-	mVector<mString*> tokenize()
+	//mVector<mString*> 
+	void tokenize(mVector<mString*>& commands)
 	{
 		int start_point = 0;
 		int aux = 0;
 		int capacity = 0;
 		char* temp = nullptr;
-		mVector<mString*> commands;
+//		mVector<mString*> commands;
 		for (unsigned int i = 0; i < max_size; i++)
 		{
 			if ((*(buffer + i) == ' ') || (*(buffer + i) == NULL))
@@ -108,7 +108,11 @@ public:
 			}
 			else capacity++;
 		}
-		return commands;
+	//	return commands;
+	}
+	void Get_buffer()
+	{
+		
 	}
 };
 

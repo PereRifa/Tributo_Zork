@@ -22,5 +22,7 @@ void Player::Look(){
 
 Player::~Player()
 {
+	delete name;
+	delete description;
 	delete roomposition;
 }

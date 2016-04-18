@@ -26,7 +26,7 @@ public:
 	void Game();
 	void HelloWorld() const;
 	void WriteCommands();
-	int gameplay(const mVector<mString*> command);
+	int gameplay(const mVector<mString*>& command);
 	bool CompareWords(const char* Word1, const char* Word2);
 	void help() const;
 	int ChangeRoom();

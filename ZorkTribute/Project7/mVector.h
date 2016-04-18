@@ -54,7 +54,7 @@ public:
 			max_length *= 2;
 			TYPE* temp;
 			temp = new TYPE[max_length];
-			for (int i = 0; i < nelements; i++){
+			for (unsigned int i = 0; i < nelements; i++){
 				temp[i] = buffer[i];
 			}
 			delete[] buffer;

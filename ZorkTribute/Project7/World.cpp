@@ -16,7 +16,7 @@ World::~World()
 		delete Rooms[i];
 	}
 	Rooms.clean();
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		delete Items[i];
 	}
@@ -26,6 +26,9 @@ World::~World()
 		delete Exits[i];
 	}
 	Exits.clean();
+	delete player1[0];
+	player1.clean();
+	
 }
 void World::printrooms(Room* Rooms) const
 {
@@ -131,23 +134,28 @@ void World::WriteCommands()
 	
 	int Exit = 0;
 	char line[50];
-	mString* commands = new mString("nothing");
+	mString* commands;
 	while (Exit == 0){
 		printf("What to do now?\n\tWrite Command -> ");
 		gets_s(line);
 		commands = new mString(line);
-		mVector<mString*> vcommands = commands->tokenize();
-
+		mVector<mString*> vcommands;
+		commands->tokenize(vcommands);
+		delete commands;
 		Exit = gameplay(vcommands);
-		
+		for (int i = 0; i < vcommands.size(); i++)
+		{
+			delete vcommands[i];
+		}
+		vcommands.clean();
 	}
 }
 //commands resolution (look, go, close, open) +(north, south, east, west)
-int World::gameplay(const mVector<mString*> commands)
+int World::gameplay(const mVector<mString*>& commands)
 {
-	const char* FirstWord = commands[0]->C_Str();
+	//const char* commands[0]->C_Str() = commands[0]->C_Str();
 
-	if ((CompareWords(FirstWord, "Quit")) || (CompareWords(FirstWord, "quit")) || (CompareWords(FirstWord, "q")))
+	if ((CompareWords(commands[0]->C_Str(), "Quit")) || (CompareWords(commands[0]->C_Str(), "quit")) || (CompareWords(commands[0]->C_Str(), "q")))
 	{
 		printf("\nThe game is Over!! see you later.\n");
 		return 1;
@@ -155,23 +163,23 @@ int World::gameplay(const mVector<mString*> commands)
 	else
 	{
 		if (commands.size() == 1){
-			if (CompareWords(FirstWord, "north") || CompareWords(FirstWord, "n")){
+			if (CompareWords(commands[0]->C_Str(), "north") || CompareWords(commands[0]->C_Str(), "n")){
 				return go("north");
 			}
-			if (CompareWords(FirstWord, "south") || CompareWords(FirstWord, "s")){
+			if (CompareWords(commands[0]->C_Str(), "south") || CompareWords(commands[0]->C_Str(), "s")){
 				return go("south");
 			}
-			if (CompareWords(FirstWord, "east") || CompareWords(FirstWord, "e")){
+			if (CompareWords(commands[0]->C_Str(), "east") || CompareWords(commands[0]->C_Str(), "e")){
 				return go("east");
 			}
-			if (CompareWords(FirstWord, "west") || CompareWords(FirstWord, "w")){
+			if (CompareWords(commands[0]->C_Str(), "west") || CompareWords(commands[0]->C_Str(), "w")){
 				return go("west");
 			}
-			if (CompareWords(FirstWord, "help")){
+			if (CompareWords(commands[0]->C_Str(), "help")){
 				help();
 				return 0;
 			}
-			if ((CompareWords(FirstWord, "inventory")) || (CompareWords(FirstWord, "inv")) || (CompareWords(FirstWord, "i"))){
+			if ((CompareWords(commands[0]->C_Str(), "inventory")) || (CompareWords(commands[0]->C_Str(), "inv")) || (CompareWords(commands[0]->C_Str(), "i"))){
 				player1[0]->Look();
 				return 0;
 			}
@@ -181,21 +189,21 @@ int World::gameplay(const mVector<mString*> commands)
 			}
 		}
 		if (commands.size() == 2){
-			const char* SecondWord = commands[1]->C_Str();
+			//const char* commands[1]->C_Str() = commands[1]->C_Str();
 
-			if (CompareWords(FirstWord, "go")){
-				if (CompareWords(SecondWord, "north") || CompareWords(SecondWord, "n")){
+			if (CompareWords(commands[0]->C_Str(), "go")){
+				if (CompareWords(commands[1]->C_Str(), "north") || CompareWords(commands[1]->C_Str(), "n")){
 					return go("north");
 
 				}
-				if (CompareWords(SecondWord, "south") || CompareWords(SecondWord, "s")){
+				if (CompareWords(commands[1]->C_Str(), "south") || CompareWords(commands[1]->C_Str(), "s")){
 					return go("south");
 
 				}
-				if (CompareWords(SecondWord, "east") || CompareWords(SecondWord, "e")){
+				if (CompareWords(commands[1]->C_Str(), "east") || CompareWords(commands[1]->C_Str(), "e")){
 					return go("east");
 				}
-				if (CompareWords(SecondWord, "west") || CompareWords(SecondWord, "w")){
+				if (CompareWords(commands[1]->C_Str(), "west") || CompareWords(commands[1]->C_Str(), "w")){
 					return go("west");
 				}
 				else{
@@ -204,20 +212,20 @@ int World::gameplay(const mVector<mString*> commands)
 				}
 				return 0;
 			}
-			if (CompareWords(FirstWord, "look")){
-				if (CompareWords(SecondWord, "north") || CompareWords(SecondWord, "n")){
+			if (CompareWords(commands[0]->C_Str(), "look")){
+				if (CompareWords(commands[1]->C_Str(), "north") || CompareWords(commands[1]->C_Str(), "n")){
 					printf("\n %s\n", Rooms[player1[0]->room]->North->C_Str());
 					return 0;
 				}
-				if (CompareWords(SecondWord, "south") || CompareWords(SecondWord, "s")){
+				if (CompareWords(commands[1]->C_Str(), "south") || CompareWords(commands[1]->C_Str(), "s")){
 					printf("\n %s\n", Rooms[player1[0]->room]->South->C_Str());
 					return 0;
 				}
-				if (CompareWords(SecondWord, "east") || CompareWords(SecondWord, "e")){
+				if (CompareWords(commands[1]->C_Str(), "east") || CompareWords(commands[1]->C_Str(), "e")){
 					printf("\n %s\n", Rooms[player1[0]->room]->East->C_Str());
 					return 0;
 				}
-				if (CompareWords(SecondWord, "west") || CompareWords(SecondWord, "w")){
+				if (CompareWords(commands[1]->C_Str(), "west") || CompareWords(commands[1]->C_Str(), "w")){
 					printf("\n %s\n", Rooms[player1[0]->room]->West->C_Str());
 					return 0;
 				}
@@ -227,14 +235,14 @@ int World::gameplay(const mVector<mString*> commands)
 				}
 
 			}
-			if (CompareWords(FirstWord, "pick"))
+			if (CompareWords(commands[0]->C_Str(), "pick"))
 			{
 				if (player1[0]->objectpicked == true){
 					printf("\nYou already have one item, can not pick more than one at same time\n");
 					return 0;
 				}
 				for (unsigned int i = 0; i < Items.size(); i++){
-					if (CompareWords(SecondWord, Items[i]->name->C_Str())){
+					if (CompareWords(commands[1]->C_Str(), Items[i]->name->C_Str())){
 						Items[i]->took = true;
 						player1[0]->objectpicked = true;
 						printf("\nItem taken\n");
@@ -244,14 +252,14 @@ int World::gameplay(const mVector<mString*> commands)
 				printf("\nIt must be an item to pick it\n");
 				return 0;
 			}
-			if (CompareWords(FirstWord, "drop"))
+			if (CompareWords(commands[0]->C_Str(), "drop"))
 			{
 				if (player1[0]->objectpicked == false){
 					printf("\nYou do not have any item to drop\n");
 					return 0;
 				}
 				for (unsigned int i = 0; i < Items.size(); i++){
-					if (CompareWords(SecondWord, Items[i]->name->C_Str())&& Items[i]->took == true){
+					if (CompareWords(commands[1]->C_Str(), Items[i]->name->C_Str())&& Items[i]->took == true){
 						Items[i]->took = false;
 						player1[0]->objectpicked = false;
 						printf("\nItem droped\n");
@@ -261,7 +269,7 @@ int World::gameplay(const mVector<mString*> commands)
 					printf("\nYou can not drop that\n");
 					return 0;
 			}
-			if (CompareWords(FirstWord, "equip"))
+			if (CompareWords(commands[0]->C_Str(), "equip"))
 			{
 				if (player1[0]->equiped == true){
 					printf("\nYou already have one item equiped, unequip it to equip another\n");
@@ -269,7 +277,7 @@ int World::gameplay(const mVector<mString*> commands)
 				}
 				if (player1[0]->objectpicked == true){
 					for (unsigned int i = 0; i < Items.size(); i++){
-						if (CompareWords(SecondWord, Items[i]->name->C_Str()) && (Items[i]->took == true)){
+						if (CompareWords(commands[1]->C_Str(), Items[i]->name->C_Str()) && (Items[i]->took == true)){
 							Items[i]->equiped = true;
 							player1[0]->equiped = true;
 							printf("\nItem equiped\n");
@@ -282,7 +290,7 @@ int World::gameplay(const mVector<mString*> commands)
 				printf("\nIt must be an item you have to equip it\n");
 				return 0;
 			}
-			if (CompareWords(FirstWord, "unequip"))
+			if (CompareWords(commands[0]->C_Str(), "unequip"))
 			{
 				if (player1[0]->equiped == false){
 					printf("\nYou do not have any item equiped\n");
@@ -290,7 +298,7 @@ int World::gameplay(const mVector<mString*> commands)
 				}
 				if (player1[0]->equiped == true){
 					for (unsigned int i = 0; i < Items.size(); i++){
-						if (CompareWords(SecondWord, Items[i]->name->C_Str()) && (Items[i]->equiped == true)){
+						if (CompareWords(commands[1]->C_Str(), Items[i]->name->C_Str()) && (Items[i]->equiped == true)){
 							Items[i]->equiped = false;
 							player1[0]->equiped = false;
 							printf("\nItem unequiped\n");
@@ -304,8 +312,8 @@ int World::gameplay(const mVector<mString*> commands)
 				return 0;
 			}
 
-			if (CompareWords(FirstWord, "open")){
-				if (CompareWords(SecondWord, "door")){
+			if (CompareWords(commands[0]->C_Str(), "open")){
+				if (CompareWords(commands[1]->C_Str(), "door")){
 					for (int i = 0; i < NUMBEROFDOORS; i++){
 						if ((player1[0]->room == Exits[i]->origin) && (*(player1[0]->roomposition) == *(Exits[i]->doorroomposition)))
 						{
@@ -338,8 +346,8 @@ int World::gameplay(const mVector<mString*> commands)
 			}
 
 
-			if (CompareWords(FirstWord, "close")){
-				if (CompareWords(SecondWord, "door")){
+			if (CompareWords(commands[0]->C_Str(), "close")){
+				if (CompareWords(commands[1]->C_Str(), "door")){
 					for (int i = 0; i < NUMBEROFDOORS; i++){
 						if ((player1[0]->room == Exits[i]->origin) && (*(player1[0]->roomposition) == *(Exits[i]->doorroomposition)))
 						{
@@ -374,18 +382,18 @@ int World::gameplay(const mVector<mString*> commands)
 			}
 		}
 		if (commands.size() == 4){
-			const char* SecondWord = commands[1]->C_Str();
-			const char* ThirdWord = commands[2]->C_Str();
-			const char* FourthWord = commands[3]->C_Str();
-			if ((CompareWords(FirstWord, "put")) && (CompareWords(ThirdWord, "into")))
+			//const char* commands[1]->C_Str() = commands[1]->C_Str();
+			//const char* commands[2]->C_Str() = commands[2]->C_Str();
+			//const char* commands[3]->C_Str() = commands[3]->C_Str();
+			if ((CompareWords(commands[0]->C_Str(), "put")) && (CompareWords(commands[2]->C_Str(), "into")))
 			{
 				if (player1[0]->objectpicked == true)
 				{
-					if ((CompareWords(FourthWord, "inventory")) && (player1[0]->list.size() < 5))
+					if ((CompareWords(commands[3]->C_Str(), "inventory")) && (player1[0]->list.size() < 5))
 					{
-						for (int i = 0; i < Items.size(); i++)
+						for (unsigned int i = 0; i < Items.size(); i++)
 						{
-							if (CompareWords(Items[i]->name->C_Str(), SecondWord) && Items[i]->took == true)
+							if (CompareWords(Items[i]->name->C_Str(), commands[1]->C_Str()) && Items[i]->took == true)
 							{
 								Items[i]->took = false;
 								player1[0]->objectpicked = false;
@@ -412,19 +420,19 @@ int World::gameplay(const mVector<mString*> commands)
 				}
 				return 0;
 			}
-			if ((CompareWords(FirstWord, "get")) && (CompareWords(ThirdWord, "from")))
+			if ((CompareWords(commands[0]->C_Str(), "get")) && (CompareWords(commands[2]->C_Str(), "from")))
 			{
 				if (player1[0]->objectpicked == false)
 				{
-					if (CompareWords(FourthWord, "inventory"))
+					if (CompareWords(commands[3]->C_Str(), "inventory"))
 					{
 						for (unsigned int i = 0; i < Items.size(); i++)
 						{
-							if (CompareWords(Items[i]->name->C_Str(), SecondWord)&& Items[i]->took == false)
+							if (CompareWords(Items[i]->name->C_Str(), commands[1]->C_Str())&& Items[i]->took == false)
 							{
-								for (int j = 0; j < player1[0]->list.size(); j++)
+								for (unsigned int j = 0; j < player1[0]->list.size(); j++)
 								{
-									if (CompareWords(Items[i]->name->C_Str(), SecondWord))
+									if (CompareWords(Items[i]->name->C_Str(), commands[1]->C_Str()))
 									{
 										player1[0]->remove(Items[i]);
 										Items[i]->took = true;
