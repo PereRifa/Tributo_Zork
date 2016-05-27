@@ -14,6 +14,14 @@ enum ETYPES
 	ENEMY,
 };
 
+enum ROOMPOSITION
+{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+};
+
 class Entity
 {
 public:
@@ -27,12 +35,15 @@ public:
 	Entity(const char* name, const char* description, ETYPES type) : name(new mString(name)), description(new mString(description)), type(type){};
 	virtual ~Entity()
 	{
-		list->~DLList();
+		delete name;
+		delete description;
+		delete list;
 	};
 	virtual void Look() const;
 	virtual void insert(Entity* other);
 	virtual void remove(Entity* other);
-
+	virtual void open(){};
+	virtual void close(){};
 };
 
 #endif;

@@ -66,6 +66,7 @@
   <ItemGroup>
     <ClInclude Include="DLinkedList.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Exit.h" />
     <ClInclude Include="memleaks.h" />
     <ClInclude Include="mString.h" />
     <ClInclude Include="mVector.h" />
@@ -73,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Exit.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Room.cpp" />
   </ItemGroup>
