@@ -2,11 +2,11 @@
 #ifndef _WORLD
 #define _WORLD
 
-#include<string.h>
-#include"Room.h"
-
-#include"Exit.h"
-#include"mVector.h"
+#include <string.h>
+#include "Room.h"
+#include "Player.h"
+#include "Exit.h"
+#include "mVector.h"
 
 #define INITIALALLOCATION 40
 
@@ -23,9 +23,7 @@ public:
 	void CreateWorld();
 	void Game();
 	/*
-	void printrooms(Room* Rooms) const;
-	void CreateWorld();
-	void Game();
+	
 	void HelloWorld() const;
 	void WriteCommands();
 	int gameplay(const mVector<mString*>& command);
