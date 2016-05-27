@@ -10,13 +10,13 @@ class Door : public Entity
 public:
 	bool doorstate;
 	ROOMPOSITION doorposition;
-	Room* origin;
-	Room* destiny;
+	Entity* origin;
+	Entity* destiny;
 
 public:
-	Door(ROOMPOSITION doorposition, Room* origin, Room* destiny) : doorstate(false), doorposition(doorposition), origin(origin), destiny(destiny), Entity("Laboratory Door", "Door", EXIT)
+	Door(ROOMPOSITION doorposition, Entity* origin, Entity* destiny) : doorstate(false), doorposition(doorposition), origin(origin), destiny(destiny), Entity("Laboratory Door", "Door", EXIT)
 	{};
-	~Door();
+	
 	void open(Room* origin, ROOMPOSITION playerposition);
 	void close(Room* playerorigin, ROOMPOSITION playerposition);
 };

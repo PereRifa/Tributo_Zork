@@ -6,7 +6,7 @@
 
 
 #include "memleaks.h"
-
+#include "World.h"
 
 #define DELAY 1000
 #define COMMANDBUFFER 50
@@ -15,6 +15,12 @@ int main()
 {
 	ReportMemoryLeaks();
 	{
+
+		World* NewWorld = new World();
+
+		NewWorld->Game();
+
+		delete NewWorld;
 		/*
 		char command[COMMANDBUFFER];
 		bool firsttimeinloop = true;
