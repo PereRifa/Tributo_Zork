@@ -149,7 +149,7 @@ public:
 	Node* atnode(uint index)
 	{
 		uint count = 0;
-		Node* temp = start;
+		Node* temp = first;
 
 		while (temp != nullptr)
 		{
