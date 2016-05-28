@@ -31,13 +31,11 @@ public:
 	int WriteCommands(const char* command);
 	int gameplay(const mVector<mString*>& command);
 	bool CompareWords(const char* Word1, const char* Word2);
+	void help() const;
 	/*
 	
 	void HelloWorld() const;
-	
-	
-	bool CompareWords(const char* Word1, const char* Word2);
-	void help() const;
+
 	int ChangeRoom();
 	int go(const char*);
 	*/

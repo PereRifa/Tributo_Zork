@@ -42,7 +42,7 @@ public:
 	virtual void Look() const;
 	virtual void insert(Entity* other);
 	virtual void remove(Entity* other);
-	virtual void open(){};
+	virtual void open(Entity* room, ROOMPOSITION position){};
 	virtual void close(){};
 	virtual void update(int time){};
 };

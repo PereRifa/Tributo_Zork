@@ -141,6 +141,22 @@ int World::gameplay(const mVector<mString*>& command)
 		printf("\nThe game is Over!! see you later.\n");
 		return 1;
 	}
+	else
+	{
+		if (CompareWords(command[0]->C_Str(), "help"))
+		{
+			help();
+		}
+		if (CompareWords(command[0]->C_Str(), "open"))
+		{
+			printf("\nhi\n");
+			for (int i = 0; i < entities.size(); i++)
+			{
+				entities[i]->open(entities[0], EAST);
+			}
+			return 0;
+		}
+	}
 }
 
 bool World::CompareWords(const char* Word1, const char* Word2)
@@ -163,5 +179,17 @@ bool World::CompareWords(const char* Word1, const char* Word2)
 		else return false;
 	}
 	else return false;
+
+}
+
+void World::help() const{
+	printf("\n\tHelp Menu:\n");
+	printf("\nHurry up and get out of this place!!\n\nFor the escape you can use the commands: ");
+	printf("\nlook <direction>, look <item>, look room, inventory/inv/i.");
+	printf("\ngo <direction>, open/close door.");
+	printf("\npick/drop <item>, put/get <item> into/from <item>, equip/unequip <item>.");
+	printf("\ncraft (open craft menu), craft <item>");
+	printf("\nHelp, Quit/quit/q.\n");
+	printf("\nand use use this directions: north/n, south/s, east/e, west/w.\n");
 
 }

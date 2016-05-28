@@ -17,7 +17,7 @@ public:
 	Door(ROOMPOSITION doorposition, Entity* origin, Entity* destiny) : doorstate(false), doorposition(doorposition), origin(origin), destiny(destiny), Entity("Laboratory Door", "Door", EXIT)
 	{};
 	
-	void open(Room* origin, ROOMPOSITION playerposition);
-	void close(Room* playerorigin, ROOMPOSITION playerposition);
+	void open(Entity* playerorigin, ROOMPOSITION playerposition);
+	void close(Entity* playerorigin, ROOMPOSITION playerposition);
 };
 #endif

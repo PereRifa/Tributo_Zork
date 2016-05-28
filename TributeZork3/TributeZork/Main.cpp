@@ -15,7 +15,7 @@ int main()
 	ReportMemoryLeaks();
 	{
 
-		World* NewWorld = new World();
+		World* NewWorld = new World;
 
 		NewWorld->Game();
 
