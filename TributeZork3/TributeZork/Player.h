@@ -16,6 +16,7 @@ public:
 	Player(const char* name, const char* description) : Entity(name, description, CREATURE){};
 	
 	void Look() const;
+	void update(int timer);
 };
 
 #endif

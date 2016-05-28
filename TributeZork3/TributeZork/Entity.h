@@ -28,6 +28,7 @@ public:
 	mString* description;
 	ETYPES type;
 	DLList<Entity>* list;
+	int owntime = 0;
 
 public:
 	Entity(){};
@@ -43,6 +44,7 @@ public:
 	virtual void remove(Entity* other);
 	virtual void open(){};
 	virtual void close(){};
+	virtual void update(int time){};
 };
 
 #endif;

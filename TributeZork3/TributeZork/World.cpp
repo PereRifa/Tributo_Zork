@@ -92,16 +92,21 @@ void World::Game()
 			initialtime = currenttime;
 		}
 
+		//update
+		for (int i = 0; i < entities.size(); i++)
+			entities[i]->update(currenttime);
+
 		//kbhit test
 		if (_kbhit())
 		{
 			
+			//write commands;
 			command[charcommandnum] = _getch();
 			command[charcommandnum + 1] = '\0';
 			printf("\rString: %s", command);//va imprimint l'estat de command
 			charcommandnum++;
 			if (command[charcommandnum - 1] == '\r'){//quant apretes enter, imprimeix el command i l'esborra
-				printf("Your command is: %s\n", command);
+				printf("\rYour command is: %s\n", command);
 				command[charcommandnum - 1] = '\0';
 				charcommandnum = 0;
 				Exit = WriteCommands(command);
