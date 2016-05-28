@@ -20,7 +20,7 @@ class World
 {
 public:
 	mVector<Entity*> entities;
-
+	Player* player;
 
 public:
 	World();
@@ -32,6 +32,7 @@ public:
 	int gameplay(const mVector<mString*>& command);
 	bool CompareWords(const char* Word1, const char* Word2);
 	void help() const;
+	
 	/*
 	
 	void HelloWorld() const;

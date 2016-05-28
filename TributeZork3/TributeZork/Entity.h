@@ -5,6 +5,7 @@
 #include "mVector.h"
 #include "DLinkedList.h"
 
+
 enum ETYPES
 {
 	ROOM,
@@ -42,9 +43,10 @@ public:
 	virtual void Look() const;
 	virtual void insert(Entity* other);
 	virtual void remove(Entity* other);
-	virtual void open(Entity* room, ROOMPOSITION position){};
-	virtual void close(){};
+	virtual bool open(Entity* room, ROOMPOSITION position){ return false; };
+	virtual bool close(Entity* room, ROOMPOSITION position){ return false; };
 	virtual void update(int time){};
+	virtual Entity* move(Entity* room, ROOMPOSITION& position){ return nullptr; };
 };
 
 #endif;

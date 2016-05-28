@@ -7,15 +7,16 @@ class Player : public Entity
 {
 public:
 
-	ROOMPOSITION proompos;
-	Entity* room;
-
+	ROOMPOSITION proompos = EAST;
+	Entity* room = nullptr;
+	
 
 
 public:
-	Player(const char* name, const char* description) : Entity(name, description, CREATURE){};
+	Player(const char* name, const char* description, Entity* room) : room(room), Entity(name, description, CREATURE){};
 	
 	void Look() const;
+	bool move(mVector<Entity*>& entities, ROOMPOSITION posroom);
 	void update(int timer);
 };
 

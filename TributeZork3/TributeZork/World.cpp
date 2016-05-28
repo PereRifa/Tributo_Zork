@@ -1,5 +1,6 @@
 #include "World.h"
 
+
 World::World()
 {
 	CreateWorld();
@@ -32,43 +33,32 @@ void World::CreateWorld()
 	entities.pushback(new Room("Exit", "A place full of jails, with wild and agressive animals inside", ROOM));
 
 	//Doors setup
-	entities.pushback(new Door(EAST, entities[0], entities[1]));
-	entities.pushback(new Door(WEST, entities[1], entities[0]));
+	entities.pushback(new Door(EAST, WEST, entities[0], entities[1]));
 
-	entities.pushback(new Door(SOUTH, entities[0], entities[2]));
-	entities.pushback(new Door(NORTH, entities[2], entities[0]));
+	entities.pushback(new Door(SOUTH, NORTH, entities[0], entities[2]));
 
-	entities.pushback(new Door(EAST, entities[2], entities[3]));
-	entities.pushback(new Door(WEST, entities[3], entities[2]));
+	entities.pushback(new Door(EAST, WEST, entities[2], entities[3]));
 
-	entities.pushback(new Door(SOUTH, entities[1], entities[3]));
-	entities.pushback(new Door(NORTH, entities[3], entities[1]));
+	entities.pushback(new Door(SOUTH, NORTH, entities[1], entities[3]));
 
-	entities.pushback(new Door(SOUTH, entities[4], entities[6]));
-	entities.pushback(new Door(NORTH, entities[6], entities[4]));
+	entities.pushback(new Door(SOUTH, NORTH, entities[4], entities[6]));
 
-	entities.pushback(new Door(SOUTH, entities[6], entities[7]));
-	entities.pushback(new Door(NORTH, entities[7], entities[6]));
+	entities.pushback(new Door(SOUTH, NORTH, entities[6], entities[7]));
 
-	entities.pushback(new Door(EAST, entities[7], entities[11]));
-	entities.pushback(new Door(WEST, entities[11], entities[7]));
+	entities.pushback(new Door(EAST, WEST, entities[7], entities[11]));
 
-	entities.pushback(new Door(SOUTH, entities[5], entities[8]));
-	entities.pushback(new Door(NORTH, entities[8], entities[5]));
+	entities.pushback(new Door(SOUTH, NORTH, entities[5], entities[8]));
 
-	entities.pushback(new Door(EAST, entities[8], entities[9]));
-	entities.pushback(new Door(WEST, entities[9], entities[8]));
+	entities.pushback(new Door(EAST, WEST, entities[8], entities[9]));
 
-	entities.pushback(new Door(WEST, entities[10], entities[11]));
-	entities.pushback(new Door(EAST, entities[11], entities[10]));
+	entities.pushback(new Door(WEST, EAST, entities[10], entities[11]));
 
-	entities.pushback(new Door(SOUTH, entities[12], entities[12]));
-	entities.pushback(new Door(NORTH, entities[11], entities[11]));
+	entities.pushback(new Door(SOUTH, NORTH, entities[12], entities[12]));
 
-	entities.pushback(new Door(WEST, entities[12], entities[13]));
-	entities.pushback(new Door(EAST, entities[13], entities[12]));
+	entities.pushback(new Door(WEST, EAST, entities[12], entities[13]));
 
-	entities.pushback(new Player("Dean", "Awesome scientific"));
+	player = new Player("Dean", "Awesome scientific", entities[0]);
+	entities.pushback(player);
 
 }
 
@@ -84,7 +74,6 @@ void World::Game()
 
 	//timeGetTime()
 	initialtime = GetTickCount();
-
 	while (Exit == 0){
 		//Executa el codi cada x milisegons (DELAY)
 		currenttime = GetTickCount();
@@ -93,7 +82,7 @@ void World::Game()
 		}
 
 		//update
-		for (int i = 0; i < entities.size(); i++)
+		for (uint i = 0; i < entities.size(); i++)
 			entities[i]->update(currenttime);
 
 		//kbhit test
@@ -146,16 +135,66 @@ int World::gameplay(const mVector<mString*>& command)
 		if (CompareWords(command[0]->C_Str(), "help"))
 		{
 			help();
+			return 0;
 		}
 		if (CompareWords(command[0]->C_Str(), "open"))
 		{
-			printf("\nhi\n");
-			for (int i = 0; i < entities.size(); i++)
+			for (uint i = 0; i < entities.size(); i++)
 			{
-				entities[i]->open(entities[0], EAST);
+				entities[i]->open(entities[0], player->proompos);
 			}
 			return 0;
 		}
+		if (CompareWords(command[0]->C_Str(), "close"))
+		{
+			for (uint i = 0; i < entities.size(); i++)
+			{
+				entities[i]->close(entities[0], player->proompos);
+			}
+			return 0;
+		}
+		if (CompareWords(command[0]->C_Str(), "east"))
+		{
+			player->move(entities, EAST);
+			return 0;
+		}
+		if (CompareWords(command[0]->C_Str(), "west"))
+		{
+			player->move(entities, WEST);
+		}
+		if (CompareWords(command[0]->C_Str(), "north"))
+		{
+			player->move(entities, NORTH);
+			return 0;
+		}
+		if (CompareWords(command[0]->C_Str(), "south"))
+		{
+			player->move(entities, SOUTH);
+			return 0;
+		}
+		if (CompareWords(command[0]->C_Str(), "go"))
+		{
+			if (CompareWords(command[1]->C_Str(), "east"))
+			{
+				player->move(entities, EAST);
+				return 0;
+			}
+			if (CompareWords(command[1]->C_Str(), "west"))
+			{
+				player->move(entities, WEST);
+			}
+			if (CompareWords(command[1]->C_Str(), "north"))
+			{
+				player->move(entities, NORTH);
+				return 0;
+			}
+			if (CompareWords(command[1]->C_Str(), "south"))
+			{
+				player->move(entities, SOUTH);
+				return 0;
+			}
+		}
+		return 0;
 	}
 }
 
