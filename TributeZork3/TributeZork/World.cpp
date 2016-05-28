@@ -74,5 +74,89 @@ void World::CreateWorld()
 
 void World::Game()
 {
+	
+	char command[COMMANDBUFFER];
+	bool firsttimeinloop = true;
+	unsigned int currenttime = 0;
+	unsigned int initialtime = 0;
+	unsigned int charcommandnum = 0;
+	int Exit = 0;
+
+	//timeGetTime()
+	initialtime = GetTickCount();
+
+	while (Exit == 0){
+		//Executa el codi cada x milisegons (DELAY)
+		currenttime = GetTickCount();
+		if (currenttime >= (initialtime + DELAY)){
+			initialtime = currenttime;
+		}
+
+		//kbhit test
+		if (_kbhit())
+		{
+			
+			command[charcommandnum] = _getch();
+			command[charcommandnum + 1] = '\0';
+			printf("\rString: %s", command);//va imprimint l'estat de command
+			charcommandnum++;
+			if (command[charcommandnum - 1] == '\r'){//quant apretes enter, imprimeix el command i l'esborra
+				printf("Your command is: %s\n", command);
+				command[charcommandnum - 1] = '\0';
+				charcommandnum = 0;
+				Exit = WriteCommands(command);
+			}
+			
+		}
+	}
+	getchar();
+}
+
+int World::WriteCommands(const char* command)
+{
+	int ret = 0;
+
+	mString* commands;
+	commands = new mString(command);
+	mVector<mString*> vcommands;
+	commands->tokenize(vcommands);
+	delete commands;
+	ret = gameplay(vcommands);
+	for (unsigned int i = 0; i < vcommands.size(); i++)
+	{
+		delete vcommands[i];
+	}
+	vcommands.clean();
+	return ret;
+}
+int World::gameplay(const mVector<mString*>& command)
+{
+	if ((CompareWords(command[0]->C_Str(), "Quit")) || (CompareWords(command[0]->C_Str(), "quit")) || (CompareWords(command[0]->C_Str(), "q")))
+	{
+		printf("\nThe game is Over!! see you later.\n");
+		return 1;
+	}
+}
+
+bool World::CompareWords(const char* Word1, const char* Word2)
+{
+	int count = 0;
+	if (Word1 != NULL){
+		do
+		{
+			if (*Word1 != *Word2)
+			{
+				count = 1;
+				return false;
+			}
+			*Word2++;
+		} while (*Word1++);
+		if (count == 0)
+		{
+			return true;
+		}
+		else return false;
+	}
+	else return false;
 
 }
