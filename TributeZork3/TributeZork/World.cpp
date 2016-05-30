@@ -91,15 +91,15 @@ void World::Game()
 		for (uint i = 0; i < entities.size(); i++)
 			entities[i]->update(currenttime);
 
-		//kbhit test
+		//kbhit write commands
 		if (_kbhit())
 		{
 			//write commands;
 			command[charcommandnum] = _getch();
 			command[charcommandnum + 1] = '\0';
-			printf("\rString: %s", command);//va imprimint l'estat de command
+			printf("\rString: %s", command);
 			charcommandnum++;
-			if (command[charcommandnum - 1] == '\r'){//quant apretes enter, imprimeix el command i l'esborra
+			if (command[charcommandnum - 1] == '\r'){
 				printf("\rYour command is: %s\n", command);
 				command[charcommandnum - 1] = '\0';
 				charcommandnum = 0;
@@ -168,10 +168,8 @@ int World::gameplay(const mVector<mString*>& command)
 		{
 			if (CompareWords(command[1]->C_Str(), "equiped"))
 			{
-				if (player->equiped != nullptr)
-				{
-					player->equiped->Look();
-				}
+					for (uint i = 0; i < player->equiped.size(); i++)
+						player->equiped.atnode(i)->data->Look();
 			}
 		}
 		//pick item
@@ -206,7 +204,7 @@ int World::gameplay(const mVector<mString*>& command)
 		{
 			for (uint i = 0; i < entities.size(); i++)
 			{
-				if (CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
+				if (CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()) == true)
 				{
 					if (player->equip(entities, entities[i]->name->C_Str()))
 						break;

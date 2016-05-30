@@ -9,13 +9,12 @@ public:
 
 	ROOMPOSITION proompos = EAST;
 	Entity* room = nullptr;
-	Entity* equiped = nullptr;
+	DLList<Entity*> equiped;
 	
 
 
 public:
 	Player(const char* name, const char* description, Entity* room) : room(room), Entity(name, description, CREATURE){};
-	
 	void Look();
 	bool move(mVector<Entity*>& entities, ROOMPOSITION posroom);
 	bool pick(mVector<Entity*>& entities, const char* itemname);
