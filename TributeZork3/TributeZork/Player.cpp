@@ -1,8 +1,18 @@
 #include "Player.h"
 #include "World.h"
 
-void Player::Look() const
-{}
+void Player::Look()
+{
+	if (list.empty() == false)
+	{
+		printf("\nInventory\n\tIt cointains: \n");
+		for (unsigned int i = 0; i < list.size(); i++)
+		{
+			printf(" %s\n", list.atnode(i)->data.name->C_Str());
+		}
+	}
+	else printf("\nYour inventory is empty\n\n");
+}
 
 void Player::update(int timer)
 {

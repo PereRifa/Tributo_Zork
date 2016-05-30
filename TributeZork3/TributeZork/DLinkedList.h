@@ -31,7 +31,7 @@ public:
 
 	bool empty() const
 	{
-		return first == nullptr;
+		return (first == nullptr);
 	}
 
 	uint size() const

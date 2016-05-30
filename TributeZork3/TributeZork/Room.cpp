@@ -1,13 +1,13 @@
 #include "Room.h"
 
-void Room::Look() const
+void Room::Look()
 {
 	printf("\n%s\n\t%s", name->C_Str(), description->C_Str());
-	if (list->empty() == false){
+	if (list.empty() == false){
 		printf("\n\tIt cointains: \n");
-		for (unsigned int i = 0; i < list->size(); i++)
+		for (unsigned int i = 0; i < list.size(); i++)
 		{
-			printf(" %s\n", list->atnode(i)->data.name->C_Str());
+			printf(" %s\n", list.atnode(i)->data.name->C_Str());
 		}
 	}
 	else printf("\nThe Room is empty\n\n");

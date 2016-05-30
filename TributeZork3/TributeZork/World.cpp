@@ -34,27 +34,16 @@ void World::CreateWorld()
 
 	//Doors setup
 	entities.pushback(new Door(EAST, WEST, entities[0], entities[1]));
-
 	entities.pushback(new Door(SOUTH, NORTH, entities[0], entities[2]));
-
 	entities.pushback(new Door(EAST, WEST, entities[2], entities[3]));
-
 	entities.pushback(new Door(SOUTH, NORTH, entities[1], entities[3]));
-
 	entities.pushback(new Door(SOUTH, NORTH, entities[4], entities[6]));
-
 	entities.pushback(new Door(SOUTH, NORTH, entities[6], entities[7]));
-
 	entities.pushback(new Door(EAST, WEST, entities[7], entities[11]));
-
 	entities.pushback(new Door(SOUTH, NORTH, entities[5], entities[8]));
-
 	entities.pushback(new Door(EAST, WEST, entities[8], entities[9]));
-
 	entities.pushback(new Door(WEST, EAST, entities[10], entities[11]));
-
 	entities.pushback(new Door(SOUTH, NORTH, entities[12], entities[12]));
-
 	entities.pushback(new Door(WEST, EAST, entities[12], entities[13]));
 
 	player = new Player("Dean", "Awesome scientific", entities[0]);
@@ -88,7 +77,6 @@ void World::Game()
 		//kbhit test
 		if (_kbhit())
 		{
-			
 			//write commands;
 			command[charcommandnum] = _getch();
 			command[charcommandnum + 1] = '\0';
@@ -99,8 +87,7 @@ void World::Game()
 				command[charcommandnum - 1] = '\0';
 				charcommandnum = 0;
 				Exit = WriteCommands(command);
-			}
-			
+			}	
 		}
 	}
 	getchar();
@@ -109,7 +96,6 @@ void World::Game()
 int World::WriteCommands(const char* command)
 {
 	int ret = 0;
-
 	mString* commands;
 	commands = new mString(command);
 	mVector<mString*> vcommands;
@@ -137,6 +123,18 @@ int World::gameplay(const mVector<mString*>& command)
 			help();
 			return 0;
 		}
+		if ((CompareWords(command[0]->C_Str(), "inventory")) || (CompareWords(command[0]->C_Str(), "inv")) || (CompareWords(command[0]->C_Str(), "i")))
+		{
+			player->Look();
+		}
+		if (CompareWords(command[0]->C_Str(), "look") && CompareWords(command[1]->C_Str(), "room"))
+		{
+			for (uint i = 0; i < entities.size(); i++)
+			{
+				if (entities[i] == player->room)
+					entities[i]->Look();
+			}
+		}
 		if (CompareWords(command[0]->C_Str(), "open"))
 		{
 			for (uint i = 0; i < entities.size(); i++)
@@ -161,6 +159,7 @@ int World::gameplay(const mVector<mString*>& command)
 		if (CompareWords(command[0]->C_Str(), "west"))
 		{
 			player->move(entities, WEST);
+			return 0;
 		}
 		if (CompareWords(command[0]->C_Str(), "north"))
 		{

@@ -15,7 +15,7 @@ public:
 public:
 	Player(const char* name, const char* description, Entity* room) : room(room), Entity(name, description, CREATURE){};
 	
-	void Look() const;
+	void Look();
 	bool move(mVector<Entity*>& entities, ROOMPOSITION posroom);
 	void update(int timer);
 };

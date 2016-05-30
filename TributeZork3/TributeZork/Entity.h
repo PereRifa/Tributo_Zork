@@ -28,7 +28,7 @@ public:
 	mString* name;
 	mString* description;
 	ETYPES type;
-	DLList<Entity>* list;
+	DLList<Entity> list;
 	int owntime = 0;
 
 public:
@@ -38,9 +38,8 @@ public:
 	{
 		delete name;
 		delete description;
-		delete list;
 	};
-	virtual void Look() const;
+	virtual void Look();
 	virtual void insert(Entity* other);
 	virtual void remove(Entity* other);
 	virtual bool open(Entity* room, ROOMPOSITION position){ return false; };
