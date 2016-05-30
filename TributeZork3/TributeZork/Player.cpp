@@ -8,7 +8,7 @@ void Player::Look()
 		printf("\nInventory\n\tIt cointains: \n");
 		for (unsigned int i = 0; i < list.size(); i++)
 		{
-			printf(" %s\n", list.atnode(i)->data.name->C_Str());
+			printf(" %s\n", list.atnode(i)->data->name->C_Str());
 		}
 	}
 	else printf("\nYour inventory is empty\n\n");
@@ -24,7 +24,7 @@ void Player::update(int timer)
 }
 bool Player::move(mVector<Entity*>& entities, ROOMPOSITION roomposition)
 {
-
+	bool ret = false;
 	proompos = roomposition;
 	Entity* temp = nullptr;
 	uint i = 0;
@@ -34,11 +34,18 @@ bool Player::move(mVector<Entity*>& entities, ROOMPOSITION roomposition)
 		if (temp != nullptr)
 		{
 			room = temp;
-			break;
+			ret = true;
+			continue;
 		}
 	}
-	printf("\n%s\n", room->name->C_Str());
+	printf("\nRoom position: %d", roomposition);
+	printf("\n%s", room->name->C_Str());
 	printf("\n%s\n", room->description->C_Str());
 	
-	return true;
+	return ret;
 }
+
+bool Player::pick(){};
+bool Player::drop(){};
+bool Player::equip(){};
+bool Player::unequip(){};

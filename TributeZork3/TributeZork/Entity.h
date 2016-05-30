@@ -28,7 +28,7 @@ public:
 	mString* name;
 	mString* description;
 	ETYPES type;
-	DLList<Entity> list;
+	DLList<Entity*> list;
 	int owntime = 0;
 
 public:

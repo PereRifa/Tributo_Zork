@@ -2,14 +2,16 @@
 #ifndef _WORLD
 #define _WORLD
 
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "conio.h"
 #include <string.h>
 #include <Windows.h>
-#include <stdio.h>
+#include <time.h>
 #include "Room.h"
 #include "Player.h"
 #include "Exit.h"
+#include "Item.h"
 #include "mVector.h"
 
 #define INITIALALLOCATION 40

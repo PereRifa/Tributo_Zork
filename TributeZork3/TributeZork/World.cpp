@@ -16,6 +16,7 @@ World::~World()
 
 void World::CreateWorld()
 {
+	srand(time(NULL));
 	//Rooms setup
 	entities.pushback(new Room("Laboratory I: Rise Project", "The lab where you conduct your research. There are 2 doors (south and east).", ROOM));
 	entities.pushback(new Room("The Bestiary", "A place full of jails, with wild and agressive animals inside. There are 2 doors (west and south).", ROOM));
@@ -45,7 +46,22 @@ void World::CreateWorld()
 	entities.pushback(new Door(WEST, EAST, entities[10], entities[11]));
 	entities.pushback(new Door(SOUTH, NORTH, entities[12], entities[12]));
 	entities.pushback(new Door(WEST, EAST, entities[12], entities[13]));
+	
+	for (uint i = 0; i < 10; i++)
+	{
+		entities.pushback(new Item("Axe", "Red axe, used in case of fire", nullptr));
+		entities.pushback(new Item("Adrenaline", "Power up all states for a short period of time", nullptr));
+		entities.pushback(new Item("repellent", "keep enemies far away for a shor period of time", nullptr));
+	}
+	for (uint i = 0; i < entities.size(); i++)
+	{
+		if (entities[i]->type == ITEM)
+		{
+			uint j = rand() % 13;
+			entities[j]->list.push_back(entities[i]);
 
+		}
+	}
 	player = new Player("Dean", "Awesome scientific", entities[0]);
 	entities.pushback(player);
 
@@ -111,6 +127,7 @@ int World::WriteCommands(const char* command)
 }
 int World::gameplay(const mVector<mString*>& command)
 {
+	//quit game;
 	if ((CompareWords(command[0]->C_Str(), "Quit")) || (CompareWords(command[0]->C_Str(), "quit")) || (CompareWords(command[0]->C_Str(), "q")))
 	{
 		printf("\nThe game is Over!! see you later.\n");
@@ -118,11 +135,13 @@ int World::gameplay(const mVector<mString*>& command)
 	}
 	else
 	{
+		//print help menu;
 		if (CompareWords(command[0]->C_Str(), "help"))
 		{
 			help();
 			return 0;
 		}
+		//Look inventory and room ---------- look item left;
 		if ((CompareWords(command[0]->C_Str(), "inventory")) || (CompareWords(command[0]->C_Str(), "inv")) || (CompareWords(command[0]->C_Str(), "i")))
 		{
 			player->Look();
@@ -131,15 +150,24 @@ int World::gameplay(const mVector<mString*>& command)
 		{
 			for (uint i = 0; i < entities.size(); i++)
 			{
-				if (entities[i] == player->room)
+				if (entities[i] == player->room && entities[i]->type == ROOM)
 					entities[i]->Look();
 			}
 		}
+		if (CompareWords(command[0]->C_Str(), "look"))
+		{
+			for (uint i = 0; i < entities.size(); i++)
+			{
+				if (entities[i]->type == ITEM && entities[i] == player->room && CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
+					entities[i]->Look();
+			}
+		}
+		//Open/Close doors; ------------- comparewords(2 == door);
 		if (CompareWords(command[0]->C_Str(), "open"))
 		{
 			for (uint i = 0; i < entities.size(); i++)
 			{
-				entities[i]->open(entities[0], player->proompos);
+				entities[i]->open(player->room, player->proompos);
 			}
 			return 0;
 		}
@@ -147,49 +175,59 @@ int World::gameplay(const mVector<mString*>& command)
 		{
 			for (uint i = 0; i < entities.size(); i++)
 			{
-				entities[i]->close(entities[0], player->proompos);
+				entities[i]->close(player->room, player->proompos);
 			}
 			return 0;
 		}
+		//Move player and print actual room;
 		if (CompareWords(command[0]->C_Str(), "east"))
 		{
-			player->move(entities, EAST);
+			if (player->move(entities, EAST) == true)
+				player->proompos = WEST;
 			return 0;
 		}
 		if (CompareWords(command[0]->C_Str(), "west"))
 		{
-			player->move(entities, WEST);
+			if(player->move(entities, WEST) == true)
+				player->proompos = EAST;
 			return 0;
 		}
 		if (CompareWords(command[0]->C_Str(), "north"))
 		{
-			player->move(entities, NORTH);
+			if (player->move(entities, NORTH) == true)
+				player->proompos = SOUTH;
 			return 0;
 		}
 		if (CompareWords(command[0]->C_Str(), "south"))
 		{
-			player->move(entities, SOUTH);
+			if (player->move(entities, SOUTH) == true)
+				player->proompos = NORTH;
 			return 0;
 		}
 		if (CompareWords(command[0]->C_Str(), "go"))
 		{
 			if (CompareWords(command[1]->C_Str(), "east"))
 			{
-				player->move(entities, EAST);
+				if(player->move(entities, EAST)==true)
+					player->proompos =  WEST;
 				return 0;
 			}
 			if (CompareWords(command[1]->C_Str(), "west"))
 			{
-				player->move(entities, WEST);
+				if (player->move(entities, WEST) == true)
+					player->proompos = EAST;
+				return 0;
 			}
 			if (CompareWords(command[1]->C_Str(), "north"))
 			{
-				player->move(entities, NORTH);
+				if(player->move(entities, NORTH) == true)
+					player->proompos = SOUTH;
 				return 0;
 			}
 			if (CompareWords(command[1]->C_Str(), "south"))
 			{
-				player->move(entities, SOUTH);
+				if (player->move(entities, SOUTH) == true)
+					player->proompos = NORTH;
 				return 0;
 			}
 		}

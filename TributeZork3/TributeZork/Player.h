@@ -17,7 +17,12 @@ public:
 	
 	void Look();
 	bool move(mVector<Entity*>& entities, ROOMPOSITION posroom);
+	bool pick();
+	bool drop();
+	bool equip();
+	bool unequip();
 	void update(int timer);
+
 };
 
 #endif
