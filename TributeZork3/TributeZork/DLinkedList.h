@@ -60,31 +60,6 @@ public:
 		}
 		return ret;
 	}
-
-	void erase(Node* other)
-	{
-		Node* temp = first;
-		if (first != nullptr)
-		{
-			if (first == other){
-				first = other->next;
-				other->next->prev = nullptr;
-			}
-			else{
-				while (temp->next != other && temp->next != nullptr)
-				{
-					temp = temp->next;
-				}
-
-				temp->next = other->next;
-				if (other->next != nullptr && first != other->next)
-				{
-					temp->next->prev = other->prev;
-				}
-			}
-			delete other;
-		}
-	}
 	void remove(Node* other)
 	{
 		Node* temp = first;
@@ -111,6 +86,7 @@ public:
 				other->next = nullptr;
 				other->prev = nullptr;
 			}
+			delete other;
 		}
 	}
 

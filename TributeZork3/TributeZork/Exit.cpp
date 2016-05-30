@@ -41,12 +41,10 @@ Entity* Door::move(Entity* room, ROOMPOSITION& position)
 {
 	if (doorstate == true && position == doorposition && room == origin)
 	{
-		printf("\nChanged of Room\n");
 		return destiny;
 	}
 	else if (doorstate == true && position == othersidedoor && room == destiny)
 	{
-		printf("\nChanged of Room\n");
 		return origin;
 	}
 	else return nullptr;

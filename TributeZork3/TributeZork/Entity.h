@@ -41,7 +41,6 @@ public:
 	};
 	virtual void Look();
 	virtual void insert(Entity* other);
-	virtual void remove(Entity* other);
 	virtual bool open(Entity* room, ROOMPOSITION position){ return false; };
 	virtual bool close(Entity* room, ROOMPOSITION position){ return false; };
 	virtual void update(int time){};

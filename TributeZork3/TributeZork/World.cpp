@@ -49,8 +49,8 @@ void World::CreateWorld()
 	
 	for (uint i = 0; i < 10; i++)
 	{
-		entities.pushback(new Item("Axe", "Red axe, used in case of fire", nullptr));
-		entities.pushback(new Item("Adrenaline", "Power up all states for a short period of time", nullptr));
+		entities.pushback(new Item("axe", "Red axe, used in case of fire", nullptr));
+		entities.pushback(new Item("adrenaline", "Power up all states for a short period of time", nullptr));
 		entities.pushback(new Item("repellent", "keep enemies far away for a shor period of time", nullptr));
 	}
 	for (uint i = 0; i < entities.size(); i++)
@@ -163,6 +163,17 @@ int World::gameplay(const mVector<mString*>& command)
 					entities[i]->Look();
 			}
 		}
+		//Look equiped;
+		if (CompareWords(command[0]->C_Str(), "look"))
+		{
+			if (CompareWords(command[1]->C_Str(), "equiped"))
+			{
+				if (player->equiped != nullptr)
+				{
+					player->equiped->Look();
+				}
+			}
+		}
 		//pick item
 		if (CompareWords(command[0]->C_Str(), "pick"))
 		{
@@ -185,6 +196,32 @@ int World::gameplay(const mVector<mString*>& command)
 				if (CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
 				{
 					if (player->drop(entities, entities[i]->name->C_Str()))
+						break;
+				}
+			}
+			return 0;
+		}
+		//Equip item;
+		if (CompareWords(command[0]->C_Str(), "equip"))
+		{
+			for (uint i = 0; i < entities.size(); i++)
+			{
+				if (CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
+				{
+					if (player->equip(entities, entities[i]->name->C_Str()))
+						break;
+				}
+			}
+			return 0;
+		}
+		//Unequip item;
+		if (CompareWords(command[0]->C_Str(), "unequip"))
+		{
+			for (uint i = 0; i < entities.size(); i++)
+			{
+				if (CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
+				{
+					if (player->unequip(entities, entities[i]->name->C_Str()))
 						break;
 				}
 			}

@@ -34,13 +34,12 @@ bool Player::move(mVector<Entity*>& entities, ROOMPOSITION roomposition)
 		if (temp != nullptr)
 		{
 			room = temp;
-			ret = true;
+			printf("\nChanged of Room: now at %s\n", room->name->C_Str());
+			return true;
 			continue;
 		}
 	}
-	printf("\nRoom position: %d", roomposition);
-	printf("\n%s", room->name->C_Str());
-	printf("\n%s\n", room->description->C_Str());
+	printf("\n%s\n", room->name->C_Str());
 	
 	return ret;
 }
@@ -76,6 +75,7 @@ bool Player::drop(mVector<Entity*>& entities, const char* itemname)
 			room->list.push_back(equiped);
 			equiped->insert(room);
 			equiped = nullptr;
+			return true;
 		}
 	}
 	else if (list.size() > 0)
@@ -92,7 +92,53 @@ bool Player::drop(mVector<Entity*>& entities, const char* itemname)
 			}
 		}
 	}
-	
+	return false;
 };
-bool Player::equip(){};
-bool Player::unequip(){};
+
+bool Player::equip(mVector<Entity*>& entities, const char* itemname)
+{
+	for (uint i = 0; i < list.size(); i++)
+	{
+		printf("\nfinding item\n");
+		if (list.atnode(i)->data->name->C_Str() == itemname)
+			printf("\nTrying to equip item\n");
+			if (equiped != nullptr)
+			{
+				list.push_back(equiped);
+				equiped = list.atnode(i)->data;
+				list.remove(list.atnode(i));
+				printf("\nItem %s equiped\n", equiped->name->C_Str());
+				return true;
+			}
+			else
+			{
+				equiped = list.atnode(i)->data;
+				list.remove(list.atnode(i));
+				printf("\nItem %s equiped\n", equiped->name->C_Str());
+				return true;
+			}
+		
+	}
+	printf("\nUnable to equip item\n");
+	return false; 
+};
+
+bool Player::unequip(mVector<Entity*>& entities, const char* itemname)
+{
+	if (equiped != nullptr)
+	{
+		if (list.size() < 10)
+		{
+			if (equiped->name->C_Str()== itemname)
+			{
+				list.push_back(equiped);
+				printf("\nItem %s unequiped\n", equiped->name->C_Str());
+				equiped = nullptr;
+				return true;
+			}
+		}
+		else printf("\nUnable to unequip item\n");
+	}
+	else printf("\nYou dont have any item equiped\n");
+	return false; 
+};

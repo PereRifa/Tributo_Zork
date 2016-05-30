@@ -20,8 +20,8 @@ public:
 	bool move(mVector<Entity*>& entities, ROOMPOSITION posroom);
 	bool pick(mVector<Entity*>& entities, const char* itemname);
 	bool drop(mVector<Entity*>& entities, const char* itemname);
-	bool equip();
-	bool unequip();
+	bool equip(mVector<Entity*>& entities, const char* itemname);
+	bool unequip(mVector<Entity*>& entities, const char* itemname);
 	void update(int timer);
 
 };
