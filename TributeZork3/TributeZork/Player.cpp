@@ -45,7 +45,54 @@ bool Player::move(mVector<Entity*>& entities, ROOMPOSITION roomposition)
 	return ret;
 }
 
-bool Player::pick(){};
-bool Player::drop(){};
+bool Player::pick(mVector<Entity*>& entities, const char* itemname)
+{
+	if (list.size() < 10)
+	{
+		for (uint i = 0; i < room->list.size(); i++)
+		{
+			if (room->list.atnode(i)->data->name->C_Str() == itemname)
+			for (uint j = 0; j < entities.size(); j++)
+			{
+				if (room->list.atnode(i)->data == entities[j])
+				{
+					room->list.remove(room->list.atnode(i));
+					list.push_back(entities[j]);
+					entities[j]->insert(this);
+					printf("\nItem %s picked\n", entities[j]->name->C_Str());
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+};
+bool Player::drop(mVector<Entity*>& entities, const char* itemname)
+{
+	if (equiped != nullptr)
+	{
+		if (equiped->name->C_Str() == itemname)
+		{
+			room->list.push_back(equiped);
+			equiped->insert(room);
+			equiped = nullptr;
+		}
+	}
+	else if (list.size() > 0)
+	{
+		for (uint i = 0; i < list.size(); i++)
+		{
+			if (list.atnode(i)->data->name->C_Str() == itemname)
+			{
+					printf("\nItem %s removed from inventory\n", list.atnode(i)->data->name->C_Str());
+					room->list.push_back(list.atnode(i)->data);
+					list.atnode(i)->data->insert(room);
+					list.remove(list.atnode(i));		
+					return true;
+			}
+		}
+	}
+	
+};
 bool Player::equip(){};
 bool Player::unequip(){};

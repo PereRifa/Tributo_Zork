@@ -85,6 +85,34 @@ public:
 			delete other;
 		}
 	}
+	void remove(Node* other)
+	{
+		Node* temp = first;
+		if (first != nullptr)
+		{
+			if (first == other){
+				first = other->next;
+				if (other->next != nullptr)
+					other->next->prev = nullptr;
+				other->next = nullptr;
+				other->prev = nullptr;
+			}
+			else{
+				while (temp->next != other && temp->next != nullptr)
+				{
+					temp = temp->next;
+				}
+
+				temp->next = other->next;
+				if (other->next != nullptr && first != other->next)
+				{
+					temp->next->prev = other->prev;
+				}
+				other->next = nullptr;
+				other->prev = nullptr;
+			}
+		}
+	}
 
 	void insert(Node* position, const TYPE& data)
 	{

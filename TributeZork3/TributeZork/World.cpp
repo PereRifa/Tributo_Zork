@@ -59,6 +59,7 @@ void World::CreateWorld()
 		{
 			uint j = rand() % 13;
 			entities[j]->list.push_back(entities[i]);
+			entities[i]->insert(entities[j]);
 
 		}
 	}
@@ -161,6 +162,33 @@ int World::gameplay(const mVector<mString*>& command)
 				if (entities[i]->type == ITEM && entities[i] == player->room && CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
 					entities[i]->Look();
 			}
+		}
+		//pick item
+		if (CompareWords(command[0]->C_Str(), "pick"))
+		{
+			for (uint i = 0; i < entities.size(); i++)
+			{
+				if (CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
+				{
+					if (player->pick(entities, entities[i]->name->C_Str()))
+						break;
+					
+				}
+			}
+			return 0;
+		}
+		//Drop item
+		if (CompareWords(command[0]->C_Str(), "drop"))
+		{
+			for (uint i = 0; i < entities.size(); i++)
+			{
+				if (CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
+				{
+					if (player->drop(entities, entities[i]->name->C_Str()))
+						break;
+				}
+			}
+			return 0;
 		}
 		//Open/Close doors; ------------- comparewords(2 == door);
 		if (CompareWords(command[0]->C_Str(), "open"))

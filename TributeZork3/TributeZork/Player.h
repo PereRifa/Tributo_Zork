@@ -9,6 +9,7 @@ public:
 
 	ROOMPOSITION proompos = EAST;
 	Entity* room = nullptr;
+	Entity* equiped = nullptr;
 	
 
 
@@ -17,8 +18,8 @@ public:
 	
 	void Look();
 	bool move(mVector<Entity*>& entities, ROOMPOSITION posroom);
-	bool pick();
-	bool drop();
+	bool pick(mVector<Entity*>& entities, const char* itemname);
+	bool drop(mVector<Entity*>& entities, const char* itemname);
 	bool equip();
 	bool unequip();
 	void update(int timer);
