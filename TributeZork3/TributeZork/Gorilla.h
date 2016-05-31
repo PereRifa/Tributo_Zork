@@ -16,7 +16,7 @@ public:
 	CREATURETYPE subtype;
 	int hp = 100;
 	int lasthp = hp;
-	int attdmg = 1;
+	int attdmg = 5;
 
 
 public:

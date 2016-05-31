@@ -15,6 +15,7 @@
 #include "Creature.h"
 #include "Monkey.h"
 #include "Gorilla.h"
+#include "Chimpanze.h"
 #include "Item.h"
 #include "mVector.h"
 
@@ -38,14 +39,7 @@ public:
 	int gameplay(const mVector<mString*>& command);
 	bool CompareWords(const char* Word1, const char* Word2);
 	void help() const;
-	
-	/*
-	
 	void HelloWorld() const;
-
-	int ChangeRoom();
-	int go(const char*);
-	*/
 };
 
 #endif

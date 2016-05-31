@@ -57,6 +57,9 @@
     <ClInclude Include="Monkey.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Chimpanze.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -87,6 +90,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Monkey.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chimpanze.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

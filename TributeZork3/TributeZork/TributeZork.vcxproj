@@ -64,6 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Chimpanze.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="DLinkedList.h" />
     <ClInclude Include="Entity.h" />
@@ -79,6 +80,7 @@
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Chimpanze.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Exit.cpp" />

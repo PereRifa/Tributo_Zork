@@ -3,6 +3,7 @@
 
 World::World()
 {
+	HelloWorld();
 	CreateWorld();
 }
 
@@ -69,7 +70,13 @@ void World::CreateWorld()
 	entities.pushback(new Gorilla(entities[8], GORILLA, entities, player));
 	entities.pushback(new Gorilla(entities[3], GORILLA, entities, player));
 	entities.pushback(new Gorilla(entities[12], GORILLA, entities, player));
-
+	entities.pushback(new Chimpanze(entities[0], CHIMPANZE, entities, player));
+	entities.pushback(new Item("axe", "Red axe, used in case of fire", nullptr));
+	entities.pushback(new Item("adrenaline", "Power up all states for a short period of time", nullptr));
+	entities.pushback(new Item("axe", "Red axe, used in case of fire", nullptr));
+	entities.pushback(new Item("adrenaline", "Power up all states for a short period of time", nullptr));
+	entities[61]->list.push_back(entities[62]);
+	entities[61]->list.push_back(entities[63]);
 
 
 }
@@ -148,24 +155,24 @@ int World::gameplay(const mVector<mString*>& command)
 			return 1;
 		}
 		//print help menu;
-		else if (CompareWords(command[0]->C_Str(), "help"))
+		if (CompareWords(command[0]->C_Str(), "help"))
 		{
 			help();
 			return 0;
 		}
 		//Look inventory and room ---------- look item left;
-		else if ((CompareWords(command[0]->C_Str(), "inventory")) || (CompareWords(command[0]->C_Str(), "inv")) || (CompareWords(command[0]->C_Str(), "i")))
+		if ((CompareWords(command[0]->C_Str(), "inventory")) || (CompareWords(command[0]->C_Str(), "inv")) || (CompareWords(command[0]->C_Str(), "i")))
 		{
 			player->Look();
 		}
 		//Move player and print actual room;
-		else if (CompareWords(command[0]->C_Str(), "east"))
+		if (CompareWords(command[0]->C_Str(), "east"))
 		{
 			if (player->move(EAST) == true)
 				player->proompos = WEST;
 			return 0;
 		}
-		else if (CompareWords(command[0]->C_Str(), "west"))
+		if (CompareWords(command[0]->C_Str(), "west"))
 		{
 			if (player->move(WEST) == true)
 				player->proompos = EAST;
@@ -173,13 +180,13 @@ int World::gameplay(const mVector<mString*>& command)
 				return 1;
 			return 0;
 		}
-		else if (CompareWords(command[0]->C_Str(), "north"))
+		if (CompareWords(command[0]->C_Str(), "north"))
 		{
 			if (player->move(NORTH) == true)
 				player->proompos = SOUTH;
 			return 0;
 		}
-		else if (CompareWords(command[0]->C_Str(), "south"))
+		if (CompareWords(command[0]->C_Str(), "south"))
 		{
 			if (player->move(SOUTH) == true)
 				player->proompos = NORTH;
@@ -214,7 +221,7 @@ int World::gameplay(const mVector<mString*>& command)
 					}
 				}
 			}
-			else if (CompareWords(command[1]->C_Str(), "south"))
+			if (CompareWords(command[1]->C_Str(), "south"))
 			{
 				for (uint i = 0; i < entities.size(); i++)
 				{
@@ -225,7 +232,7 @@ int World::gameplay(const mVector<mString*>& command)
 					}
 				}
 			}
-			else if (CompareWords(command[1]->C_Str(), "east"))
+			if (CompareWords(command[1]->C_Str(), "east"))
 			{
 				for (uint i = 0; i < entities.size(); i++)
 				{
@@ -236,7 +243,7 @@ int World::gameplay(const mVector<mString*>& command)
 					}
 				}
 			}
-			else if (CompareWords(command[1]->C_Str(), "west"))
+			if (CompareWords(command[1]->C_Str(), "west"))
 			{
 				for (uint i = 0; i < entities.size(); i++)
 				{
@@ -247,7 +254,7 @@ int World::gameplay(const mVector<mString*>& command)
 					}
 				}
 			}
-			else if (CompareWords(command[1]->C_Str(), "equiped"))
+			if (CompareWords(command[1]->C_Str(), "equiped"))
 			{
 				for (uint i = 0; i < player->equiped.size(); i++)
 					player->equiped.atnode(i)->data->Look();
@@ -277,10 +284,11 @@ int World::gameplay(const mVector<mString*>& command)
 				if (CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
 				{
 					if (player->pick(entities[i]->name->C_Str()))
-						break;
+						return 0;
 					
 				}
 			}
+			printf("\nYou cant pick that\n");
 			return 0;
 		}
 		//Drop item
@@ -321,6 +329,18 @@ int World::gameplay(const mVector<mString*>& command)
 				}
 			}
 			return 0;
+		}
+		if (CompareWords(command[0]->C_Str(), "buy"))
+		{
+			if (CompareWords(command[1]->C_Str(), "chimpanze"))
+			{
+				for (uint i = 0; i < player->room->list.size(); i++)
+					if (player->room->list.atnode(i)->data->name == entities[61]->name)
+					{
+						player->room->list.atnode(i)->data->Look();
+						return 0;
+					}
+			}
 		}
 		//attack monster;
 		if (CompareWords(command[0]->C_Str(), "attack"))
@@ -390,6 +410,22 @@ int World::gameplay(const mVector<mString*>& command)
 		}
 		return 0;
 	}
+	else if (command.size() == 4)
+	{
+		if (CompareWords(command[0]->C_Str(), "buy") && CompareWords(command[2]->C_Str(), "from") && CompareWords(command[3]->C_Str(), "chimpanze"))
+		{
+			if (CompareWords(command[1]->C_Str(), "axe"))
+			{
+				player->buy("axe");
+				return 0;
+			}
+			else if (CompareWords(command[1]->C_Str(), "adrenaline"))
+			{
+				player->buy("adrenaline");
+				return 0;
+			}
+		}
+	}
 	else
 	{
 		printf("\nCommand not aviable\n");
@@ -430,4 +466,16 @@ void World::help() const{
 	printf("\nHelp, Quit/quit/q.\n");
 	printf("\nand use use this directions: north/n, south/s, east/e, west/w.\n");
 
+}
+
+void World::HelloWorld() const
+{
+	printf("\nAt the evening just before the end of the working day atthe lab...\n");
+	printf("\n*loud noise*\n");
+	printf("\nhuh what was that!? it's comming from the room right behind you (east)\n");
+	
+	printf("\nThe sound of something breaking in to pieces followed by unhuman screams.\n");
+	printf("\nHoly shit, some of the animals must have escaped!!\n");
+	printf("\nIt is time to get the hell out Dean!!\n\n");
+	getchar();
 }

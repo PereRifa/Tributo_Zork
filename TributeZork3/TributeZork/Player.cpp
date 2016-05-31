@@ -3,7 +3,7 @@
 
 void Player::Look()
 {
-	printf("\nPlayer:\n\tHealth:  %d / 200\n\tCurrent Attack power:  %d\n\n\tInventory:\n", hp, attdmg);
+	printf("\nPlayer:\n\tHealth:  %d / 200\n\tCurrent Attack power:  %d\n\tCoins: %d\n\n\tInventory:\n", hp, attdmg, coins);
 	if (list.empty() == false)
 	{
 		printf("\tIt cointains: \n");
@@ -110,7 +110,7 @@ bool Player::pick( const char* itemname)
 	{
 		for (uint i = 0; i < room->list.size(); i++)
 		{
-			if (room->list.atnode(i)->data->name->C_Str() == itemname)
+			if (room->list.atnode(i)->data->name->C_Str() == itemname && room->list.atnode(i)->data->type == ITEM)
 			for (uint j = 0; j < world.size(); j++)
 			{
 				if (room->list.atnode(i)->data == world[j])
@@ -212,15 +212,42 @@ bool Player::unequip( const char* itemname)
 
 bool Player::attack()
 {
-	/*for (uint i = 0; i < world.size(); i++)
-	{
-		if (world[i]->type == CREATURE && world[i])
-		{
-			if ()
-		}
-	}*/
 	if(creaturestate == ATTACK)
 		return true;
 	else return false;
 
+}
+
+void Player::buy(const char* item)
+{
+	for (uint i = 0; i < room->list.size(); i++)
+	{
+		if (room->list.atnode(i)->data == world[61])
+		{
+			if (item == "axe")
+			{
+				for (uint j = 0; j < world[61]->list.size(); j++)
+					if (world[61]->list.atnode(j)->data->name == world[62]->name)
+					{
+						world[61]->list.remove(world[61]->list.atnode(j));
+						list.push_back(world[62]);
+						printf("\nbought 1 axe from chimpanze shop\n");
+						coins -= 10;
+						continue;
+					}
+			}
+			else if(item == "adrenaline")
+			{
+				for (uint j = 0; j < world[61]->list.size(); j++)
+					if (world[61]->list.atnode(j)->data->name == world[63]->name)
+					{
+						world[61]->list.remove(world[61]->list.atnode(j));
+						list.push_back(world[63]);
+						printf("\nbought 1 axe from chimpanze shop\n");
+						coins -= 15;
+						continue;
+					}
+			}
+		}
+	}
 }

@@ -12,9 +12,9 @@ public:
 	DLList<Entity*> equiped;
 	int hp = 200;
 	int lasthp = hp;
-	int attdmg = 5;
+	int attdmg = 10;
 	int owntime = 1000;
-	
+	int coins = 25;
 
 
 public:
@@ -26,6 +26,7 @@ public:
 	bool equip( const char* itemname);
 	bool unequip( const char* itemname);
 	bool attack();
+	void buy(const char* item);
 	int update(int timer);
 
 };
