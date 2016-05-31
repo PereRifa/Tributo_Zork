@@ -21,5 +21,6 @@ public:
 	bool open(Entity* playerorigin, ROOMPOSITION playerposition);
 	bool close(Entity* playerorigin, ROOMPOSITION playerposition);
 	Entity* move(Entity* proom, ROOMPOSITION& position);
+	Entity* next(Entity* room, ROOMPOSITION position) const;
 };
 #endif

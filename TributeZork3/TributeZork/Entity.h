@@ -45,6 +45,7 @@ public:
 	virtual bool close(Entity* room, ROOMPOSITION position){ return false; };
 	virtual void update(int time){};
 	virtual Entity* move(Entity* room, ROOMPOSITION& position){ return nullptr; };
+	virtual Entity* next(Entity* room, ROOMPOSITION position) const { return nullptr; };
 };
 
 #endif;

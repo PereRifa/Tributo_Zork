@@ -10,10 +10,19 @@ enum CREATURETYPE
 	GORILLA
 };
 
+enum STATE
+{
+	ATTACK,
+	MOVE,
+	DEAD,
+	NONE
+};
+
 class Creature : public Entity
 {
 public:
 
+	STATE creaturestate = NONE;
 	ROOMPOSITION proompos = EAST;
 	Entity* room = nullptr;
 	DLList<Entity*> equiped;
@@ -25,6 +34,7 @@ public:
 
 public:
 	Creature(const char* name, const char* description, Entity* room, CREATURETYPE subtype, mVector<Entity*>& world) : subtype(subtype), room(room), world(world), Entity(name, description, CREATURE){};
+	~Creature(){};
 	virtual void Look();
 	virtual	bool move(ROOMPOSITION posroom);
 	virtual bool pick(const char* itemname){ return false; };

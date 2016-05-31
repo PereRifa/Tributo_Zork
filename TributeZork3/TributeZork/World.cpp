@@ -158,6 +158,57 @@ int World::gameplay(const mVector<mString*>& command)
 		}
 		if (CompareWords(command[0]->C_Str(), "look"))
 		{
+			if (CompareWords(command[1]->C_Str(), "north"))
+			{
+				for (uint i = 0; i < entities.size(); i++)
+				{
+					if (entities[i]->next(player->room, NORTH) != nullptr)
+					{
+						printf("\nAt north there is %s\n", entities[i]->next(player->room, NORTH)->name->C_Str());
+						return 0;
+					}
+				}
+			}
+			else if (CompareWords(command[1]->C_Str(), "south"))
+			{
+				for (uint i = 0; i < entities.size(); i++)
+				{
+					if (entities[i]->next(player->room, SOUTH) != nullptr)
+					{
+						printf("\nAt south there is %s\n", entities[i]->next(player->room, SOUTH)->name->C_Str());
+						return 0;
+					}
+				}
+			}
+			else if (CompareWords(command[1]->C_Str(), "east"))
+			{
+				for (uint i = 0; i < entities.size(); i++)
+				{
+					if (entities[i]->next(player->room, EAST) != nullptr)
+					{
+						printf("\nAt east there is %s\n", entities[i]->next(player->room, EAST)->name->C_Str());
+						return 0;
+					}
+				}
+			}
+			else if (CompareWords(command[1]->C_Str(), "west"))
+			{
+				for (uint i = 0; i < entities.size(); i++)
+				{
+					if (entities[i]->next(player->room, WEST) != nullptr)
+					{
+						printf("\nAt west there is %s\n", entities[i]->next(player->room, WEST)->name->C_Str());
+						return 0;
+					}
+				}
+			}
+			else
+			{
+				printf("\nYou are at %s\n", player->room->name->C_Str());
+				return 0;			}
+		}
+		if (CompareWords(command[0]->C_Str(), "look"))
+		{
 			for (uint i = 0; i < entities.size(); i++)
 			{
 				if (entities[i]->type == ITEM && CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))

@@ -49,3 +49,16 @@ Entity* Door::move(Entity* room, ROOMPOSITION& position)
 	}
 	else return nullptr;
 }
+
+Entity* Door::next(Entity* room, ROOMPOSITION position) const
+{
+	if (position == doorposition && room == origin)
+	{
+		return destiny;
+	}
+	else if (position == othersidedoor && room == destiny)
+	{
+		return origin;
+	}
+	else return nullptr;
+}

@@ -4,13 +4,14 @@
 #include "Creature.h"
 #include "Entity.h"
 #include "Player.h"
+#include <stdlib.h>
+#include <time.h>
 
 class Gorilla: public Creature
 {
 public:
 
 	ROOMPOSITION proompos = EAST;
-	Entity* room = nullptr;
 	Player* player = nullptr;
 	CREATURETYPE subtype;
 	int hp = 100;
