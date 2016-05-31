@@ -63,9 +63,9 @@ void World::CreateWorld()
 
 		}
 	}
-	player = new Player("Dean", "Awesome scientific", entities[0], PLAYER);
+	player = new Player("Dean", "Awesome scientific", entities[0], PLAYER, entities);
 	entities.pushback(player);
-	entities.pushback(new Gorilla(entities[1], GORILLA));
+	entities.pushback(new Gorilla(entities[1], GORILLA, entities, player));
 
 }
 
@@ -183,7 +183,7 @@ int World::gameplay(const mVector<mString*>& command)
 			{
 				if (CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
 				{
-					if (player->pick(entities, entities[i]->name->C_Str()))
+					if (player->pick(entities[i]->name->C_Str()))
 						break;
 					
 				}
@@ -197,7 +197,7 @@ int World::gameplay(const mVector<mString*>& command)
 			{
 				if (CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
 				{
-					if (player->drop(entities, entities[i]->name->C_Str()))
+					if (player->drop(entities[i]->name->C_Str()))
 						break;
 				}
 			}
@@ -210,7 +210,7 @@ int World::gameplay(const mVector<mString*>& command)
 			{
 				if (CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()) == true)
 				{
-					if (player->equip(entities, entities[i]->name->C_Str()))
+					if (player->equip(entities[i]->name->C_Str()))
 						break;
 				}
 			}
@@ -223,7 +223,7 @@ int World::gameplay(const mVector<mString*>& command)
 			{
 				if (CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
 				{
-					if (player->unequip(entities, entities[i]->name->C_Str()))
+					if (player->unequip(entities[i]->name->C_Str()))
 						break;
 				}
 			}
@@ -249,25 +249,25 @@ int World::gameplay(const mVector<mString*>& command)
 		//Move player and print actual room;
 		if (CompareWords(command[0]->C_Str(), "east"))
 		{
-			if (player->move(entities, EAST) == true)
+			if (player->move(EAST) == true)
 				player->proompos = WEST;
 			return 0;
 		}
 		if (CompareWords(command[0]->C_Str(), "west"))
 		{
-			if(player->move(entities, WEST) == true)
+			if(player->move(WEST) == true)
 				player->proompos = EAST;
 			return 0;
 		}
 		if (CompareWords(command[0]->C_Str(), "north"))
 		{
-			if (player->move(entities, NORTH) == true)
+			if (player->move(NORTH) == true)
 				player->proompos = SOUTH;
 			return 0;
 		}
 		if (CompareWords(command[0]->C_Str(), "south"))
 		{
-			if (player->move(entities, SOUTH) == true)
+			if (player->move(SOUTH) == true)
 				player->proompos = NORTH;
 			return 0;
 		}
@@ -275,25 +275,25 @@ int World::gameplay(const mVector<mString*>& command)
 		{
 			if (CompareWords(command[1]->C_Str(), "east"))
 			{
-				if(player->move(entities, EAST)==true)
+				if(player->move(EAST)==true)
 					player->proompos =  WEST;
 				return 0;
 			}
 			if (CompareWords(command[1]->C_Str(), "west"))
 			{
-				if (player->move(entities, WEST) == true)
+				if (player->move(WEST) == true)
 					player->proompos = EAST;
 				return 0;
 			}
 			if (CompareWords(command[1]->C_Str(), "north"))
 			{
-				if(player->move(entities, NORTH) == true)
+				if(player->move(NORTH) == true)
 					player->proompos = SOUTH;
 				return 0;
 			}
 			if (CompareWords(command[1]->C_Str(), "south"))
 			{
-				if (player->move(entities, SOUTH) == true)
+				if (player->move(SOUTH) == true)
 					player->proompos = NORTH;
 				return 0;
 			}

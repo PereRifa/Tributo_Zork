@@ -16,13 +16,13 @@ public:
 
 
 public:
-	Player(const char* name, const char* description, Entity* room, CREATURETYPE subtype) : Creature(name, description, room, subtype){};
+	Player(const char* name, const char* description, Entity* room, CREATURETYPE subtype, mVector<Entity*>& world) : Creature(name, description, room, subtype, world){};
 	void Look();
-	bool move(mVector<Entity*>& entities, ROOMPOSITION posroom);
-	bool pick(mVector<Entity*>& entities, const char* itemname);
-	bool drop(mVector<Entity*>& entities, const char* itemname);
-	bool equip(mVector<Entity*>& entities, const char* itemname);
-	bool unequip(mVector<Entity*>& entities, const char* itemname);
+	bool move(ROOMPOSITION posroom);
+	bool pick( const char* itemname);
+	bool drop( const char* itemname);
+	bool equip( const char* itemname);
+	bool unequip( const char* itemname);
 	void update(int timer);
 
 };

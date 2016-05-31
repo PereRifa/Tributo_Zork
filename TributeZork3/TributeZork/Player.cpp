@@ -22,15 +22,16 @@ void Player::update(int timer)
 		owntime = timer;
 	}
 }
-bool Player::move(mVector<Entity*>& entities, ROOMPOSITION roomposition)
+bool Player::move(ROOMPOSITION roomposition)
 {
 	bool ret = false;
 	proompos = roomposition;
 	Entity* temp = nullptr;
 	uint i = 0;
-	for (i = 0; i < entities.size(); i++)
+	for (i = 0; i < world.size(); i++)
 	{
-		temp = entities[i]->move(room, proompos);
+		temp = world[i]->move(room, proompos);
+		
 		if (temp != nullptr)
 		{
 			room = temp;
@@ -44,21 +45,21 @@ bool Player::move(mVector<Entity*>& entities, ROOMPOSITION roomposition)
 	return ret;
 }
 
-bool Player::pick(mVector<Entity*>& entities, const char* itemname)
+bool Player::pick( const char* itemname)
 {
 	if (list.size() < 10)
 	{
 		for (uint i = 0; i < room->list.size(); i++)
 		{
 			if (room->list.atnode(i)->data->name->C_Str() == itemname)
-			for (uint j = 0; j < entities.size(); j++)
+			for (uint j = 0; j < world.size(); j++)
 			{
-				if (room->list.atnode(i)->data == entities[j])
+				if (room->list.atnode(i)->data == world[j])
 				{
 					room->list.remove(room->list.atnode(i));
-					list.push_back(entities[j]);
-					entities[j]->insert(this);
-					printf("\nItem %s picked\n", entities[j]->name->C_Str());
+					list.push_back(world[j]);
+					world[j]->insert(this);
+					printf("\nItem %s picked\n", world[j]->name->C_Str());
 					return true;
 				}
 			}
@@ -66,7 +67,7 @@ bool Player::pick(mVector<Entity*>& entities, const char* itemname)
 	}
 	return false;
 };
-bool Player::drop(mVector<Entity*>& entities, const char* itemname)
+bool Player::drop(const char* itemname)
 {	
 	if (list.size() > 0)
 	{
@@ -105,7 +106,7 @@ bool Player::drop(mVector<Entity*>& entities, const char* itemname)
 	return false;
 };
 
-bool Player::equip(mVector<Entity*>& entities, const char* itemname)
+bool Player::equip( const char* itemname)
 {
 	for (uint i = 0; i < list.size(); i++)
 		{
@@ -132,7 +133,7 @@ bool Player::equip(mVector<Entity*>& entities, const char* itemname)
 	return false; 
 };
 
-bool Player::unequip(mVector<Entity*>& entities, const char* itemname)
+bool Player::unequip( const char* itemname)
 {
 	if (list.size() < 10)
 	{

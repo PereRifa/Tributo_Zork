@@ -23,15 +23,15 @@ void Creature::update(int timer)
 		owntime = timer;
 	}
 }
-bool Creature::move(mVector<Entity*>& entities, ROOMPOSITION roomposition)
+bool Creature::move(ROOMPOSITION roomposition)
 {
 	bool ret = false;
 	proompos = roomposition;
 	Entity* temp = nullptr;
 	uint i = 0;
-	for (i = 0; i < entities.size(); i++)
+	for (i = 0; i < world.size(); i++)
 	{
-		temp = entities[i]->move(room, proompos);
+		temp = world[i]->move(room, proompos);
 		if (temp != nullptr)
 		{
 			room = temp;
