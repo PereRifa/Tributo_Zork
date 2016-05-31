@@ -15,14 +15,14 @@ public:
 	Player* player = nullptr;
 	CREATURETYPE subtype;
 	int hp = 100;
-	int attdmg = 10;
+	int attdmg = 100;
 
 
 public:
 	Gorilla(Entity* room, CREATURETYPE subtype, mVector<Entity*>& world, Player* player) : player(player), Creature("Gorilla", "Big and strong Gorilla", room, subtype, world){}
 	void Look(){};
 	bool move(ROOMPOSITION posroom);
-	void update(int timer);
+	int update(int timer);
 
 };
 

@@ -1,13 +1,20 @@
 #include "Gorilla.h"
 
-void Gorilla::update(int timer)
+int Gorilla::update(int timer)
 {
 	
 	if (creaturestate != DEAD)
 	{
 		switch (creaturestate)
 		{
-		case ATTACK:
+		case ATTACK: 
+			if (timer >= owntime + 2000)
+			{
+				printf("\ni see the player and i attack!!\n");
+				player->hp -= attdmg;
+				owntime = timer;
+				return 0;
+			}
 			break;
 		case MOVE: 
 			if (timer >= owntime + 10000)
@@ -45,6 +52,7 @@ void Gorilla::update(int timer)
 				if (room == player->room)
 				{
 					creaturestate = ATTACK;
+					return 0;
 					break;
 				}
 				for (uint i = 0; i < world.size(); i++)
@@ -56,13 +64,15 @@ void Gorilla::update(int timer)
 						//	printf("\nI'm a Gorilla and i move!!\n");
 						creaturestate = ATTACK;
 						owntime = timer;
+						return 0;
 						break;
 					}
-					else if (world[i]->next(room, proompos) != player->room && world[i]->next(room, proompos))
+					else if (world[i]->next(room, proompos) != player->room)
 					{
 						world[i]->open(room, proompos);
 						move(proompos);
 						owntime = timer;
+						return 0;
 						break;
 					}
 				}
@@ -74,12 +84,13 @@ void Gorilla::update(int timer)
 			{
 				creaturestate = MOVE;
 				owntime = timer;
+				return 0;
 			}
 			break;
 		}
 		
 	}
-	
+	return 0;
 }
 
 bool Gorilla::move(ROOMPOSITION roomposition)

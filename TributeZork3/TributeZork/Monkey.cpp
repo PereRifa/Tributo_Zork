@@ -1,13 +1,14 @@
 #include "Monkey.h"
 
 
-void Monkey::update(int timer)
+int Monkey::update(int timer)
 {
 	if (timer >= owntime + 3000)
 	{
 		//	printf("\nit s my time and it s now or never\n");
 		owntime = timer;
 	}
+	return 0;
 }
 bool Monkey::move(ROOMPOSITION roomposition)
 {

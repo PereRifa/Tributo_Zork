@@ -41,7 +41,7 @@ public:
 	virtual bool drop( const char* itemname){ return false; };
 	virtual bool equip( const char* itemname){ return false; };
 	virtual bool unequip( const char* itemname){ return false; };
-	virtual void update(int timer);
+	virtual int update(int timer);
 
 };
 

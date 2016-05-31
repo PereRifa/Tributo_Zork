@@ -8,11 +8,11 @@ bool Door::open(Entity* playerorigin, ROOMPOSITION playerposition)
 		if (doorstate == false)
 		{
 			doorstate = true;
-			printf("\nDoor open\n");
+			//printf("\nDoor open\n");
 			return true;
 		}
 		else if (doorstate == true){
-			printf("\nThe door is already open\n");
+			//printf("\nThe door is already open\n");
 			return false;
 		}
 	}

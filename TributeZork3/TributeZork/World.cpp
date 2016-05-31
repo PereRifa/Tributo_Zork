@@ -66,6 +66,11 @@ void World::CreateWorld()
 	player = new Player("Dean", "Awesome scientific", entities[0], PLAYER, entities);
 	entities.pushback(player);
 	entities.pushback(new Gorilla(entities[1], GORILLA, entities, player));
+	entities.pushback(new Gorilla(entities[8], GORILLA, entities, player));
+	entities.pushback(new Gorilla(entities[3], GORILLA, entities, player));
+	entities.pushback(new Gorilla(entities[12], GORILLA, entities, player));
+
+
 
 }
 
@@ -89,8 +94,13 @@ void World::Game()
 		}
 
 		//update
+		
 		for (uint i = 0; i < entities.size(); i++)
-			entities[i]->update(currenttime);
+		{
+			Exit = entities[i]->update(currenttime);
+			if (Exit == 1)
+				break;
+		}
 
 		//kbhit write commands
 		if (_kbhit())
@@ -283,18 +293,27 @@ int World::gameplay(const mVector<mString*>& command)
 		//Open/Close doors; ------------- comparewords(2 == door);
 		if (CompareWords(command[0]->C_Str(), "open"))
 		{
-			for (uint i = 0; i < entities.size(); i++)
+			if (CompareWords(command[1]->C_Str(), "door"))
 			{
-				entities[i]->open(player->room, player->proompos);
+				for (uint i = 0; i < entities.size(); i++)
+				{
+					if (entities[i]->open(player->room, player->proompos))
+						printf("\nDoor open\n");
+				}
 			}
+			else printf("\nCan t do that\n");
 			return 0;
 		}
 		if (CompareWords(command[0]->C_Str(), "close"))
 		{
-			for (uint i = 0; i < entities.size(); i++)
+			if (CompareWords(command[1]->C_Str(), "door"))
 			{
-				entities[i]->close(player->room, player->proompos);
+				for (uint i = 0; i < entities.size(); i++)
+				{
+					entities[i]->close(player->room, player->proompos);
+				}
 			}
+			else printf("\nCan t do that\n");
 			return 0;
 		}
 		//Move player and print actual room;

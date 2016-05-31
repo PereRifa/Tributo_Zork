@@ -23,7 +23,7 @@ public:
 	bool drop( const char* itemname);
 	bool equip( const char* itemname);
 	bool unequip( const char* itemname);
-	void update(int timer);
+	int update(int timer);
 
 };
 

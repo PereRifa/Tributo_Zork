@@ -15,13 +15,14 @@ void Creature::Look()
 	else printf("\nYour inventory is empty\n\n");
 }
 
-void Creature::update(int timer)
+int Creature::update(int timer)
 {
 	if (timer >= owntime + 3000)
 	{
 		//	printf("\nit s my time and it s now or never\n");
 		owntime = timer;
 	}
+	return 0;
 }
 bool Creature::move(ROOMPOSITION roomposition)
 {

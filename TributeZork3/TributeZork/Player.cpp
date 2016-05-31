@@ -14,7 +14,7 @@ void Player::Look()
 	else printf("\nYour inventory is empty\n\n");
 }
 
-void Player::update(int timer)
+int Player::update(int timer)
 {
 	if (creaturestate != DEAD)
 	{
@@ -28,13 +28,20 @@ void Player::update(int timer)
 		}
 		else
 		{
-			if (timer >= owntime + 10000)
+			if (hp == 0)
 			{
+				printf("\nYou are Dead!!\n");
+				return 1;
+			}
+			if (timer >= owntime + 5000)
+			{
+				printf("\nHealth: %d", hp);
 				//printf("\ni'm waiting for commands\n");
 				owntime = timer;
 			}
 		}
 	}
+	return 0;
 }
 
 bool Player::move(ROOMPOSITION roomposition)

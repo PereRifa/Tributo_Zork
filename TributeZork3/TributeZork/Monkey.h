@@ -22,7 +22,7 @@ public:
 	Monkey(const char* name, const char* description, Entity* room, CREATURETYPE subtype, mVector<Entity*> world, Player* player) : player(player), Creature("Monkey", "Little monkey", room, subtype, world){}
 	void Look();
 	bool move(ROOMPOSITION posroom);
-	void update(int timer);
+	int update(int timer);
 
 };
 

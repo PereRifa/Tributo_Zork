@@ -43,7 +43,7 @@ public:
 	virtual void insert(Entity* other);
 	virtual bool open(Entity* room, ROOMPOSITION position){ return false; };
 	virtual bool close(Entity* room, ROOMPOSITION position){ return false; };
-	virtual void update(int time){};
+	virtual int update(int time){ return 0; };
 	virtual Entity* move(Entity* room, ROOMPOSITION& position){ return nullptr; };
 	virtual Entity* next(Entity* room, ROOMPOSITION position) const { return nullptr; };
 };
