@@ -64,11 +64,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Creature.h" />
     <ClInclude Include="DLinkedList.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Exit.h" />
+    <ClInclude Include="Gorilla.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="memleaks.h" />
+    <ClInclude Include="Monkey.h" />
     <ClInclude Include="mString.h" />
     <ClInclude Include="mVector.h" />
     <ClInclude Include="Player.h" />
@@ -76,10 +79,13 @@
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Exit.cpp" />
+    <ClCompile Include="Gorilla.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Monkey.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="World.cpp" />

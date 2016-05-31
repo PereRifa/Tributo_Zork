@@ -63,8 +63,9 @@ void World::CreateWorld()
 
 		}
 	}
-	player = new Player("Dean", "Awesome scientific", entities[0]);
+	player = new Player("Dean", "Awesome scientific", entities[0], PLAYER);
 	entities.pushback(player);
+	entities.pushback(new Gorilla(entities[1], GORILLA));
 
 }
 
@@ -159,8 +160,11 @@ int World::gameplay(const mVector<mString*>& command)
 		{
 			for (uint i = 0; i < entities.size(); i++)
 			{
-				if (entities[i]->type == ITEM && entities[i] == player->room && CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
+				if (entities[i]->type == ITEM && CompareWords(command[1]->C_Str(), entities[i]->name->C_Str()))
+				{
 					entities[i]->Look();
+					return 0;
+				}
 			}
 		}
 		//Look equiped;

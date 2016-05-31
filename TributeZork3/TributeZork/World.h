@@ -8,9 +8,13 @@
 #include <string.h>
 #include <Windows.h>
 #include <time.h>
+
 #include "Room.h"
 #include "Player.h"
 #include "Exit.h"
+#include "Creature.h"
+#include "Monkey.h"
+#include "Gorilla.h"
 #include "Item.h"
 #include "mVector.h"
 

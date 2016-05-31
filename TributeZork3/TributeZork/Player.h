@@ -1,20 +1,22 @@
 #ifndef _PLAYER
 #define _PLAYER
 
+#include "Creature.h"
 #include "Entity.h"
 
-class Player : public Entity
+class Player : public Creature
 {
 public:
 
 	ROOMPOSITION proompos = EAST;
-	Entity* room = nullptr;
 	DLList<Entity*> equiped;
+	int hp = 200;
+	int attdmg = 5;
 	
 
 
 public:
-	Player(const char* name, const char* description, Entity* room) : room(room), Entity(name, description, CREATURE){};
+	Player(const char* name, const char* description, Entity* room, CREATURETYPE subtype) : Creature(name, description, room, subtype){};
 	void Look();
 	bool move(mVector<Entity*>& entities, ROOMPOSITION posroom);
 	bool pick(mVector<Entity*>& entities, const char* itemname);

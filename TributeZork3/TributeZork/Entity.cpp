@@ -9,8 +9,8 @@ void Entity::Look()
 		{
 			printf(" %s\n", list.atnode(i)->data->name->C_Str());
 		}
-		printf("|n");
 	}
+	printf("\n");
 }
 
 void Entity::insert(Entity* other)
