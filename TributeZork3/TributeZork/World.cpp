@@ -26,13 +26,13 @@ void World::CreateWorld()
 	entities.pushback(new Room("Laboratory II: Planet Project, west corridor", "A large corridor full of monkey pictures. There is 1 door at south and the rest of the lab at east", ROOM));
 	entities.pushback(new Room("Laboratory II: Planet Project, south", "A huge lab with tables and reserch stuff. There are 3 doors (north, west, south) and a large corridor further south (west)", ROOM));
 	entities.pushback(new Room("Bar", "A typical office bar with tables and bar. There are 2 doors (north and south).", ROOM));
-	entities.pushback(new Room("Dinning Room", "A place full of jails, with wild and agressive animals inside", ROOM));
-	entities.pushback(new Room("Laboratory III: of the Apes", "A place full of jails, with wild and agressive animals inside", ROOM));
-	entities.pushback(new Room("Dressing Room", "A place full of jails, with wild and agressive animals inside", ROOM));
-	entities.pushback(new Room("Dressing Room", "A place full of jails, with wild and agressive animals inside", ROOM));
-	entities.pushback(new Room("Office", "A place full of jails, with wild and agressive animals inside", ROOM));
-	entities.pushback(new Room("Hall", "A place full of jails, with wild and agressive animals inside", ROOM));
-	entities.pushback(new Room("Exit", "A place full of jails, with wild and agressive animals inside", ROOM));
+	entities.pushback(new Room("Dinning Room", "Good place to have lunch if you bring a tuperware. There are 2 doors (north and east).", ROOM));
+	entities.pushback(new Room("Laboratory III: of the Apes", "Lab where the main investigation are carried. There are 3 doors (west, east and north).", ROOM));
+	entities.pushback(new Room("Dressing Room", "it's not time to take a shower, however i want to go home!! There are 2 doors (north-west and south-west).", ROOM));
+	entities.pushback(new Room("Dressing Room", "it's not time to take a shower, however i want to go home!! There are 2 doors (north-west and south-west).", ROOM));
+	entities.pushback(new Room("Office", "The office of the lab, close to the exit. There are 3 doors (east, west and south).", ROOM));
+	entities.pushback(new Room("Hall", "The laboratory hall full of sofas and drawings of gorillas with hats, There are 2 doors (north, and west).", ROOM));
+	entities.pushback(new Room("Exit", "The exit", ROOM));
 
 	//Doors setup
 	entities.pushback(new Door(EAST, WEST, entities[0], entities[1]));
