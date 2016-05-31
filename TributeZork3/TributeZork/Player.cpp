@@ -212,6 +212,13 @@ bool Player::unequip( const char* itemname)
 
 bool Player::attack()
 {
+	/*for (uint i = 0; i < world.size(); i++)
+	{
+		if (world[i]->type == CREATURE && world[i])
+		{
+			if ()
+		}
+	}*/
 	if(creaturestate == ATTACK)
 		return true;
 	else return false;

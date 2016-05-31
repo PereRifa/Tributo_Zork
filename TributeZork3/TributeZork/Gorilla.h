@@ -20,7 +20,10 @@ public:
 
 
 public:
-	Gorilla(Entity* room, CREATURETYPE subtype, mVector<Entity*>& world, Player* player) : player(player), Creature("Gorilla", "Big and strong Gorilla", room, subtype, world){}
+	Gorilla(Entity* room, CREATURETYPE subtype, mVector<Entity*>& world, Player* player) : player(player), Creature("Gorilla", "Big and strong Gorilla", room, subtype, world)
+	{
+		room->list.push_back(this);
+	}
 	void Look(){};
 	bool move(ROOMPOSITION posroom);
 	int update(int timer);

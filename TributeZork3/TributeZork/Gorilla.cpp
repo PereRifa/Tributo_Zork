@@ -18,6 +18,11 @@ int Gorilla::update(int timer)
 				if (hp <= 0)
 				{
 					creaturestate = DEAD;
+					for (uint j = 0; j < room->list.size(); j++)
+					{
+						if (room->list.atnode(j)->data == this)
+							room->list.remove(room->list.atnode(j));
+					}
 					printf("\nGorilla: *puff* dead x_x\n");
 					player->creaturestate = NONE;
 				}
@@ -76,17 +81,17 @@ int Gorilla::update(int timer)
 				}
 				for (uint i = 0; i < world.size(); i++)
 				{
-					if (world[i]->next(room, proompos) == player->room && world[i]->next(room, proompos) != nullptr && timer < 20000)
+					if (world[i]->next(room, proompos) == player->room && world[i]->next(room, proompos) != nullptr && timer > 10000)
 					{
 						world[i]->open(room, proompos);
 						move(proompos);
-						//	printf("\nI'm a Gorilla and i move!!\n");
+						printf("\nAngry Gorilla came into the room!!\n");
 						creaturestate = ATTACK;
 						owntime = timer;
 						return 0;
 						break;
 					}
-					else if (world[i]->next(room, proompos) != player->room)
+					else if (world[i]->next(room, proompos) != player->room && world[i]->next(room, proompos))
 					{
 						world[i]->open(room, proompos);
 						move(proompos);
@@ -122,12 +127,16 @@ bool Gorilla::move(ROOMPOSITION roomposition)
 		temp = world[i]->move(room, proompos);
 		if (temp != nullptr)
 		{
+			for (uint j = 0; j < room->list.size(); j++)
+			{
+				if (room->list.atnode(j)->data == this)
+					room->list.remove(room->list.atnode(j));
+			}
+			temp->list.push_back(this);
 			room = temp;
-			printf("\nChanged of Room: now at %s\n", room->name->C_Str());
+			//printf("\nChanged of Room: now at %s\n", room->name->C_Str());
 			return true;
 		}
 	}
-//	printf("\n%s\n", room->name->C_Str());
-
 	return ret;
 }

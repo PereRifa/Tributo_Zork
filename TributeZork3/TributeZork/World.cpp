@@ -139,25 +139,60 @@ int World::WriteCommands(const char* command)
 }
 int World::gameplay(const mVector<mString*>& command)
 {
-	//quit game;
-	if ((CompareWords(command[0]->C_Str(), "Quit")) || (CompareWords(command[0]->C_Str(), "quit")) || (CompareWords(command[0]->C_Str(), "q")))
+	if (command.size() == 1)
 	{
-		printf("\nThe game is Over!! see you later.\n");
-		return 1;
-	}
-	else
-	{
+		//quit game;
+		if ((CompareWords(command[0]->C_Str(), "Quit")) || (CompareWords(command[0]->C_Str(), "quit")) || (CompareWords(command[0]->C_Str(), "q")))
+		{
+			printf("\nThe game is Over!! see you later.\n");
+			return 1;
+		}
 		//print help menu;
-		if (CompareWords(command[0]->C_Str(), "help"))
+		else if (CompareWords(command[0]->C_Str(), "help"))
 		{
 			help();
 			return 0;
 		}
 		//Look inventory and room ---------- look item left;
-		if ((CompareWords(command[0]->C_Str(), "inventory")) || (CompareWords(command[0]->C_Str(), "inv")) || (CompareWords(command[0]->C_Str(), "i")))
+		else if ((CompareWords(command[0]->C_Str(), "inventory")) || (CompareWords(command[0]->C_Str(), "inv")) || (CompareWords(command[0]->C_Str(), "i")))
 		{
 			player->Look();
 		}
+		//Move player and print actual room;
+		else if (CompareWords(command[0]->C_Str(), "east"))
+		{
+			if (player->move(EAST) == true)
+				player->proompos = WEST;
+			return 0;
+		}
+		else if (CompareWords(command[0]->C_Str(), "west"))
+		{
+			if (player->move(WEST) == true)
+				player->proompos = EAST;
+			if (player->room == entities[13])
+				return 1;
+			return 0;
+		}
+		else if (CompareWords(command[0]->C_Str(), "north"))
+		{
+			if (player->move(NORTH) == true)
+				player->proompos = SOUTH;
+			return 0;
+		}
+		else if (CompareWords(command[0]->C_Str(), "south"))
+		{
+			if (player->move(SOUTH) == true)
+				player->proompos = NORTH;
+			return 0;
+		}
+		else
+		{
+			printf("\nCommand not aviable\n");
+			return 0;
+		}
+	}
+	else if (command.size() == 2)
+	{
 		if (CompareWords(command[0]->C_Str(), "look") && CompareWords(command[1]->C_Str(), "room"))
 		{
 			for (uint i = 0; i < entities.size(); i++)
@@ -222,6 +257,7 @@ int World::gameplay(const mVector<mString*>& command)
 				printf("\nYou are at %s\n", player->room->name->C_Str());
 				return 0;			}
 		}
+		//look item
 		if (CompareWords(command[0]->C_Str(), "look"))
 		{
 			for (uint i = 0; i < entities.size(); i++)
@@ -296,7 +332,7 @@ int World::gameplay(const mVector<mString*>& command)
 			}
 			return 0;
 		}
-		//Open/Close doors; ------------- comparewords(2 == door);
+		//Open/Close doors;
 		if (CompareWords(command[0]->C_Str(), "open"))
 		{
 			if (CompareWords(command[1]->C_Str(), "door"))
@@ -322,33 +358,7 @@ int World::gameplay(const mVector<mString*>& command)
 			else printf("\nCan t do that\n");
 			return 0;
 		}
-		//Move player and print actual room;
-		if (CompareWords(command[0]->C_Str(), "east"))
-		{
-			if (player->move(EAST) == true)
-				player->proompos = WEST;
-			return 0;
-		}
-		if (CompareWords(command[0]->C_Str(), "west"))
-		{
-			if(player->move(WEST) == true)
-				player->proompos = EAST;
-			if (player->room == entities[13])
-				return 1;
-			return 0;
-		}
-		if (CompareWords(command[0]->C_Str(), "north"))
-		{
-			if (player->move(NORTH) == true)
-				player->proompos = SOUTH;
-			return 0;
-		}
-		if (CompareWords(command[0]->C_Str(), "south"))
-		{
-			if (player->move(SOUTH) == true)
-				player->proompos = NORTH;
-			return 0;
-		}
+		//go + direction
 		if (CompareWords(command[0]->C_Str(), "go"))
 		{
 			if (CompareWords(command[1]->C_Str(), "east"))
@@ -378,6 +388,11 @@ int World::gameplay(const mVector<mString*>& command)
 				return 0;
 			}
 		}
+		return 0;
+	}
+	else
+	{
+		printf("\nCommand not aviable\n");
 		return 0;
 	}
 }
