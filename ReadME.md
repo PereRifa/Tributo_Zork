@@ -17,9 +17,9 @@ Pere Rifà Planellas
 
 ###Zork Project:
 
- https://github.com/PereRifa/Tributo_Zork
+https://github.com/PereRifa/Tributo_Zork
 
-####Content: Second Release of Zork
+####Content: Third Release of Zork
 
 ###Gameplay
 
@@ -49,6 +49,20 @@ scientists, alive.
 
 ####Aviable Commands:
 
+Directions: north, south, east, west;
+Look + directions/items/equiped/room;
+go + directions;
+open/close door;
+help;
+Quit, quit, q;
+inventory/inv/i;
+pick <item>, drop <item>;
+equip <item>, unequip<item>;
+attack <creature>;
+buy <chimpanze>;
+buy <item> from <chimpanze>;
+
+
 The direction commands are used to look or to go in a particular direction,
 *Direction commands: north, n, south, s, east, e, west, w.
 
@@ -57,14 +71,9 @@ If you want to inspect the area, use the command: "look" + "direction".
 you can also look at items or rooms: "look" + "room"/"items".
 check your own inventory: inventory/inv/i.
 
-The player can interact with items to, using the commands: "pick"/"drop" "item", "put"/"get" "item"
-"into"/"from" "item" to pick up an item from the room or the grount you must have your hands free (at last one,
-you can have other items equiped).
+The player can interact with items to, using the commands: "pick"/"drop" "item"
+you can have up to 2 items equiped.
 to equip or unequip an item use the command: "equip"/"unequip" "item".
-
-The player can have one skill (craft skill) if you find and put in the inventory the <item> Chemicals (it's in the warehouse).
-Once you have it the skill will let you craft items like: repellent ("craft repellent", bombs ("craft bomb") or potions ("craft potion").The new items will automatically be stored in your inventory if there are free slots.
-Check the crafting options with the command "craft".
 
 There are doors that connect the rooms of the laboratory, the doors are closed by defoult
 if you want to pass through them first you have to write the command "open" + "door". 
