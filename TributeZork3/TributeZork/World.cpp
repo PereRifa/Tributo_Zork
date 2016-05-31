@@ -23,7 +23,7 @@ void World::CreateWorld()
 	entities.pushback(new Room("The Warehouse", "A room filled with shelves and freezers with chemicals. There are 2 doors (north and east).", ROOM));
 	entities.pushback(new Room("Laboratory II: Planet Project", "A huge lab with tables and reserch stuff. There are 3 doors (north, west, south) and a large corridor further south (south -> west)", ROOM));
 	entities.pushback(new Room("Laboratory II: Planet Project, west corridor", "A large corridor full of monkey pictures. There is 1 door at south and the rest of the lab at east", ROOM));
-	entities.pushback(new Room("Laboratory II: Planet Project", "A huge lab with tables and reserch stuff. There are 3 doors (north, west, south) and a large corridor further south (west)", ROOM));
+	entities.pushback(new Room("Laboratory II: Planet Project, south", "A huge lab with tables and reserch stuff. There are 3 doors (north, west, south) and a large corridor further south (west)", ROOM));
 	entities.pushback(new Room("Bar", "A typical office bar with tables and bar. There are 2 doors (north and south).", ROOM));
 	entities.pushback(new Room("Dinning Room", "A place full of jails, with wild and agressive animals inside", ROOM));
 	entities.pushback(new Room("Laboratory III: of the Apes", "A place full of jails, with wild and agressive animals inside", ROOM));
@@ -44,7 +44,7 @@ void World::CreateWorld()
 	entities.pushback(new Door(SOUTH, NORTH, entities[5], entities[8]));
 	entities.pushback(new Door(EAST, WEST, entities[8], entities[9]));
 	entities.pushback(new Door(WEST, EAST, entities[10], entities[11]));
-	entities.pushback(new Door(SOUTH, NORTH, entities[12], entities[12]));
+	entities.pushback(new Door(SOUTH, NORTH, entities[11], entities[12]));
 	entities.pushback(new Door(WEST, EAST, entities[12], entities[13]));
 	
 	for (uint i = 0; i < 10; i++)
@@ -308,6 +308,8 @@ int World::gameplay(const mVector<mString*>& command)
 		{
 			if(player->move(WEST) == true)
 				player->proompos = EAST;
+			if (player->room == entities[13])
+				return 1;
 			return 0;
 		}
 		if (CompareWords(command[0]->C_Str(), "north"))
@@ -326,14 +328,16 @@ int World::gameplay(const mVector<mString*>& command)
 		{
 			if (CompareWords(command[1]->C_Str(), "east"))
 			{
-				if(player->move(EAST)==true)
-					player->proompos =  WEST;
+				if (player->move(EAST) == true)
+					player->proompos = WEST;
 				return 0;
 			}
 			if (CompareWords(command[1]->C_Str(), "west"))
 			{
 				if (player->move(WEST) == true)
 					player->proompos = EAST;
+				if (player->room == entities[13])
+					return 1;
 				return 0;
 			}
 			if (CompareWords(command[1]->C_Str(), "north"))

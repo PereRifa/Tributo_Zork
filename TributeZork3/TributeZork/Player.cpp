@@ -43,6 +43,26 @@ bool Player::move(ROOMPOSITION roomposition)
 	proompos = roomposition;
 	Entity* temp = nullptr;
 	uint i = 0;
+	//room exceptions;
+	if ((room == world[10]) && (proompos == NORTH)){
+		room = world[9];
+	}
+	if ((room == world[5]) && (proompos == NORTH)){
+		room = world[3];
+	}
+	if ((room == world[9]) && (proompos == SOUTH)){
+		room = world[10];
+	}
+	if ((room == world[3]) && (proompos == SOUTH)){
+		room = world[5];
+	}
+	if ((room == world[5]) && (proompos == WEST)){
+		room = world[4];
+	}
+	if ((room == world[4]) && (proompos == EAST)){
+		room = world[5];
+	}
+
 	for (i = 0; i < world.size(); i++)
 	{
 		temp = world[i]->move(room, proompos);
@@ -51,6 +71,9 @@ bool Player::move(ROOMPOSITION roomposition)
 		{
 			room = temp;
 			printf("\nChanged of Room: now at %s\n", room->name->C_Str());
+			if (room == world[13]){
+				printf("\nYou did it!! Now you can go back home... :D\n");
+			}
 			return true;
 			continue;
 		}
