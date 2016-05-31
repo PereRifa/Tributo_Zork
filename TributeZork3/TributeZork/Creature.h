@@ -29,6 +29,7 @@ public:
 	mVector<Entity*>& world;
 	CREATURETYPE subtype;
 	int hp;
+	int lasthp;
 	int attdmg;
 
 

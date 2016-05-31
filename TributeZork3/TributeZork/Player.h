@@ -11,7 +11,9 @@ public:
 	ROOMPOSITION proompos = EAST;
 	DLList<Entity*> equiped;
 	int hp = 200;
+	int lasthp = hp;
 	int attdmg = 5;
+	int owntime = 1000;
 	
 
 
@@ -23,6 +25,7 @@ public:
 	bool drop( const char* itemname);
 	bool equip( const char* itemname);
 	bool unequip( const char* itemname);
+	bool attack();
 	int update(int timer);
 
 };

@@ -10,10 +10,29 @@ int Gorilla::update(int timer)
 		case ATTACK: 
 			if (timer >= owntime + 2000)
 			{
-				printf("\ni see the player and i attack!!\n");
-				player->hp -= attdmg;
+				if (player->creaturestate == ATTACK && player->room == room)
+				{
+					player->owntime = timer;
+					hp -= player->attdmg;
+				}
+				if (hp <= 0)
+				{
+					creaturestate = DEAD;
+					printf("\nGorilla: *puff* dead x_x\n");
+					player->creaturestate = NONE;
+				}
+				else{
+					printf("\nGorilla attack and deal %d \n\tGorilla Health: %d", attdmg, hp);
+					player->hp -= attdmg;
+				}
+				
 				owntime = timer;
-				return 0;
+			}
+			if (player->room != room)
+			{
+				creaturestate = MOVE;
+				player->creaturestate = NONE;
+				owntime = timer;
 			}
 			break;
 		case MOVE: 

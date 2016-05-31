@@ -3,9 +3,10 @@
 
 void Player::Look()
 {
+	printf("\nPlayer:\n\tHealth:  %d / 200\n\tCurrent Attack power:  %d\n\n\tInventory:\n", hp, attdmg);
 	if (list.empty() == false)
 	{
-		printf("\nInventory\n\tIt cointains: \n");
+		printf("\tIt cointains: \n");
 		for (unsigned int i = 0; i < list.size(); i++)
 		{
 			printf(" %s\n", list.atnode(i)->data->name->C_Str());
@@ -16,30 +17,43 @@ void Player::Look()
 
 int Player::update(int timer)
 {
-	if (creaturestate != DEAD)
+	attdmg = 5;
+	if (equiped.size() != 0)
 	{
-		if (creaturestate != NONE)
+		if (equiped.atnode(0)->data->name == world[26]->name)
+			attdmg += 10;
+		if (equiped.atnode(1) != nullptr)
+			if (equiped.atnode(1)->data->name == world[26]->name)
+				attdmg += 10;
+	}
+
+	if (hp < lasthp)
+	{
+		lasthp = hp;
+		printf("\n\tPlayer Health: %d\n", hp);
+	}
+	if (hp <= 0)
+	{
+		creaturestate = DEAD;
+	}
+	switch (creaturestate)
 		{
+		case ATTACK: 
+			if (timer >= owntime + 2000)
+			{
+				printf("\nDean Winchester attack and deal %d", attdmg);
+				owntime = timer;
+			}
+			break;
+		case NONE:
 			if (timer >= owntime + 3000)
 			{
-				//	printf("\nit s my time and it s now or never\n");
 				owntime = timer;
 			}
-		}
-		else
-		{
-			if (hp == 0)
-			{
-				printf("\nYou are Dead!!\n");
-				return 1;
-			}
-			if (timer >= owntime + 5000)
-			{
-				printf("\nHealth: %d", hp);
-				//printf("\ni'm waiting for commands\n");
-				owntime = timer;
-			}
-		}
+			break;
+		case DEAD:
+			printf("\nYou are Dead!! :(\n");
+			return 1;
 	}
 	return 0;
 }
@@ -161,6 +175,7 @@ bool Player::equip( const char* itemname)
 				if (equiped.size() == 2)
 				{
 					list.push_back(equiped.atnode(1)->data);
+					equiped.remove(equiped.atnode(1));
 					equiped.push_back(list.atnode(i)->data);
 					list.remove(list.atnode(i));
 					printf("  %s equiped\n", list.atnode(i)->data->name->C_Str());
@@ -194,3 +209,11 @@ bool Player::unequip( const char* itemname)
 	else printf("\nUnable to unequip item\n");
 	return false; 
 };
+
+bool Player::attack()
+{
+	if(creaturestate == ATTACK)
+		return true;
+	else return false;
+
+}

@@ -212,6 +212,11 @@ int World::gameplay(const mVector<mString*>& command)
 					}
 				}
 			}
+			else if (CompareWords(command[1]->C_Str(), "equiped"))
+			{
+				for (uint i = 0; i < player->equiped.size(); i++)
+					player->equiped.atnode(i)->data->Look();
+			}
 			else
 			{
 				printf("\nYou are at %s\n", player->room->name->C_Str());
@@ -226,15 +231,6 @@ int World::gameplay(const mVector<mString*>& command)
 					entities[i]->Look();
 					return 0;
 				}
-			}
-		}
-		//Look equiped;
-		if (CompareWords(command[0]->C_Str(), "look"))
-		{
-			if (CompareWords(command[1]->C_Str(), "equiped"))
-			{
-					for (uint i = 0; i < player->equiped.size(); i++)
-						player->equiped.atnode(i)->data->Look();
 			}
 		}
 		//pick item
@@ -287,6 +283,16 @@ int World::gameplay(const mVector<mString*>& command)
 					if (player->unequip(entities[i]->name->C_Str()))
 						break;
 				}
+			}
+			return 0;
+		}
+		//attack monster;
+		if (CompareWords(command[0]->C_Str(), "attack"))
+		{
+			if (CompareWords(command[1]->C_Str(), "gorilla"))
+			{
+				player->creaturestate = ATTACK;
+				player->attack();
 			}
 			return 0;
 		}

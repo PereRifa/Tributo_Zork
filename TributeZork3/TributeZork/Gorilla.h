@@ -15,7 +15,8 @@ public:
 	Player* player = nullptr;
 	CREATURETYPE subtype;
 	int hp = 100;
-	int attdmg = 100;
+	int lasthp = hp;
+	int attdmg = 1;
 
 
 public:
