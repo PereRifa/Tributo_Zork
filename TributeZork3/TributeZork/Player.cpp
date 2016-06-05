@@ -17,7 +17,7 @@ void Player::Look()
 
 int Player::update(int timer)
 {
-	attdmg = 5;
+	attdmg = 10;
 	if (equiped.size() != 0)
 	{
 		if (equiped.atnode(0)->data->name == world[26]->name)

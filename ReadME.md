@@ -1,7 +1,7 @@
-<snippet>
+﻿<snippet>
   <content>
 
-## Graphic Adventure: Zork like game.
+## Apes Revolution: Zork like game.
 
 ### Documents:
 
@@ -64,7 +64,7 @@ buy <item> from <chimpanze>;
 
 
 The direction commands are used to look or to go in a particular direction,
-*Direction commands: north, n, south, s, east, e, west, w.
+*Direction commands: north, south, east, west.
 
 If you use the command "go" + "direction" or just "direction" you move to that side. 
 If you want to inspect the area, use the command: "look" + "direction".
